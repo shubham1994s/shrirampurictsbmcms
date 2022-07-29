@@ -816,6 +816,11 @@ namespace SwachBharat.CMS.Bll.Services
 
 
                 var Details = db.MasterQRs.Where(x => x.MasterId == teamId).FirstOrDefault();
+                if (houseId != "")
+                {
+                    Details = db.MasterQRs.Where(x => x.MasterId == teamId & x.ReferanceId == houseId).FirstOrDefault();
+
+                }
                 if (Details != null)
                     {
                     master = FillMasterQRDetailsViewModel(Details);
@@ -870,41 +875,25 @@ namespace SwachBharat.CMS.Bll.Services
                 }
                 else
                 {
-
-                    if (houseId != "")
+                 
+                    var areaid = db.HouseLists.Where(x => x.ReferanceId == houseId).FirstOrDefault();
+                    if(areaid == null)
                     {
-                        var areaid = db.HouseLists.Where(x => x.ReferanceId == houseId).FirstOrDefault();
-                        master.CheckHlist = db.HouseLists.Where(x => x.IsActive == true & x.AreaId == areaid.AreaId).OrderBy(x => x.ReferanceId).ToList<HouseList>();
-
-                        foreach (var v in master.CheckHlist)
-                        {
-                            if (v.HouseId > 0)
-                            {
-
-                                v.IsCheked = false;
-
-                            }
-                        }
+                        var AreaId = 0;
+                        master.CheckHlist = db.HouseLists.Where(x => x.IsActive == true &  x.AreaId > 0).OrderBy(x => x.HouseId).ToList<HouseList>();
+                        // master.CheckAppDs = (List<HouseMaster>)db.HouseMasters.Where(x => x.ReferanceId != null).Select(x => new { x.ReferanceId, x.houseId });
+                        master.HouseList = ListHouse(teamId, houseId);
+                        return master;
                     }
                     else
                     {
-                        var areaid = db.HouseLists.Where(x => x.ReferanceId == master.ReferanceId).FirstOrDefault();
-                        master.CheckHlist = db.HouseLists.Where(x => x.IsActive == true & x.AreaId == areaid.AreaId).OrderBy(x => x.ReferanceId).ToList<HouseList>();
-
-                        foreach (var v in master.CheckHlist)
-                        {
-                            if (v.HouseId > 0)
-                            {
-
-                                v.IsCheked = false;
-
-                            }
-                        }
+                        var AreaId = areaid.AreaId;
+                        master.CheckHlist = db.HouseLists.Where(x => x.IsActive == true & x.AreaId == AreaId).OrderBy(x => x.HouseId).ToList<HouseList>();
+                        // master.CheckAppDs = (List<HouseMaster>)db.HouseMasters.Where(x => x.ReferanceId != null).Select(x => new { x.ReferanceId, x.houseId });
+                        master.HouseList = ListHouse(teamId, houseId);
+                        return master;
                     }
-                    //master.CheckHlist = db.HouseLists.Where(x => x.IsActive == true & x.AreaId > 0).OrderBy(x => x.HouseId).ToList<HouseList>();
-                    // master.CheckAppDs = (List<HouseMaster>)db.HouseMasters.Where(x => x.ReferanceId != null).Select(x => new { x.ReferanceId, x.houseId });
-                    master.HouseList = ListHouse(teamId , houseId);
-                    return master;
+                    
                 }
                 
             }

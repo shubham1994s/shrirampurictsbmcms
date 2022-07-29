@@ -68,7 +68,7 @@
                             @*@Html.Label("झोन  / Zone")*@
                             @Html.Label("Reference Id")
                             @*<a class="pull-right add_popup_clear" style="color:#3ab59e;text-decoration:underline!important;cursor:pointer" onclick="PopZone()"> + Add Zone </a>*@
-                            @Html.DropDownListFor(model => model.ReferanceId, Model.HouseList, new { style = "font-family:Arial, FontAwesome", required = "required", @class = "form-control RequiredInput validate[required] RequiredInput" })
+                            @Html.DropDownListFor(model => model.ReferanceId, Model.HouseList, new { style = "font-family:Arial, FontAwesome", required = "required", @class = "form-control RequiredInput validate[required] RequiredInput", @onchange = "getValue(this);" })
                             @Html.ValidationMessageFor(model => model.ReferanceId, "", new { @class = "text-danger" })
                             <span class="text-danger" id="err_zone"></span>
                             <span class="help-block with-errors"></span>
@@ -253,9 +253,47 @@
     //    });
     //}
 
+    //$('#ReferanceId').change(function () {
+    //    debugger;
+    //    var sel = $(this).val();
+    //    $.ajax({
+    //        url: "/MasterQR/AddMasterQRDetails?",
+    //        data: { houseId: sel },
+    //        cache: false,
+    //        async: true,
+    //           success: function (result) {
+    //                    console.log(result.toString());
+    //                    if (result != 0) //**//if your method return int else check it null if your method return string**
+    //                    {
+    //                        alert('Redirecting...');
+                            
+    //                    }
+    //                },
+    //    }).done(function () {
+    //       // alert('Added');
+    //    });
+
+    //});
+
+      $(document).ready(function () {
+          debugger;
+
+          var ReferanceId = $('#ReferanceId').val();
+
+          if (ReferanceId == '0') {
+              var selItem = sessionStorage.getItem("SelItem");
+              $('#ReferanceId').val(selItem);
+          }
+        
+         
+    })
+
+  
+
     $('#ReferanceId').change(function () {
         debugger;
         var sel = $(this).val();
+        sessionStorage.setItem("SelItem", sel);
         $.ajax({
             url: "/MasterQR/AddMasterQRDetails?",
             data: { houseId: sel }
@@ -263,9 +301,11 @@
 
             var url = new URL(window.location.href);
             url.searchParams.set('houseId', sel);
+
             window.location.href = url.href;
-        //    window.location.reload("/MasterQR/AddMasterQRDetails?houseId=" + sel);
-           // alert('Added');
+
+            //    window.location.reload("/MasterQR/AddMasterQRDetails?houseId=" + sel);
+            // alert('Added');
         });
 
     });
