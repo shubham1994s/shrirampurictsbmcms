@@ -4912,10 +4912,12 @@ namespace SwachBharat.CMS.Bll.Services
         public List<SelectListItem> ListHouse( int teamId , string houseId)
         {
             var House = new List<SelectListItem>();
-            SelectListItem itemAdd = new SelectListItem() { Text = "--Select HouseId--", Value = "0" };
+            SelectListItem itemAdd = new SelectListItem() { Text = "--Select HouseId--", Value = "0"};
 
             try
             {
+                if(houseId==null)
+                {
                 if(teamId > 0)
                 {
 
@@ -4939,7 +4941,19 @@ namespace SwachBharat.CMS.Bll.Services
 
                             House.Insert(0, itemAdd);
                 }
-           
+                }
+                else
+                {
+                    House = db.HouseLists.Where(p => db.MasterQRs.All(x => x.ReferanceId != p.ReferanceId & p.AreaId > 0)).ToList()
+                       .Select(x => new SelectListItem
+                       {
+                           Text = x.ReferanceId,
+                           Value = x.ReferanceId.ToString(),    
+                       }).OrderBy(t => t.Text).ToList();
+                    
+                    House.Insert(0, itemAdd);
+                   // House.Select(houseId);
+                }
             }
             catch (Exception ex) { throw ex; }
 

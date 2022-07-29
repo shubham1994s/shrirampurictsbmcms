@@ -260,7 +260,12 @@
             url: "/MasterQR/AddMasterQRDetails?",
             data: { houseId: sel }
         }).done(function () {
-            alert('Added');
+
+            var url = new URL(window.location.href);
+            url.searchParams.set('houseId', sel);
+            window.location.href = url.href;
+        //    window.location.reload("/MasterQR/AddMasterQRDetails?houseId=" + sel);
+           // alert('Added');
         });
 
     });
@@ -292,6 +297,7 @@
 
 
     $(document).ready(function () {
+        debugger;
         $.ajax({
             type: "post",
             url: "/HouseMaster/ZoneList",
