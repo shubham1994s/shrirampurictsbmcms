@@ -651,6 +651,55 @@ namespace SwachBharat.CMS.Bll.Repository.GridRepository
             }
         }
 
+        public IEnumerable<SBAHouseDetailsGridRow> GetMasterQRDetailsData(long wildcard, string SearchString, int appId)
+        {
+            DevSwachhBharatMainEntities dbMain = new DevSwachhBharatMainEntities();
+            var appDetails = dbMain.AppDetails.Where(x => x.AppId == appId).FirstOrDefault();
+
+            string ThumbnaiUrlCMS = appDetails.baseImageUrlCMS + appDetails.basePath + appDetails.HouseQRCode + "/";
+            using (var db = new DevChildSwachhBharatNagpurEntities(appId))
+            {
+                var data = db.MasterQRDetails().Select(x => new SBAHouseDetailsGridRow
+                {
+                    masterId = x.MasterId,
+                    ReferanceId = x.ReferanceId,
+                    QRList = x.QRList,
+                    TotalCount = x.TotalCount.ToString(),
+                    isActive = x.ISActive
+                }).Where(x => x.isActive == true).ToList();
+
+
+                if (!string.IsNullOrEmpty(SearchString))
+                {
+                    //var model = data.Where(c => c.WardNo.ToUpper().ToString().Contains(SearchString)
+                    //|| c.Area.ToUpper().ToString().Contains(SearchString) || c.Name.ToUpper().ToString().Contains(SearchString) || c.houseNo.ToUpper().ToString().Contains(SearchString) || c.Mobile.ToUpper().ToString().Contains(SearchString) || c.zone.ToString().ToUpper().ToString().Contains(SearchString)|| c.Address.ToUpper().ToString().Contains(SearchString) || c.ReferanceId.ToUpper().ToString().Contains(SearchString)
+                    // || c.WardNo.ToString().ToLower().ToString().Contains(SearchString) || c.zone.ToString().ToLower().ToString().Contains(SearchString)
+                    //|| c.Area.ToString().ToLower().ToString().Contains(SearchString) || c.Name.ToString().ToLower().ToString().Contains(SearchString) || c.houseNo.ToString().ToLower().ToString().Contains(SearchString) || c.Mobile.ToString().ToLower().ToString().Contains(SearchString) || c.Address.ToString().ToLower().ToString().Contains(SearchString) || c.ReferanceId.ToLower().ToString().Contains(SearchString)
+                    //|| c.WardNo.ToString().Contains(SearchString) || c.zone.ToString().Contains(SearchString) 
+                    //|| c.Area.ToString().Contains(SearchString) || c.Name.ToString().Contains(SearchString)
+                    //|| c.houseNo.ToString().Contains(SearchString) || c.Mobile.ToString().Contains(SearchString)
+                    //|| c.Address.ToString().Contains(SearchString) || c.ReferanceId.ToString().Contains(SearchString) || c.QRCode.ToString().Contains(SearchString)).ToList();
+
+                    var model = data.Where(c => ((string.IsNullOrEmpty(c.ReferanceId) ? " " : c.ReferanceId) + " " +
+                                        (string.IsNullOrEmpty(c.TotalCount) ? " " : c.TotalCount)).ToUpper().Contains(SearchString.ToUpper())).ToList();
+
+
+                    data = model.ToList();
+                }
+                else if (appDetails.APIHit == null)
+                {
+                    data = data.ToList();
+                }
+                else
+                {
+                    //data = data.Where(c => c.masterId <= appDetails.APIHit).ToList();
+                    data = data.ToList();
+                }
+
+                return data.OrderByDescending(c => c.masterId);
+            }
+        }
+
         public IEnumerable<SBAVehicalRegDetailsGridRow> GetVehicalRegDetailsData(long wildcard, string SearchString, int appId)
         {
             DevSwachhBharatMainEntities dbMain = new DevSwachhBharatMainEntities();

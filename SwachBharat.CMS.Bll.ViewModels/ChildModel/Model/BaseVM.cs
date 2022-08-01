@@ -31,6 +31,8 @@ namespace SwachBharat.CMS.Bll.ViewModels.ChildModel.Model
 
         public List<SelectListItem> BeatList { get; set; }
 
+        public List<SelectListItem> HouseList { get; set; }
+
 
     }
 

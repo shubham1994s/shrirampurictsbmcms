@@ -95,6 +95,7 @@
     <Compile Include="ChildModel\Model\BaseVM.cs" />
     <Compile Include="ChildModel\Model\HouseDetailsVM.cs" />
     <Compile Include="ChildModel\Model\LogVM.cs" />
+    <Compile Include="ChildModel\Model\MasterQRDetailsVM.cs" />
     <Compile Include="ChildModel\Model\Result.cs" />
     <Compile Include="ChildModel\Model\SauchalayDetailsVM.cs" />
     <Compile Include="ChildModel\Model\SBAHSUREmpLocationMapView.cs" />

@@ -177,6 +177,9 @@
       <HintPath>..\packages\Microsoft.ReportViewer.WebForms.v12.12.0.0.0\lib\Microsoft.ReportViewer.WebForms.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="MvcCheckBoxList, Version=1.4.5.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\MvcCheckBoxList.1.4.5\lib\net45\MvcCheckBoxList.dll</HintPath>
+    </Reference>
     <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.13.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
@@ -349,6 +352,7 @@
     <Compile Include="Controllers\LogController.cs" />
     <Compile Include="Controllers\MainMasterController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\MasterQRController.cs" />
     <Compile Include="Controllers\ReportController.cs" />
     <Compile Include="Controllers\RfidController.cs" />
     <Compile Include="Controllers\SauchalayController.cs" />
@@ -1787,6 +1791,7 @@
     <Content Include="Content\DatatableGrid\InfotainmentResult.js" />
     <Content Include="Content\DatatableGrid\League.js" />
     <Content Include="Content\DatatableGrid\Log.js" />
+    <Content Include="Content\DatatableGrid\MasterQRDetailsGrid.js" />
     <Content Include="Content\DatatableGrid\MonthlyAttendenceGrid.js" />
     <Content Include="Content\DatatableGrid\OnepointeightEditGrid.js" />
     <Content Include="Content\DatatableGrid\OnepointeightGrid.js" />
@@ -3223,6 +3228,9 @@
     <Content Include="Views\EmpShift\MenuIndex.cshtml" />
     <Content Include="Views\EmpShift\Index.cshtml" />
     <Content Include="Views\EmpShift\AddEmpShiftDetails.cshtml" />
+    <Content Include="Views\MasterQR\MenuIndex.cshtml" />
+    <Content Include="Views\MasterQR\Index.cshtml" />
+    <Content Include="Views\MasterQR\AddMasterQRDetails.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

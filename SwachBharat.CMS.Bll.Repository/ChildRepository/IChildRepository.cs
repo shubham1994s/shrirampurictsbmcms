@@ -45,12 +45,15 @@ namespace SwachBharat.CMS.Bll.Repository.ChildRepository
         void DeleteWardNumber(int teamId);
         void SaveWardNumber(WardNumberVM type);
 
+        void SaveMasterQrDetails(MasterQRDetailsVM employee);
+
         void LiquidSaveWardNumber(WardNumberVM type);
 
         void StreetSaveWardNumber(WardNumberVM type);
 
 
         HouseDetailsVM GetHouseById(int teamId);
+        MasterQRDetailsVM GetMasterQRById(int teamId , string houseId);
         VehicalRegDetailsVM GetVehicalRegById(int teamId);
 
         SBALUserLocationMapView GetHouseByIdforMap(int teamId,int daId);

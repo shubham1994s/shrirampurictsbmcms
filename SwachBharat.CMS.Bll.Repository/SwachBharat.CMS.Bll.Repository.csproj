@@ -127,6 +127,7 @@
     <Compile Include="GridRepository\Grid\LiquidWasteGridRepository.cs" />
     <Compile Include="GridRepository\Grid\LiquidZoneGridRepository.cs" />
     <Compile Include="GridRepository\Grid\LocationGridRepository.cs" />
+    <Compile Include="GridRepository\Grid\MasterQRDetailsGridRepository.cs" />
     <Compile Include="GridRepository\Grid\MonthlyAttendeceGridRepository.cs" />
     <Compile Include="GridRepository\Grid\OnePointeightEditGridRepository.cs" />
     <Compile Include="GridRepository\Grid\OnePointeightGridRepository.cs" />

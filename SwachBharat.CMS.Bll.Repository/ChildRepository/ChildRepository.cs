@@ -129,7 +129,11 @@ namespace SwachBharat.CMS.Bll.Repository.ChildRepository
             }
             screenService.SaveWardNumberDetails(type);
         }
-
+        public void SaveMasterQrDetails(MasterQRDetailsVM type)
+        {
+          
+            screenService.SaveMasterQRDetails(type);
+        }
 
         public void LiquidSaveWardNumber(WardNumberVM type)
         {
@@ -153,6 +157,11 @@ namespace SwachBharat.CMS.Bll.Repository.ChildRepository
         public HouseDetailsVM GetHouseById(int teamId)
         {
             return screenService.GetHouseDetails(teamId);
+        }
+
+        public MasterQRDetailsVM GetMasterQRById(int teamId , string houseId)
+        {
+            return screenService.GetMasterQRDetails(teamId , houseId);
         }
 
         public VehicalRegDetailsVM GetVehicalRegById(int teamId)

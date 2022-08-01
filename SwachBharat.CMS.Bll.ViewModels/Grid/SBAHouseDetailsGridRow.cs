@@ -9,6 +9,7 @@ namespace SwachBharat.CMS.Bll.ViewModels.ChildModel.Grid
    public class SBAHouseDetailsGridRow
     {
         public int houseId { get; set; }
+        public int masterId { get; set; }
         public string Name { get; set; }
         public string zone { get; set; }
         public string WardNo { get; set; }
@@ -24,5 +25,9 @@ namespace SwachBharat.CMS.Bll.ViewModels.ChildModel.Grid
         public string ReferanceId { get; set; }
         public string OccupancyStatus { get; set; }
         public string Property_Type { get; set; }
+        public string QRList { get; set; }
+        public Nullable<int> ISActive { get; set; }
+        public Nullable<bool> isActive { get; set; }
+        public string TotalCount { get; set; }
     }
 }

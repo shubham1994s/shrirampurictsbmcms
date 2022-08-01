@@ -168,6 +168,20 @@
           <Property Name="ref_id" Type="nvarchar" MaxLength="200" />
           <Property Name="Type" Type="int" />
         </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'LIVEAdvanceDevSwachhBharatNagpur.dbo.HouseList' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="HouseList">
+          <Key>
+            <PropertyRef Name="Id" />
+            <PropertyRef Name="IsCheked" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ReferanceId" Type="varchar" MaxLength="100" />
+          <Property Name="IsCheked" Type="bit" Nullable="false" />
+          <Property Name="HouseId" Type="int" />
+          <Property Name="IsActive" Type="bit" />
+          <Property Name="AreaId" Type="int" />
+        </EntityType>
         <EntityType Name="HouseMaster">
           <Key>
             <PropertyRef Name="houseId" />
@@ -241,6 +255,15 @@
           <Property Name="RFIDReaderId" Type="nvarchar" MaxLength="255" />
           <Property Name="SourceId" Type="int" />
           <Property Name="EmployeeType" Type="varchar" MaxLength="10" />
+        </EntityType>
+        <EntityType Name="MasterQR">
+          <Key>
+            <PropertyRef Name="MasterId" />
+          </Key>
+          <Property Name="MasterId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ReferanceId" Type="nvarchar" MaxLength="350" />
+          <Property Name="QRList" Type="nvarchar(max)" />
+          <Property Name="ISActive" Type="bit" />
         </EntityType>
         <!--Errors Found During Generation:
 warning 6002: The table/view 'LIVEAdvanceDevSwachhBharatNagpur.dbo.MonthlyAttedance' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
@@ -683,6 +706,7 @@ warning 6002: The table/view 'LIVEAdvanceDevSwachhBharatNagpur.dbo.Vw_MsgNotific
           <Parameter Name="ReferanceId" Type="nvarchar" Mode="In" />
         </Function>
         <Function Name="LiquidCurrentAllUserLocationTest1" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="MasterQRDetails" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="PointDetails" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="RPT_1POINT7_DETAILS" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="INSERT_ID" Type="int" Mode="In" />
@@ -874,6 +898,7 @@ warning 6002: The table/view 'LIVEAdvanceDevSwachhBharatNagpur.dbo.Vw_MsgNotific
           <EntitySet Name="HouseMaster" EntityType="Self.HouseMaster" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="LiquidWasteDetails" EntityType="Self.LiquidWasteDetails" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Location" EntityType="Self.Location" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="MasterQR" EntityType="Self.MasterQR" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Qr_Employee_Daily_Attendance" EntityType="Self.Qr_Employee_Daily_Attendance" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Qr_Location" EntityType="Self.Qr_Location" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="QrEmployeeMaster" EntityType="Self.QrEmployeeMaster" Schema="dbo" store:Type="Tables" />
@@ -894,6 +919,16 @@ warning 6002: The table/view 'LIVEAdvanceDevSwachhBharatNagpur.dbo.Vw_MsgNotific
           <EntitySet Name="WM_GarbageCategory" EntityType="Self.WM_GarbageCategory" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="WM_GarbageSubCategory" EntityType="Self.WM_GarbageSubCategory" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ZoneMaster" EntityType="Self.ZoneMaster" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="HouseList" EntityType="Self.HouseList" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [HouseList].[Id] AS [Id], 
+    [HouseList].[ReferanceId] AS [ReferanceId], 
+    [HouseList].[IsCheked] AS [IsCheked], 
+    [HouseList].[HouseId] AS [HouseId], 
+    [HouseList].[IsActive] AS [IsActive], 
+    [HouseList].[AreaId] AS [AreaId]
+    FROM [dbo].[HouseList] AS [HouseList]</DefiningQuery>
+          </EntitySet>
           <EntitySet Name="MonthlyAttedance" EntityType="Self.MonthlyAttedance" store:Type="Tables" store:Schema="dbo">
             <DefiningQuery>SELECT 
     [MonthlyAttedance].[ID] AS [ID], 
@@ -1274,6 +1309,9 @@ warning 6002: The table/view 'LIVEAdvanceDevSwachhBharatNagpur.dbo.Vw_MsgNotific
           </FunctionImport>
           <EntitySet Name="EmpShifts" EntityType="DevSwachhBharatNagpurModel.EmpShift" />
           <EntitySet Name="UserMasters" EntityType="DevSwachhBharatNagpurModel.UserMaster" />
+          <EntitySet Name="MasterQRs" EntityType="DevSwachhBharatNagpurModel.MasterQR" />
+          <FunctionImport Name="MasterQRDetails" ReturnType="Collection(DevSwachhBharatNagpurModel.MasterQRDetails_Result)" />
+          <EntitySet Name="HouseLists" EntityType="DevSwachhBharatNagpurModel.HouseList" />
          
         </EntityContainer>
         <ComplexType Name="CurrentAllUserLocation_Result">
@@ -2683,6 +2721,34 @@ warning 6002: The table/view 'LIVEAdvanceDevSwachhBharatNagpur.dbo.Vw_MsgNotific
           <Property Name="EmployeeType" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
           <Property Name="imoNo2" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="shiftIds" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="MasterQR">
+          <Key>
+            <PropertyRef Name="MasterId" />
+          </Key>
+          <Property Name="MasterId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ReferanceId" Type="String" MaxLength="350" FixedLength="false" Unicode="true" />
+          <Property Name="QRList" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ISActive" Type="Boolean" />
+        </EntityType>
+        <ComplexType Name="MasterQRDetails_Result">
+          <Property Type="Int32" Name="MasterId" Nullable="false" />
+          <Property Type="String" Name="ReferanceId" Nullable="true" MaxLength="350" />
+          <Property Type="String" Name="QRList" Nullable="true" />
+          <Property Type="Int64" Name="TotalCount" Nullable="true" />
+          <Property Type="Boolean" Name="ISActive" Nullable="true" />
+        </ComplexType>
+        <EntityType Name="HouseList">
+          <Key>
+            <PropertyRef Name="Id" />
+            <PropertyRef Name="IsCheked" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ReferanceId" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="IsCheked" Type="Boolean" Nullable="false" />
+          <Property Name="HouseId" Type="Int32" />
+          <Property Name="IsActive" Type="Boolean" />
+          <Property Name="AreaId" Type="Int32" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -4199,6 +4265,39 @@ warning 6002: The table/view 'LIVEAdvanceDevSwachhBharatNagpur.dbo.Vw_MsgNotific
                 <ScalarProperty Name="userNameMar" ColumnName="userNameMar" />
                 <ScalarProperty Name="userName" ColumnName="userName" />
                 <ScalarProperty Name="userId" ColumnName="userId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MasterQRs">
+            <EntityTypeMapping TypeName="DevSwachhBharatNagpurModel.MasterQR">
+              <MappingFragment StoreEntitySet="MasterQR">
+                <ScalarProperty Name="ISActive" ColumnName="ISActive" />
+                <ScalarProperty Name="QRList" ColumnName="QRList" />
+                <ScalarProperty Name="ReferanceId" ColumnName="ReferanceId" />
+                <ScalarProperty Name="MasterId" ColumnName="MasterId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="MasterQRDetails" FunctionName="DevSwachhBharatNagpurModel.Store.MasterQRDetails">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="DevSwachhBharatNagpurModel.MasterQRDetails_Result">
+                <ScalarProperty Name="MasterId" ColumnName="MasterId" />
+                <ScalarProperty Name="ReferanceId" ColumnName="ReferanceId" />
+                <ScalarProperty Name="QRList" ColumnName="QRList" />
+                <ScalarProperty Name="TotalCount" ColumnName="TotalCount" />
+                <ScalarProperty Name="ISActive" ColumnName="ISActive" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <EntitySetMapping Name="HouseLists">
+            <EntityTypeMapping TypeName="DevSwachhBharatNagpurModel.HouseList">
+              <MappingFragment StoreEntitySet="HouseList">
+                <ScalarProperty Name="AreaId" ColumnName="AreaId" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="HouseId" ColumnName="HouseId" />
+                <ScalarProperty Name="IsCheked" ColumnName="IsCheked" />
+                <ScalarProperty Name="ReferanceId" ColumnName="ReferanceId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

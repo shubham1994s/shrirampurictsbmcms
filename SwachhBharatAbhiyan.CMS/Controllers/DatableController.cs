@@ -310,6 +310,10 @@ namespace SwachhBharatAbhiyan.CMS.Controllers
                     gridRepository = new HouseDetailsGridRepository(0, searchString, appId);
                     return gridRepository;
                     break;
+                case "MasterQRDetail":
+                    gridRepository = new MasterQRDetailsGridRepository(0, searchString, appId);
+                    return gridRepository;
+                    break;
                 case "VehicalRegDetail":
                     gridRepository = new VehicalRegDetailsGridRepository(0, searchString, appId);
                     return gridRepository;
