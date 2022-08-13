@@ -3888,6 +3888,8 @@ namespace SwachBharat.CMS.Bll.Repository.GridRepository
         {
             using (var dbMain = new DevSwachhBharatMainEntities())
             {
+                dbMain.Database.CommandTimeout = 6000; // The wait operation timed out entity framework
+
                 var data = dbMain.SP_Admin2().Where(x => !(x.appName.ToUpper().Contains("THANE"))).Select(x => new SBAAdminCountGrid
                 {
                     Name = x.appName,
@@ -6376,7 +6378,7 @@ namespace SwachBharat.CMS.Bll.Repository.GridRepository
 
                     data = model.ToList();
                 }
-                return data;
+                return data.OrderByDescending(c=>c.daID);
 
             }
 

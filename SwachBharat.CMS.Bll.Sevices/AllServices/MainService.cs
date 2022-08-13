@@ -877,7 +877,7 @@ public int GetUserAppId(string UserId)
                 string dt2 = Convert.ToDateTime(att.daEndDate).ToString("MM/dd/yyyy");
                 edate = Convert.ToDateTime(dt2 + " " + t2);
             }
-            var data = dbMain.UR_Location.Where(c => c.empId == att.userId & c.datetime >= fdate & c.datetime <= edate & c.type == null).ToList();
+            var data = dbMain.UR_Location.Where(c => c.empId == att.userId & c.datetime >= fdate & c.datetime <= edate).ToList();
 
 
             foreach (var x in data)
