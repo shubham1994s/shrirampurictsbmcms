@@ -18,10 +18,9 @@ namespace SwachBharat.CMS.Dal.DataContexts
     public partial class DevChildSwachhBharatNagpurEntities : DbContext
     {
         public DevChildSwachhBharatNagpurEntities(int AppId)
-     : base(SwachBharatAppConnection.GetConnectionString(AppId))
+               : base(SwachBharatAppConnection.GetConnectionString(AppId))
         {
         }
-
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
@@ -796,6 +795,19 @@ namespace SwachBharat.CMS.Dal.DataContexts
         public virtual ObjectResult<MasterQRDetails_Result> MasterQRDetails()
         {
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<MasterQRDetails_Result>("MasterQRDetails");
+        }
+    
+        public virtual ObjectResult<SP_CalcMinRouteDist_Result> SP_CalcMinRouteDist(string route, Nullable<double> compDist)
+        {
+            var routeParameter = route != null ?
+                new ObjectParameter("Route", route) :
+                new ObjectParameter("Route", typeof(string));
+    
+            var compDistParameter = compDist.HasValue ?
+                new ObjectParameter("CompDist", compDist) :
+                new ObjectParameter("CompDist", typeof(double));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<SP_CalcMinRouteDist_Result>("SP_CalcMinRouteDist", routeParameter, compDistParameter);
         }
     }
 }

@@ -721,6 +721,10 @@ warning 6002: The table/view 'LIVEAdvanceDevSwachhBharatNagpur.dbo.Vw_MsgNotific
         <Function Name="RPT_ONE_POINT_NINE_SHOW" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="RPT_ONE_POINT_SEVEN_SHOW" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="RPT_ONE_POINT_Six_SHOW" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="SP_CalcMinRouteDist" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Route" Type="nvarchar(max)" Mode="In" />
+          <Parameter Name="CompDist" Type="float" Mode="In" />
+        </Function>
         <Function Name="SP_Collection_Count" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="fdate" Type="date" Mode="In" />
           <Parameter Name="tdate" Type="date" Mode="In" />
@@ -1312,6 +1316,10 @@ warning 6002: The table/view 'LIVEAdvanceDevSwachhBharatNagpur.dbo.Vw_MsgNotific
           <EntitySet Name="MasterQRs" EntityType="DevSwachhBharatNagpurModel.MasterQR" />
           <FunctionImport Name="MasterQRDetails" ReturnType="Collection(DevSwachhBharatNagpurModel.MasterQRDetails_Result)" />
           <EntitySet Name="HouseLists" EntityType="DevSwachhBharatNagpurModel.HouseList" />
+          <FunctionImport Name="SP_CalcMinRouteDist" ReturnType="Collection(DevSwachhBharatNagpurModel.SP_CalcMinRouteDist_Result)">
+            <Parameter Name="Route" Mode="In" Type="String" />
+            <Parameter Name="CompDist" Mode="In" Type="Double" />
+          </FunctionImport>
          
         </EntityContainer>
         <ComplexType Name="CurrentAllUserLocation_Result">
@@ -2750,6 +2758,10 @@ warning 6002: The table/view 'LIVEAdvanceDevSwachhBharatNagpur.dbo.Vw_MsgNotific
           <Property Name="IsActive" Type="Boolean" />
           <Property Name="AreaId" Type="Int32" />
         </EntityType>
+        <ComplexType Name="SP_CalcMinRouteDist_Result">
+          <Property Type="Int32" Name="houseId" Nullable="true" />
+          <Property Type="Double" Name="dist" Nullable="true" />
+        </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -4301,6 +4313,14 @@ warning 6002: The table/view 'LIVEAdvanceDevSwachhBharatNagpur.dbo.Vw_MsgNotific
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="SP_CalcMinRouteDist" FunctionName="DevSwachhBharatNagpurModel.Store.SP_CalcMinRouteDist">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="DevSwachhBharatNagpurModel.SP_CalcMinRouteDist_Result">
+                <ScalarProperty Name="houseId" ColumnName="houseId" />
+                <ScalarProperty Name="dist" ColumnName="dist" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
          
         </EntityContainerMapping>
       </Mapping>

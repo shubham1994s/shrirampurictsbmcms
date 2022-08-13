@@ -2923,39 +2923,82 @@ namespace SwachBharat.CMS.Bll.Services
 
             string baseURL = "https://maps.googleapis.com/maps/api/directions/xml";
             string apiKey = "AIzaSyBnR8YLcfpwSLWXGO6JR3wFPY133r086DI";
-            var tasks = new List<Task<List<coordinates>>>();
+            //var tasks = new List<List<coordinates>>();
 
 
             for (int j = 0; j < lstPoints.Count - 1; j++)
             {
                 coordinates source = new coordinates();
                 coordinates dest = new coordinates();
+                List<coordinates> lstp = new List<coordinates>();
                 string strWayPoints = string.Empty;
                 //string strSubURL = string.Empty;
                 string mainURL = string.Empty;
                 source = lstPoints[j];
                 dest = lstPoints[j + 1];
 
+                lstp.Add(source);
                 mainURL = $"{baseURL}?origin={HttpUtility.UrlEncode(source.lat + "," + source.lng)}&destination={HttpUtility.UrlEncode(dest.lat + "," + dest.lng)}&key={apiKey}";
 
-                List<coordinates> lstp = await GetAllCoordinate(mainURL).ConfigureAwait(false);
+                List<coordinates> lstTemp = await GetAllCoordinate(mainURL).ConfigureAwait(false);
+                if (lstTemp.Count > 0)
+                {
+                    lstp.AddRange(lstTemp);
+                }
+
+                lstp.Add(dest);
 
                 if (lstp.Count > 0)
                 {
-                    lstResult.AddRange(lstp);
+                    //lstResult.AddRange(lstp);
+                    lstPP.Add(lstp);
+
                 }
 
             }
 
 
             string LineString = string.Empty;
-            List<string> lstP = new List<string>();
-            foreach (var p in lstResult)
+            string ResultLine = string.Empty;
+            List<string> lstLine = new List<string>();
+            foreach (var line in lstPP)
             {
-                lstP.Add(p.lng.ToString() + " " + p.lat.ToString());
+                List<string> lstP = new List<string>();
+                foreach (var p in line)
+                {
+                    lstP.Add(p.lng.ToString() + " " + p.lat.ToString());
+                }
+                LineString = string.Join(",", lstP);
+                lstLine.Add(LineString);
             }
+            List<SP_CalcMinRouteDist_Result> resultLst = new List<SP_CalcMinRouteDist_Result>();
+            db.Database.CommandTimeout = 6000;
+            //foreach (var strLine in lstLine)
+            //{
+            //    var houselst = db.SP_CalcMinRouteDist(strLine, 20).ToList();
+            //    resultLst.AddRange(houselst);
+            //}
 
-            LineString = string.Join(",", lstP);
+            List<Task> tasks = new List<Task>();
+
+
+
+            foreach (var strLine in lstLine)
+            {
+                Task t1 = Task.Run(() => {
+                    var houselst = db.SP_CalcMinRouteDist(strLine, 20).ToList();
+                    resultLst.AddRange(houselst);
+                });
+                tasks.Add(t1);
+            }
+            Task.WaitAll(tasks.ToArray());
+
+
+
+            var houseList = resultLst.Select(a => a.houseId).Distinct();
+            //ResultLine = string.Join(";", lstLine);
+            //db.Database.CommandTimeout = 6000;
+            //var houselst = db.SP_CalcMinRouteDist(ResultLine, 20).ToList();
             //End code for Emp route scan 
 
             foreach (var x in data)
