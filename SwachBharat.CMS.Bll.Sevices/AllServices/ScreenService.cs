@@ -2980,7 +2980,7 @@ namespace SwachBharat.CMS.Bll.Services
             //}
 
             List<Task> tasks = new List<Task>();
-
+            int counter = 0;
 
 
             foreach (var strLine in lstLine)
@@ -2990,8 +2990,22 @@ namespace SwachBharat.CMS.Bll.Services
                     resultLst.AddRange(houselst);
                 });
                 tasks.Add(t1);
+                counter++;
+                if (tasks.Count == 10)
+                {
+                    await Task.WhenAll(tasks);
+                    tasks.Clear();
+                }
             }
-            Task.WaitAll(tasks.ToArray());
+
+
+            if (tasks.Any())
+            {
+                await Task.WhenAll(tasks);
+                tasks.Clear();
+            }
+
+            //Task.WaitAll(tasks.ToArray());
 
 
 
