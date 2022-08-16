@@ -2936,18 +2936,19 @@ namespace SwachBharat.CMS.Bll.Services
                 string mainURL = string.Empty;
                 source = lstPoints[j];
                 dest = lstPoints[j + 1];
-
-                lstp.Add(source);
-                mainURL = $"{baseURL}?origin={HttpUtility.UrlEncode(source.lat + "," + source.lng)}&destination={HttpUtility.UrlEncode(dest.lat + "," + dest.lng)}&key={apiKey}";
-
-                List<coordinates> lstTemp = await GetAllCoordinate(mainURL).ConfigureAwait(false);
-                if (lstTemp.Count > 0)
+                if (source.lat != dest.lat && source.lng != dest.lng)
                 {
-                    lstp.AddRange(lstTemp);
+                    lstp.Add(source);
+                    mainURL = $"{baseURL}?origin={HttpUtility.UrlEncode(source.lat + "," + source.lng)}&destination={HttpUtility.UrlEncode(dest.lat + "," + dest.lng)}&key={apiKey}";
+
+                    List<coordinates> lstTemp = await GetAllCoordinate(mainURL).ConfigureAwait(false);
+                    if (lstTemp.Count > 0)
+                    {
+                        lstp.AddRange(lstTemp);
+                    }
+
+                    lstp.Add(dest);
                 }
-
-                lstp.Add(dest);
-
                 if (lstp.Count > 0)
                 {
                     //lstResult.AddRange(lstp);
@@ -2982,12 +2983,16 @@ namespace SwachBharat.CMS.Bll.Services
             List<Task> tasks = new List<Task>();
             int counter = 0;
 
-
+            //db.Database.CommandTimeout = 6000;
             foreach (var strLine in lstLine)
             {
+                var strLine1 = strLine;
                 Task t1 = Task.Run(() => {
-                    var houselst = db.SP_CalcMinRouteDist(strLine, 20).ToList();
-                    resultLst.AddRange(houselst);
+                    using (var db1 = new DevChildSwachhBharatNagpurEntities(AppID)) {
+                        db1.Database.CommandTimeout = 6000;
+                        var houselst = db1.SP_CalcMinRouteDist(strLine1, 20).ToList();
+                        resultLst.AddRange(houselst);
+                    }
                 });
                 tasks.Add(t1);
                 counter++;
