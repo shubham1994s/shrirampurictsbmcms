@@ -5198,7 +5198,7 @@ namespace SwachBharat.CMS.Bll.Services
                     .Select(x => new SelectListItem
                     {
                         Text = x.description,
-                        Value = x.description
+                        Value = x.vtId.ToString()
                     }).OrderBy(t => t.Text).ToList();
 
                 Vehical.Insert(0, itemAdd);

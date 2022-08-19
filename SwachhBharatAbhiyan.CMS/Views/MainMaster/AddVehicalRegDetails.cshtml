@@ -2,7 +2,7 @@
 @model SwachBharat.CMS.Bll.ViewModels.ChildModel.Model.VehicalRegDetailsVM
 
 @{
-    //ViewBag.Title = "घर तपशील जोडा / Add House Details";
+    //ViewBag.Title = "घर तपशील जोडा / Add Vehical Registration Details";
     ViewBag.Title = "Add Vehical Registration Details";
     Layout = "";
 }
@@ -353,7 +353,7 @@
         } else {
             $('#buttonName').text("Save");
             //$('.title_change').text("घर तपशील सादर करा / Add House Details");
-            $('.title_change').text("Add House Details");
+            $('.title_change').text("Add Vehicle Details");
         }
     });
 
@@ -451,9 +451,9 @@
     });
  
     $("#QRCOdeGenrate").click(function () {
-
-        var bool = validation();
-
+        debugger;
+        //var bool = validation();
+        var bool = true;
         if (bool == true) {
             //$("#err_generate").html("स्कॅनिफाय कोड व्युत्पन्न करा नंतर सेव करा / Generate Scaniffy code then save").delay(1).show().fadeOut('slow');
             $("#err_generate").html("Generate Scaniffy code then save").delay(1).show().fadeOut('slow');
