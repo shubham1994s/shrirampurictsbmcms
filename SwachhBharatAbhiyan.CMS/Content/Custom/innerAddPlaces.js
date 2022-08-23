@@ -191,7 +191,12 @@ function validation() {
         $('#houseAddress').focus();
         return false;
     }
-               
+    if ($.trim($("#Vehican_No").val()) == '') {
+        $("#err_vnumber").html("Vehican_No is Required").delay(1500).show().fadeOut('slow');
+        $('#Vehican_No').focus();
+        return false;
+    }
+    
     //$("#AreaId").val() == $("#selectArea").val()
     // $("#AreaId").val() == $("#selectArea").val()
     alert($("#selectArea").val());

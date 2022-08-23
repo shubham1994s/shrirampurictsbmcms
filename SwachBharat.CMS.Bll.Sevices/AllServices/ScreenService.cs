@@ -22,6 +22,8 @@ using Microsoft.SqlServer.Server;
 using System.Web.UI.WebControls;
 using System.Threading.Tasks;
 using System.Data;
+using System.Net.Http;
+using System.Xml.Linq;
 
 namespace SwachBharat.CMS.Bll.Services
 {
@@ -1779,7 +1781,7 @@ namespace SwachBharat.CMS.Bll.Services
                 }
                 ShiftList = db.EmpShifts.ToList().Select(x => new Shift
                 {
-                    shiftId= x.shiftId,
+                    shiftId = x.shiftId,
                     shiftName = x.shiftName + " (From : " + x.shiftStart + " To : " + x.shiftEnd + ")",
                     IsChecked = ShiftIds.Contains(x.shiftId)
 
@@ -2811,8 +2813,11 @@ namespace SwachBharat.CMS.Bll.Services
         //}
 
 
+
+
         public List<SBALUserLocationMapView> GetUserAttenRoute(int daId)
         {
+            //var lst = GetUserAttenRoute1(daId).Result;
             List<SBALUserLocationMapView> userLocation = new List<SBALUserLocationMapView>();
             DateTime newdate = DateTime.Now.Date;
             var datt = newdate;
@@ -2869,6 +2874,239 @@ namespace SwachBharat.CMS.Bll.Services
 
             return userLocation;
         }
+
+
+
+        public async Task<List<SBALUserLocationMapView>> GetUserAttenRoute1(int daId)
+        {
+            List<SBALUserLocationMapView> userLocation = new List<SBALUserLocationMapView>();
+            DateTime newdate = DateTime.Now.Date;
+            var datt = newdate;
+            var att = db.Daily_Attendance.Where(c => c.daID == daId).FirstOrDefault();
+
+            var useridnew = db.Daily_Attendance.Where(c => c.userId == att.userId && c.daDate == att.daDate).FirstOrDefault();
+
+
+            string Time = useridnew.startTime;
+            DateTime date = DateTime.Parse(Time, System.Globalization.CultureInfo.CurrentCulture);
+            string t = date.ToString("hh:mm:ss tt");
+            string dt = Convert.ToDateTime(att.daDate).ToString("MM/dd/yyyy");
+            DateTime? fdate = Convert.ToDateTime(dt + " " + t);
+            DateTime? edate;
+            if (att.endTime == "" | att.endTime == null)
+            {
+                edate = DateTime.Now;
+            }
+            else
+            {
+                string Time2 = att.endTime;
+                DateTime date2 = DateTime.Parse(Time2, System.Globalization.CultureInfo.CurrentCulture);
+                string t2 = date2.ToString("hh:mm:ss tt");
+                string dt2 = Convert.ToDateTime(att.daEndDate).ToString("MM/dd/yyyy");
+                edate = Convert.ToDateTime(dt2 + " " + t2);
+            }
+            var data = db.Locations.Where(c => c.userId == att.userId & c.datetime >= fdate & c.datetime <= edate & c.type == null).ToList();
+
+            //Start code for Emp route scan 
+            List<coordinates> lstResult = new List<coordinates>();
+            List<coordinates> lstPoints = new List<coordinates>();
+            int iSize = 11;
+            foreach (var x in data)
+            {
+                coordinates p = new coordinates();
+                p.lat = Convert.ToDouble(x.lat);
+                p.lng = Convert.ToDouble(x.@long);
+                lstPoints.Add(p);
+            }
+            List<List<coordinates>> lstPP = new List<List<coordinates>>();
+            List<coordinates> subList = new List<coordinates>();
+
+            string baseURL = "https://maps.googleapis.com/maps/api/directions/xml";
+            string apiKey = "AIzaSyBnR8YLcfpwSLWXGO6JR3wFPY133r086DI";
+            //var tasks = new List<List<coordinates>>();
+
+
+            for (int j = 0; j < lstPoints.Count - 1; j++)
+            {
+                coordinates source = new coordinates();
+                coordinates dest = new coordinates();
+                List<coordinates> lstp = new List<coordinates>();
+                string strWayPoints = string.Empty;
+                //string strSubURL = string.Empty;
+                string mainURL = string.Empty;
+                source = lstPoints[j];
+                dest = lstPoints[j + 1];
+                if (source.lat != dest.lat && source.lng != dest.lng)
+                {
+                    lstp.Add(source);
+                    mainURL = $"{baseURL}?origin={HttpUtility.UrlEncode(source.lat + "," + source.lng)}&destination={HttpUtility.UrlEncode(dest.lat + "," + dest.lng)}&key={apiKey}";
+
+                    List<coordinates> lstTemp = await GetAllCoordinate(mainURL).ConfigureAwait(false);
+                    if (lstTemp.Count > 0)
+                    {
+                        lstp.AddRange(lstTemp);
+                    }
+
+                    lstp.Add(dest);
+                }
+                if (lstp.Count > 0)
+                {
+                    //lstResult.AddRange(lstp);
+                    lstPP.Add(lstp);
+
+                }
+
+            }
+
+
+            string LineString = string.Empty;
+            string ResultLine = string.Empty;
+            List<string> lstLine = new List<string>();
+            foreach (var line in lstPP)
+            {
+                List<string> lstP = new List<string>();
+                foreach (var p in line)
+                {
+                    lstP.Add(p.lng.ToString() + " " + p.lat.ToString());
+                }
+                LineString = string.Join(",", lstP);
+                lstLine.Add(LineString);
+            }
+            List<SP_CalcMinRouteDist_Result> resultLst = new List<SP_CalcMinRouteDist_Result>();
+            db.Database.CommandTimeout = 6000;
+            //foreach (var strLine in lstLine)
+            //{
+            //    var houselst = db.SP_CalcMinRouteDist(strLine, 20).ToList();
+            //    resultLst.AddRange(houselst);
+            //}
+
+            List<Task> tasks = new List<Task>();
+            int counter = 0;
+
+            //db.Database.CommandTimeout = 6000;
+            foreach (var strLine in lstLine)
+            {
+                var strLine1 = strLine;
+                Task t1 = Task.Run(() => {
+                    using (var db1 = new DevChildSwachhBharatNagpurEntities(AppID)) {
+                        db1.Database.CommandTimeout = 6000;
+                        var houselst = db1.SP_CalcMinRouteDist(strLine1, 20).ToList();
+                        resultLst.AddRange(houselst);
+                    }
+                });
+                tasks.Add(t1);
+                counter++;
+                if (tasks.Count == 10)
+                {
+                    await Task.WhenAll(tasks);
+                    tasks.Clear();
+                }
+            }
+
+
+            if (tasks.Any())
+            {
+                await Task.WhenAll(tasks);
+                tasks.Clear();
+            }
+
+            //Task.WaitAll(tasks.ToArray());
+
+
+
+            var houseList = resultLst.Select(a => a.houseId).Distinct();
+            //ResultLine = string.Join(";", lstLine);
+            //db.Database.CommandTimeout = 6000;
+            //var houselst = db.SP_CalcMinRouteDist(ResultLine, 20).ToList();
+            //End code for Emp route scan 
+
+            foreach (var x in data)
+            {
+
+                string dat = Convert.ToDateTime(x.datetime).ToString("dd/MM/yyyy");
+                string tim = Convert.ToDateTime(x.datetime).ToString("hh:mm tt");
+                var userName = db.UserMasters.Where(c => c.userId == att.userId).FirstOrDefault();
+
+                userLocation.Add(new SBALUserLocationMapView()
+                {
+                    userId = userName.userId,
+                    userName = userName.userName,
+                    datetime = Convert.ToDateTime(x.datetime).ToString("HH:mm"),
+                    date = dat,
+                    time = tim,
+                    lat = x.lat,
+                    log = x.@long,
+                    address = checkNull(x.address).Replace("Unnamed Road, ", ""),
+                    vehcileNumber = att.vehicleNumber,
+                    userMobile = userName.userMobileNumber,
+                    // type = Convert.ToInt32(x.type),
+
+                });
+
+            }
+
+            return userLocation;
+        }
+
+
+        public async Task<List<coordinates>> GetAllCoordinate(string mainURL)
+        {
+
+            List<coordinates> lstResult = new List<coordinates>();
+            try
+            {
+                using (HttpClient client = new HttpClient())
+                {
+                    client.BaseAddress = new Uri(mainURL);
+                    client.DefaultRequestHeaders.Accept.Clear();
+                    //client.DefaultRequestHeaders.Accept.Add(new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json"));
+                    client.DefaultRequestHeaders.Accept.Add(new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("text/xml"));
+
+                    var response = await client.GetAsync(mainURL).ConfigureAwait(false);
+                    if (response.IsSuccessStatusCode)
+                    {
+                        using (var sr = new System.IO.StreamReader(await response.Content.ReadAsStreamAsync()))
+                        {
+                            XDocument xmlDoc = new XDocument();
+                            xmlDoc = XDocument.Parse(sr.ReadToEnd());
+                            string status = xmlDoc.Root.Element("status").Value;
+                            if (status == "OK")
+                            {
+                                foreach (XElement rt in xmlDoc.Root.Descendants("route"))
+                                {
+                                    foreach (XElement lg in rt.Descendants("leg"))
+                                    {
+                                        foreach (XElement st in lg.Descendants("step"))
+                                        {
+                                            coordinates p = new coordinates();
+                                            p.lat = Convert.ToDouble(st.Element("start_location").Element("lat").Value);
+                                            p.lng = Convert.ToDouble(st.Element("start_location").Element("lng").Value);
+                                            lstResult.Add(p);
+                                            p.lat = Convert.ToDouble(st.Element("end_location").Element("lat").Value);
+                                            p.lng = Convert.ToDouble(st.Element("end_location").Element("lng").Value);
+                                            lstResult.Add(p);
+                                        }
+                                    }
+                                }
+                            }
+                        }
+
+
+                    }
+
+
+                }
+            }
+            catch (Exception ex)
+            {
+                return lstResult;
+            }
+            return lstResult;
+
+
+        }
+
+
 
         // Added By Saurabh (11 July 2019)
         public List<SBALUserLocationMapView> GetHouseAttenRoute(int daId, int areaid)
@@ -4901,10 +5139,12 @@ namespace SwachBharat.CMS.Bll.Services
         public List<SelectListItem> ListHouse( int teamId , string houseId)
         {
             var House = new List<SelectListItem>();
-            SelectListItem itemAdd = new SelectListItem() { Text = "--Select HouseId--", Value = "0" };
+            SelectListItem itemAdd = new SelectListItem() { Text = "--Select HouseId--", Value = "0"};
 
             try
             {
+                if(houseId==null)
+                {
                 if(teamId > 0)
                 {
 
@@ -4928,7 +5168,19 @@ namespace SwachBharat.CMS.Bll.Services
 
                             House.Insert(0, itemAdd);
                 }
-           
+                }
+                else
+                {
+                    House = db.HouseLists.Where(p => db.MasterQRs.All(x => x.ReferanceId != p.ReferanceId & p.AreaId > 0)).ToList()
+                       .Select(x => new SelectListItem
+                       {
+                           Text = x.ReferanceId,
+                           Value = x.ReferanceId.ToString(),    
+                       }).OrderBy(t => t.Text).ToList();
+                    
+                    House.Insert(0, itemAdd);
+                   // House.Select(houseId);
+                }
             }
             catch (Exception ex) { throw ex; }
 
@@ -4946,7 +5198,7 @@ namespace SwachBharat.CMS.Bll.Services
                     .Select(x => new SelectListItem
                     {
                         Text = x.description,
-                        Value = x.description
+                        Value = x.vtId.ToString()
                     }).OrderBy(t => t.Text).ToList();
 
                 Vehical.Insert(0, itemAdd);
@@ -9156,8 +9408,8 @@ namespace SwachBharat.CMS.Bll.Services
             using (var db = new DevChildSwachhBharatNagpurEntities(AppID))
             {
 
-                 lstShifts = db.EmpShifts.Select(x => x.shiftName).ToList();
-                
+                lstShifts = db.EmpShifts.Select(x => x.shiftName).ToList();
+
             }
             return lstShifts;
         }

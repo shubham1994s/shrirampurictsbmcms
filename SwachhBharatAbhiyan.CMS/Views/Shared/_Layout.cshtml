@@ -81,7 +81,7 @@
                             <i class="svg_dashboard"> </i> @*डैशबोर्ड*@ Dashboard
                         </a>
                     </li>
-                    <li class="">
+                    <li class="" id="Atten">
                         <a href="/Attendence/MenuIndex">
                             <i class="svg_attendance"> </i>
                             @*उपस्थिती*@ Workers Attendance / Route
@@ -277,7 +277,7 @@
                             <li><a href="/MainMaster/MenuWardIndex">Ward / Prabhag Details</a></li>
                             <li><a href="/MainMaster/MenuAreaIndex">Area Details</a></li>
                             <li><a href="/MainMaster/MenuVehicleIndex">Vehicle Type Details</a></li>
-                            <li><a href="/MainMaster/MenuVehicleRegIndex">Vehicle Registration Details</a></li>
+                            <li style="display:none;"><a href="/MainMaster/MenuVehicleRegIndex">Vehicle Registration Details</a></li>
                             @*<li><a href="/MainMaster/AttendenceSettings">Attendence Settings Details</a></li>*@
                         </ul>
                     </li>
@@ -685,8 +685,16 @@
             if ($("#asdf").text() == "dahanuwaste@ulb.com!") {
 
                 $(".ctpt_reg").css("display", "block");
+                $("#Beatid").css("display", "block");
+                $("#EBMR").css("display", "block");
+                $("#Atten").css("display", "none");
+            }
 
-
+            if ($("#asdf").text() == "palgharwaste@ulb.com!") {
+                $(".ctpt_reg").css("display", "block");
+                $("#Beatid").css("display", "block");
+                $("#EBMR").css("display", "block");
+                $("#Atten").css("display", "none");
             }
 
 
