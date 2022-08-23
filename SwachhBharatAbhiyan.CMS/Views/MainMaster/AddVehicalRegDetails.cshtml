@@ -349,11 +349,11 @@
          
             $('#buttonName').text("Save Changes");
             //$('.title_change').text("घर तपशील सादर बदला / Edit House Details");
-            $('.title_change').text("Edit House Details");
+            $('.title_change').text("Edit Vehical Details");
         } else {
             $('#buttonName').text("Save");
             //$('.title_change').text("घर तपशील सादर करा / Add House Details");
-            $('.title_change').text("Add House Details");
+            $('.title_change').text("Add Vehical Details");
         }
     });
 
@@ -364,9 +364,10 @@
     $(document).ready(function () {
         $('#Vehican_No').keyup(function () {
             $(this).val($(this).val().toUpperCase());
-
+            debugger;
             str = $("#Vehican_No").val();
             var pattern = /[A-Z][A-Z][0-9][0-9][A-Z][A-Z][0-9][0-9][0-9][0-9]$/i;
+           // var pattern = /[A-Za-z][A-Za-z]\/[0-9][0-9]\/[A-Za-z ][a-z]\/[0-9][0-9][0-9][0-9]$/;
             var result = str.match(pattern);
             console.log(result);
             if (result == null) {
