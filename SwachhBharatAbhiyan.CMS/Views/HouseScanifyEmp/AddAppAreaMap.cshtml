@@ -207,6 +207,9 @@
         var arrCoordinate = [];
         var polyDragStart = [];
         var polyDragStartCords = [];
+        var LatArray = [];
+        var LngArray = [];
+        var ZoomVal = 0;
         var map;
         var runMaps = function () {
 
@@ -217,16 +220,7 @@
              });
             arrCoordinate = @Html.Raw(Json.Encode(@Model.AppAreaLatLong));
             
-            if(arrCoordinate.length > 0) {
-
-
-                map = new google.maps.Map(document.getElementById('googleMap'), {
-                    zoom: 16,
-                    center: new google.maps.LatLng(arrCoordinate[0].lat, arrCoordinate[0].lng),
-                    mapTypeId: google.maps.MapTypeId.ROADMAP
-                });
-
-
+            if (arrCoordinate.length > 0) {
 
                 var polyOld = new google.maps.Polygon({
                     paths: arrCoordinate,
@@ -236,6 +230,61 @@
                     fillColor: '#ffff00',
                     fillOpacity: 0.1,
                 });
+                var polyArea = google.maps.geometry.spherical.computeArea(polyOld.getPath());
+                if (polyArea > 100000) {
+                    ZoomVal = 14;
+                }
+                else if (polyArea > 10000) {
+                    ZoomVal = 16;
+                }
+                else if (polyArea > 1000) {
+                    ZoomVal = 18;
+                }
+                else if (polyArea > 100) {
+                    ZoomVal = 20;
+                }
+                else if (polyArea > 10) {
+                    ZoomVal = 22;
+                }
+                else if (polyArea > 1) {
+                    ZoomVal = 24
+                }
+
+                //alert(ZoomVal);
+                //alert(polyArea);
+
+                LatArray = [];
+                LngArray = [];
+                for (var j = 0; j < arrCoordinate.length; j++) {
+                    LatArray.push(arrCoordinate[j].lat);
+                    LngArray.push(arrCoordinate[j].lng)
+                }
+                LatArray.sort();
+                LngArray.sort();
+
+                const lowX = LatArray[0];
+                const highX = LatArray[LatArray.length - 1];
+                const lowy = LngArray[0];
+                const highy = LngArray[LngArray.length - 1];
+
+                const centerX = lowX + ((highX - lowX) / 2);
+                const centerY = lowy + ((highy - lowy) / 2);
+
+                map = new google.maps.Map(document.getElementById('googleMap'), {
+                    zoom: ZoomVal,
+                    center: new google.maps.LatLng(centerX, centerY),
+                    mapTypeId: google.maps.MapTypeId.ROADMAP
+                });
+
+                //map = new google.maps.Map(document.getElementById('googleMap'), {
+                //    zoom: 16,
+                //    center: new google.maps.LatLng(arrCoordinate[0].lat, arrCoordinate[0].lng),
+                //    mapTypeId: google.maps.MapTypeId.ROADMAP
+                //});
+
+                
+
+
 
 
                 polyOld.setMap(map);
@@ -664,7 +713,7 @@
     </script>
     @*<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBnR8YLcfpwSLWXGO6JR3wFPY133r086DI&callback=myMap" type="text/javascript"></script>*@
     <script async
-            src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBnR8YLcfpwSLWXGO6JR3wFPY133r086DI&libraries=drawing&callback=loadMap">
+            src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBnR8YLcfpwSLWXGO6JR3wFPY133r086DI&libraries=drawing,geometry&callback=loadMap">
     </script>
     @*Paid API*@
     @*<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBnR8YLcfpwSLWXGO6JR3wFPY133r086DI&callback=myMap" type="text/javascript"></script>*@
