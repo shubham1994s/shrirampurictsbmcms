@@ -57,19 +57,32 @@
     <br />
     <div class="container">
         <div class="row">
-            <div class="col-sm-3">
+            <div class="col-sm-6">
 
                 <input type="hidden" value="@ViewBag.lat" id="deflat" />
                 <input type="hidden" value="@ViewBag.lang" id="deflang" />
                 <input type="hidden" value="@Model.ebmId" id="hdebmId" />
                 <input type="hidden" value="@Model.userId" id="hduserId" />
                 <input type="hidden" value="@Model.userName" id="hduserName" />
+                <input type="hidden" value="@Model.Type" id="hduserType" />
+
                 @*<label>तारीख निवडा / Select Date</label>*@
 
                 @*<label>कर्मचारी निवडा / Select Employee</label>*@
-                <div id="divUserList" style="display:none">
-                    <label>Select Employee</label>
-                    <select id="selectEmp" class="form-control minimal-form  RequiredInput validate[required] RequiredInput"></select>
+                <div id="divUserList" class="row" style="display:none">
+                    <div class="col-sm-6">
+                        <label>Select Employee Type</label>
+                        <select id="selectEmpType" class="form-control minimal-form  RequiredInput validate[required] RequiredInput">
+                            <option value="0">Select Employee Type</option>
+                            <option value="W">Waste</option>
+                            <option value="D">Dump</option>
+                        </select>
+                    </div>
+                    <div class="col-sm-6">
+                        <label>Select Employee</label>
+                        <select id="selectEmp" class="form-control minimal-form  RequiredInput validate[required] RequiredInput"></select>
+                    </div>
+
                 </div>
                 <div id="divUserName" style="display:none">
                     <label>Employee Name :</label><b><span id="spnUserName"></span></b>
@@ -82,7 +95,7 @@
                 </div>
             </div>
 
-            <div class="col-sm-6">
+            <div class="col-sm-3">
                 <a href="Index" id="AH" class="btn btn-primary btn-sm " style="float: right;" type="button">Back</a>
             </div>
         </div>
@@ -102,22 +115,25 @@
     <style>
 
         button[title="Stop drawing"] {
-           /* content: url(https://cdn4.iconfinder.com/data/icons/whsr-january-flaticon-set/128/compass.png) !important;*/
+            /* content: url(https://cdn4.iconfinder.com/data/icons/whsr-january-flaticon-set/128/compass.png) !important;*/
             height: 40px;
             width: 40px;
-           /* cursor: pointer;*/
+            /* cursor: pointer;*/
             box-shadow: rgb(0 0 0) 0px 1px 4px -1px !important;
-            text-align:center !important;
+            text-align: center !important;
         }
+
             button[title="Stop drawing"] span div {
                 width: 24px !important;
                 height: 21px !important;
             }
+
                 button[title="Stop drawing"] span div img {
                     top: -86px !important;
                     width: 23px !important;
                     height: 212px !important;
                 }
+
         button[title="Draw a shape"] {
             /* content: url(https://cdn4.iconfinder.com/data/icons/whsr-january-flaticon-set/128/compass.png) !important;*/
             height: 40px;
@@ -140,9 +156,35 @@
     </style>
     <script>
         $(document).ready(function () {
+            //$.ajax({
+            //    type: "get",
+            //    url: "/EmpBeatMap/ListUserBeatMap",
+            //    contentType: 'application/json;',
+            //    dataType: 'json',
+            //    //traditional: true,
+            //    success: function (data) {
+            //        district = '<option value="-1">Select Employee</option>';
+            //        for (var i = 0; i < data.length; i++) {
+            //            district = district + '<option value=' + data[i].Value + '>' + data[i].Text + '</option>';
+            //        }
+            //        //district = district + '</select>';
+            //        $('#selectEmp').html(district);
+            //    }
+            //});
+            //runMaps();
+        });
+
+
+        $('#selectEmpType').on('change', function () {
+            $('#hduserType').val((this.value));
+            LoadEmpList();
+        });
+
+        function LoadEmpList() {
+            var Emptype = $("#selectEmpType").val();
             $.ajax({
                 type: "get",
-                url: "/EmpBeatMap/ListUserBeatMap",
+                url: "/EmpBeatMap/ListUserBeatMap?Emptype=" + Emptype,
                 contentType: 'application/json;',
                 dataType: 'json',
                 //traditional: true,
@@ -155,9 +197,9 @@
                     $('#selectEmp').html(district);
                 }
             });
-            //runMaps();
-        });
 
+
+        }
         $('#selectEmp').on('change', function () {
 
             $('#hduserId').val((this.value));
@@ -195,7 +237,7 @@
                 arrCoordinate = @Html.Raw(Json.Encode(@Model.ebmLatLong));
 
 
-                
+
 
 
                 if (arrCoordinate.length > 0) {
@@ -637,10 +679,10 @@
             google.maps.event.addListener(drawingManager, 'overlaycomplete', function (event) {
                 console.log('complete');
                 //polyArr = [];
-                
+
                 //polyArr.push(event.overlay);
                 if ((event.type == google.maps.drawing.OverlayType.POLYGON) && (event.overlay.getPath().getLength() > 1)) {
-                    
+
                     //drawingManager.setDrawingMode(null);
                     //Write code to select the newly selected object.
 
@@ -728,11 +770,11 @@
 
                 CordArry.push(getCoords(polyArr[i]));
             }
-            
+
 
             EBMObj.userId = parseInt($('#hduserId').val());
             EBMObj.ebmLatLong = CordArry;
-            EBMObj.Type = 'W';
+            EBMObj.Type = $("#hduserType").val();
             EBMObj.ebmId = parseInt($('#hdebmId').val());
             var data = JSON.stringify({ 'EBMObj': EBMObj });
 

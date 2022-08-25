@@ -13,9 +13,9 @@ namespace SwachBharat.CMS.Bll.Repository.GridRepository.Grid
         IEnumerable<SBAEmpBeatMapGridRow> dataSet;
         DashBoardRepository objRep = new DashBoardRepository();
 
-        public EmpBeatMapsGridRepository(long wildcard, string SearchString, int appId)
+        public EmpBeatMapsGridRepository(long wildcard, string SearchString, int appId,string EType)
         {
-            dataSet = objRep.EmpBeatMapsData(wildcard, SearchString, appId);
+            dataSet = objRep.EmpBeatMapsData(wildcard, SearchString, appId, EType);
         }
 
         public string GetDataTabelJson(string sortColumn, string sortColumnDir, string draw, string length, string searchValue, string start)

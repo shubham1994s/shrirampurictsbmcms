@@ -740,17 +740,18 @@ namespace SwachBharat.CMS.Bll.Repository.GridRepository
                 return data.OrderByDescending(c => c.vqrId);
             }
         }
-        public IEnumerable<SBAEmpBeatMapGridRow> EmpBeatMapsData(long wildcard, string SearchString, int appId)
+        public IEnumerable<SBAEmpBeatMapGridRow> EmpBeatMapsData(long wildcard, string SearchString, int appId,string EType)
         {
 
             using (var db = new DevChildSwachhBharatNagpurEntities(appId))
             {
-                var data = db.EmpBeatMaps.Select(x => new SBAEmpBeatMapGridRow
+
+                var data = db.EmpBeatMaps.Join(db.UserMasters, e => e.userId, u => u.userId, (e, u) => new { e, u }).Where(m => m.u.EmployeeType == EType).Select(x => new SBAEmpBeatMapGridRow
                 {
-                    ebmId = x.ebmId,
-                    userId = x.userId ?? 0,
-                    Type = x.Type,
-                    userName = db.UserMasters.Where(a => a.userId == x.userId).Select(b => b.userName).FirstOrDefault()
+                    ebmId = x.e.ebmId,
+                    userId = x.e.userId ?? 0,
+                    Type = x.e.Type,
+                    userName = x.u.userName
                 }).ToList();
                 if (!string.IsNullOrEmpty(SearchString))
                 {
