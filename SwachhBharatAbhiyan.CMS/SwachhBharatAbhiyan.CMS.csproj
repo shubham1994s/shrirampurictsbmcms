@@ -1736,6 +1736,7 @@
     <Content Include="Content\css\Timing css\jquery.timepicker.min.js" />
     <Content Include="Content\css\ui.jqgrid-bootstarp.css" />
     <Content Include="Content\css\ui.jqgrid.css" />
+    <Content Include="Content\Custom\CanvasJS.js" />
     <Content Include="Content\Custom\custom_scroll.js" />
     <Content Include="Content\Custom\fontawesome\css\font-awesome.min.css" />
     <Content Include="Content\Custom\fontawesome\fonts\fontawesome-webfont.svg" />
