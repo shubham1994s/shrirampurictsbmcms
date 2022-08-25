@@ -108,6 +108,10 @@ namespace SwachhBharatAbhiyan.CMS.Controllers
         {
             if (SessionHandler.Current.AppId != 0)
             {
+                if (Emptype == "W")
+                {
+                    Emptype = null;
+                }
                 List<SelectListItem> lstUsers = childRepository.ListUserBeatMap(Emptype);
                 return Json(lstUsers, JsonRequestBehavior.AllowGet);
             }
