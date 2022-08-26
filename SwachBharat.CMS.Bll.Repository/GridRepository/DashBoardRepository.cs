@@ -2813,6 +2813,7 @@ namespace SwachBharat.CMS.Bll.Repository.GridRepository
                                      t1.gcDate,
                                      t1.vehicleNumber,
                                      t1.locAddresss,
+                                     t3.dyAddress,
                                      t1.totalGcWeight,
                                      t1.totalDryWeight,
                                      t1.totalWetWeight,
@@ -2858,7 +2859,7 @@ namespace SwachBharat.CMS.Bll.Repository.GridRepository
                             UserName = checkNull(x.dyName),
                             Lat = x.Lat,
                             Long = x.Long,
-                            Address = checkNull(x.locAddresss).Replace("Unnamed Road,", ""),
+                            Address = checkNull(x.dyAddress).Replace("Unnamed Road,", ""),
                             gpAfterImage = (x.gpAfterImage == "" || x.gpAfterImage == null ? "/Images/default_not_upload.png" : x.gpAfterImage.Trim()),
                             gpBeforImage = (x.gpBeforImage == "" || x.gpAfterImage == null ? "/Images/default_not_upload.png" : x.gpBeforImage.Trim())
                         });
@@ -2934,6 +2935,7 @@ namespace SwachBharat.CMS.Bll.Repository.GridRepository
                                      t1.gcDate,
                                      t1.vehicleNumber,
                                      t1.locAddresss,
+                                     t3.dyAddress,
                                      t1.totalGcWeight,
                                      t1.totalDryWeight,
                                      t1.totalWetWeight,
@@ -2981,7 +2983,7 @@ namespace SwachBharat.CMS.Bll.Repository.GridRepository
                             UserName = checkNull(x.dyName),
                             Lat = x.Lat,
                             Long = x.Long,
-                            Address = checkNull(x.locAddresss).Replace("Unnamed Road,", ""),
+                            Address = checkNull(x.dyAddress).Replace("Unnamed Road,", ""),
                             gpAfterImage = (x.gpAfterImage == "" || x.gpAfterImage == null ? "/Images/default_not_upload.png" : x.gpAfterImage.Trim()),
                             gpBeforImage = (x.gpBeforImage == "" || x.gpAfterImage == null ? "/Images/default_not_upload.png" : x.gpBeforImage.Trim())
                         });
