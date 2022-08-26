@@ -346,6 +346,9 @@ function myMapHouse() {
 
 //Bar Chart
 
+
+
+
 $(document).ready(function () {
 
     var UserId = -1;
@@ -823,6 +826,8 @@ $(document).ready(function () {
     }
 
 });
+
+
 
 //End
 
