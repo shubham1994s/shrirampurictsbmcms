@@ -8471,7 +8471,8 @@ namespace SwachBharat.CMS.Bll.Services
                     }
                     else
                     {
-                        var sId = id.Split('0').Last();
+                        var sId = id.Substring(id.Length - 2);
+                        // var sId = id.Split('0').Last();
                         string appName = (appDetails.AppName).Split(' ').First();
 
                         string name = Convert.ToInt32(sId) < 9 ? "802784PTB00"  + ("0" + (Convert.ToInt32(sId) + 1)) : "802784PTB00"  + ((Convert.ToInt32(sId)) + (1));
@@ -8540,7 +8541,8 @@ namespace SwachBharat.CMS.Bll.Services
                         }
                         else
                         {
-                            var sId = id.Split('0').Last();
+                            var sId = id.Substring(id.Length - 2);
+                         //   var sId = id.Split('0').Last();
                             string appName = (appDetails.AppName).Split(' ').First();
                             string name = Convert.ToInt32(sId) < 9 ? "802784PTB00"  + ("0" + (Convert.ToInt32(sId) + 1)) : "802784PTB00"  + ((Convert.ToInt32(sId)) + (1));
                             data.SauchalayID = name;
