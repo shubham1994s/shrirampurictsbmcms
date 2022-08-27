@@ -3465,7 +3465,9 @@ namespace SwachBharat.CMS.Bll.Repository.GridRepository
                             vtId = vt,
                             vehicleNumber = x.vehicleNumber,
                             CompareDate = x.daDate,
-                            daDateTIme = (displayTime + " " + time)
+                            daDateTIme = (displayTime + " " + time),
+                            ReferanceId = db.Vehical_QR_Master.Where(c => c.vqrId == x.VQRId).FirstOrDefault().ReferanceId,
+                            QRCodeImage = (x.BinaryQrCodeImage == null || x.BinaryQrCodeImage.Length == 0) ? "/Images/default_not_upload.png" : ("data:image/jpeg;base64," + System.Convert.ToBase64String(x.BinaryQrCodeImage))
                         });
 
                     }

@@ -73,7 +73,24 @@
             "visible": false,
             "searchable": false,
             "type": "date-eu"
-        }
+        },
+                {
+                    "targets": [16],
+                    "visible": true,
+
+                    "render": function (data, type, full, meta) {
+                        if (full["QRCodeImage"] != null) {
+                            return "<div style='cursor:pointer;display:inline-flex;'  onclick=PopImagesHouse(this)><img alt='Photo Not Found'  src='" + data +
+                                "' style='height:35px;width:35px;cursor:pointer;margin-left:0px;'></img><span><ul class='dt_pop'  style='margin:2px -5px -5px -5px; padding:0px;list-style:none;display:none;'><li  class='li_date datediv' >" + full["Name"] + "</li><li  class='li_lat datediv' >" + full["HouseLat"] + "</li></li><li  class='li_long datediv' >" + full["HouseLong"] + "</li><li class='addr-length' style='margin:0px 0px 0px 10px;'>"
+                                + full["ReferanceId"] + "</li><li class='date_time'>" + full["modifiedDate"] + "</li><li style='display:none' class='li_title' >HouseScanify QR Image </li><li class='li_houseId'>" + full["houseId"] + "</li><li class='li_QRStatus'>" + full["QRStatus"] + "</li></ul></span></div>";
+                        }
+                        else {
+
+                            return "<img alt='Photo Not Found' onclick='noImageNotification()' src='/Images/default.png' style='height:35px;width:35px;cursor:pointer;'></img>";
+                        }
+                    },
+                },
+
         ],
 
 
@@ -95,7 +112,9 @@
               { "data": "vtId", "name": "vtId", "autoWidth": true },
               { "data": "vehicleNumber", "name": "vehicleNumber", "autoWidth": true },
               { "data": "CompareDate", "name": "daID", "autoWidth": true },
-              { "data": "daDateTIme", "name": "daDateTIme", "autoWidth": true },
+            { "data": "daDateTIme", "name": "daDateTIme", "autoWidth": true },
+            { "data": "QRCodeImage", "name": "QRCodeImage", "autoWidth": true },
+            { "data": "ReferanceId", "name": "QRCodeImage", "autoWidth": true },
              
         ],
        // Sort: "locId DESC"
