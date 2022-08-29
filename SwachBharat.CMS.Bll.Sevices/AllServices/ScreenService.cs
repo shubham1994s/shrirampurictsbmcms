@@ -3487,11 +3487,14 @@ namespace SwachBharat.CMS.Bll.Services
                             lat = Convert.ToDouble(d.Lat),
                             lng = Convert.ToDouble(d.Long)
                         };
-                        foreach (var poly in lstPoly)
+                        if (lstPoly != null && lstPoly.Count > 0)
                         {
-                            if(IsPointInPolygon(poly, p))
+                            foreach (var poly in lstPoly)
                             {
-                                bIsIn = true;
+                                if (IsPointInPolygon(poly, p))
+                                {
+                                    bIsIn = true;
+                                }
                             }
                         }
                         if (d.houseId != null)
