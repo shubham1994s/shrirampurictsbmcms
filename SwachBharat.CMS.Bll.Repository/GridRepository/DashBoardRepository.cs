@@ -3447,7 +3447,7 @@ namespace SwachBharat.CMS.Bll.Repository.GridRepository
                         });
                     }
 
-                    else
+                    else if(x.VQRId > 0)
                     {
                         obj.Add(new SBAAttendenceGrid()
                         {
@@ -3465,7 +3465,33 @@ namespace SwachBharat.CMS.Bll.Repository.GridRepository
                             vtId = vt,
                             vehicleNumber = x.vehicleNumber,
                             CompareDate = x.daDate,
-                            daDateTIme = (displayTime + " " + time)
+                            daDateTIme = (displayTime + " " + time),
+                            ReferanceId = db.Vehical_QR_Master.Where(c => c.vqrId == x.VQRId).FirstOrDefault().ReferanceId,
+                            QRCodeImage = (x.BinaryQrCodeImage == null || x.BinaryQrCodeImage.Length == 0) ? "/Images/default_not_upload.png" : ("data:image/jpeg;base64," + System.Convert.ToBase64String(x.BinaryQrCodeImage))
+                        });
+
+                    }
+                    else 
+                    {
+                        obj.Add(new SBAAttendenceGrid()
+                        {
+                            daID = x.daID,
+                            userId = Convert.ToInt32(x.userId),
+                            userName = db.UserMasters.Where(c => c.userId == x.userId).FirstOrDefault().userName,
+                            daDate = Convert.ToDateTime(x.daDate).ToString("dd/MM/yyyy"),
+                            daEndDate = endate,
+                            startTime = x.startTime,
+                            endTime = x.endTime,
+                            startLat = x.startLat,
+                            startLong = x.startLong,
+                            endLat = x.startLong,
+                            endLong = x.endLong,
+                            vtId = vt,
+                            vehicleNumber = x.vehicleNumber,
+                            CompareDate = x.daDate,
+                            daDateTIme = (displayTime + " " + time),
+                            ReferanceId = "",
+                            QRCodeImage = (x.BinaryQrCodeImage == null || x.BinaryQrCodeImage.Length == 0) ? "/Images/default_not_upload.png" : ("data:image/jpeg;base64," + System.Convert.ToBase64String(x.BinaryQrCodeImage))
                         });
 
                     }

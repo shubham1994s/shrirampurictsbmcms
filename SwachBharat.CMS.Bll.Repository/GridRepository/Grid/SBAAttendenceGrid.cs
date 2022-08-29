@@ -71,5 +71,7 @@ namespace SwachBharat.CMS.Bll.ViewModels.Grid
         public Nullable<int> YEAR_NAME { get; set; }
 
         public string ReferanceId { get; set; }
+
+        public  string QRCodeImage { get; set; }
 }
 }
