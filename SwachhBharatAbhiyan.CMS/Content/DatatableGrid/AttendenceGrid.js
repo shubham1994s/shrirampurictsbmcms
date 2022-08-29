@@ -80,9 +80,9 @@
 
                     "render": function (data, type, full, meta) {
                         if (full["QRCodeImage"] != null) {
-                            return "<div style='cursor:pointer;display:inline-flex;'  onclick=PopImagesHouse(this)><img alt='Photo Not Found'  src='" + data +
+                            return "<div style='cursor:pointer;display:inline-flex;'  onclick=PopImages(this)><img alt='Photo Not Found'  src='" + data +
                                 "' style='height:35px;width:35px;cursor:pointer;margin-left:0px;'></img><span><ul class='dt_pop'  style='margin:2px -5px -5px -5px; padding:0px;list-style:none;display:none;'><li  class='li_date datediv' >" + full["Name"] + "</li><li  class='li_lat datediv' >" + full["HouseLat"] + "</li></li><li  class='li_long datediv' >" + full["HouseLong"] + "</li><li class='addr-length' style='margin:0px 0px 0px 10px;'>"
-                                + full["ReferanceId"] + "</li><li class='date_time'>" + full["modifiedDate"] + "</li><li style='display:none' class='li_title' >HouseScanify QR Image </li><li class='li_houseId'>" + full["houseId"] + "</li><li class='li_QRStatus'>" + full["QRStatus"] + "</li></ul></span></div>";
+                                + full["ReferanceId"] + "</li><li class='date_time'>" + full["daDate"] + "</li><li style='display:none' class='li_title' >HouseScanify QR Image </li><li class='li_houseId'>" + full["houseId"] + "</li><li class='li_QRStatus'>" + full["QRStatus"] + "</li></ul></span></div>";
                         }
                         else {
 
@@ -139,6 +139,21 @@ function map(a) {
 
 };
 //////////////////////////////////////////////////////////////////////////////
+
+function PopImages(cel) {
+
+    $('#myModal_Image').modal('toggle');
+
+    var addr = $(cel).find('.addr-length').text();
+    var date = $(cel).find('.date_time').text();
+    var imgsrc = $(cel).find('img').attr('src');
+    var head = $(cel).find('.li_title').text();
+    jQuery("#latlongData").text(addr);
+    jQuery("#dateData").text(date);
+    jQuery("#imggg").attr('src', imgsrc);
+    //jQuery("#latlongData").text(cellValue);
+    jQuery("#header_data").html(head);
+}
 function showInventoriesGrid() { 
     Search(); 
 }
