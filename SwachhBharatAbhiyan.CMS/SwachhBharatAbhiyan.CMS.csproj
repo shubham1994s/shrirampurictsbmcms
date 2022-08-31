@@ -406,6 +406,7 @@
     <Content Include="Areas\Liquid\Content\images\calender.png" />
     <Content Include="Areas\Liquid\Content\images\clock.png" />
     <Content Include="Areas\Liquid\Content\images\default2.png" />
+    <Content Include="Areas\Liquid\Content\images\default_not_upload.png" />
     <Content Include="Areas\Liquid\Content\images\epmapasd_logo.png" />
     <Content Include="Areas\Liquid\Content\images\footer-logo.png" />
     <Content Include="Areas\Liquid\Content\images\footer-logo2.png" />
@@ -965,6 +966,7 @@
     <Content Include="Areas\Street\Content\images\calender.png" />
     <Content Include="Areas\Street\Content\images\clock.png" />
     <Content Include="Areas\Street\Content\images\default2.png" />
+    <Content Include="Areas\Street\Content\images\default_not_upload.png" />
     <Content Include="Areas\Street\Content\images\epmapasd_logo.png" />
     <Content Include="Areas\Street\Content\images\footer-logo.png" />
     <Content Include="Areas\Street\Content\images\footer-logo2.png" />
@@ -1853,6 +1855,7 @@
     <Content Include="Content\images\calender.png" />
     <Content Include="Content\images\clock.png" />
     <Content Include="Content\images\default2.png" />
+    <Content Include="Content\images\default_not_upload.png" />
     <Content Include="Content\images\epmapasd_logo.png" />
     <Content Include="Content\images\footer-logo.png" />
     <Content Include="Content\images\footer-logo2.png" />
