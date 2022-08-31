@@ -78,9 +78,11 @@
                         return 'Admin';
                     }
                     else if (full["EmployeeType"] == 'SA') {
-                        return 'Sub Admin';
+                        return 'Supervisor';
                     }
-
+                    else if (full["EmployeeType"] == 'SUA') {
+                        return 'Super Admin';
+                    }
                     else {
                         return 'Not Available';
                     }
@@ -226,9 +228,11 @@ function LoadAGridM() {
                         return 'Admin';
                     }
                     else if (full["EmployeeType"] == 'SA') {
-                        return 'Sub Admin';
+                        return 'Supervisor';
                     }
-
+                    else if (full["EmployeeType"] == 'SUA') {
+                        return 'Super Admin';
+                    }
                     else {
                         return 'Not Available';
                     }

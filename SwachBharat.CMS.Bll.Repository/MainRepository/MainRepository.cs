@@ -257,10 +257,9 @@ namespace SwachBharat.CMS.Bll.Repository.MainRepository
            
             using (DevSwachhBharatMainEntities db = new DevSwachhBharatMainEntities())
             {
-                var appUser = (db.EmployeeMasters.Where(x => x.LoginId == _userinfo.ADUM_LOGIN_ID && x.Password == _userinfo.ADUM_PASSWORD && x.isActive == true).SingleOrDefault());
+                var appUser = (db.EmployeeMasters.Where(x => x.LoginId == _userinfo.ADUM_LOGIN_ID && x.Password == _userinfo.ADUM_PASSWORD && x.type == _userinfo.ADUM_DESIGNATION && x.isActive == true).SingleOrDefault());
                 if (appUser != null)
                 {
-                  
 
                     _EmployeeVM.ADUM_LOGIN_ID = appUser.LoginId;
                     _EmployeeVM.ADUM_PASSWORD = appUser.Password;

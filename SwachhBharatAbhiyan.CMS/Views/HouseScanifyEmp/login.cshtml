@@ -281,8 +281,16 @@
                                             <div class="content">
                                                 @Html.ValidationSummary(true, "", new { @class = "text-danger", style = "margin-bottom:-15px;display:block;font-size:12px;" })
                                                 <h3 class="text-center" style=" margin-bottom: 5%; margin-top: -3%; font-weight: 800;">HOUSE SCANIFY LOGIN</h3>
-                                             
 
+                                                <div class="form-group select">
+                                                    @Html.DropDownList("AType", new List<SelectListItem>
+                                                     {
+                                                       new SelectListItem { Text = "Super Admin", Value = "SUA" },
+                                                       new SelectListItem { Text = "Admin", Value = "A"},
+                                                       new SelectListItem { Text = "Supervisor", Value = "SA"},
+                                                       }, "Select  Admin Type", new { @class = "input-material", @id = "AType" })
+                                                    @Html.ValidationMessageFor(model => model.AType, "", new { @class = "text-danger", style = "display:block;font-size:11px;margin-top:2px" })
+                                                </div>
                                                 <div class="form-group">
                                                     @Html.TextBoxFor(m => m.Email, new { @class = "input-material", @id = "login-username", placeholder = "Username" })
 

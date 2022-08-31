@@ -88,7 +88,7 @@ namespace SwachhBharatAbhiyan.CMS.Controllers
 
         public ActionResult HSAppArea()
         {
-            if (Session["utype"] != null && Session["utype"].ToString() == "A")
+            if (Session["utype"] != null && Session["utype"].ToString() == "SUA")
             {
                 ViewBag.UType = Session["utype"];
                 ViewBag.HSuserid = Session["Id"];
@@ -103,7 +103,7 @@ namespace SwachhBharatAbhiyan.CMS.Controllers
         }
         public ActionResult HSHousesListDownload()
         {
-            if (Session["utype"] != null && Session["utype"].ToString() == "A")
+            if (Session["utype"] != null && Session["utype"].ToString() == "SUA")
             {
                 ViewBag.UType = Session["utype"];
                 ViewBag.HSuserid = Session["Id"];
@@ -118,7 +118,7 @@ namespace SwachhBharatAbhiyan.CMS.Controllers
         }
         public ActionResult HSAppAreaIndex()
         {
-            if (Session["utype"] != null && Session["utype"].ToString() == "A")
+            if (Session["utype"] != null && Session["utype"].ToString() == "SUA")
             {
                 ViewBag.UType = Session["utype"];
                 ViewBag.HSuserid = Session["Id"];
@@ -133,7 +133,7 @@ namespace SwachhBharatAbhiyan.CMS.Controllers
 
         public ActionResult AddAppAreaMap(int AppId = -1)
         {
-            if (Session["utype"] != null && Session["utype"].ToString() == "A")
+            if (Session["utype"] != null && Session["utype"].ToString() == "SUA")
             {
                 ViewBag.UType = Session["utype"];
                 ViewBag.HSuserid = Session["Id"];
@@ -150,7 +150,7 @@ namespace SwachhBharatAbhiyan.CMS.Controllers
 
         public ActionResult ListAppMap()
         {
-            if (Session["utype"] != null && Session["utype"].ToString() == "A")
+            if (Session["utype"] != null && Session["utype"].ToString() == "SUA")
             {
                 mainRepository = new MainRepository();
                 List<SelectListItem> lstApps = mainRepository.ListAppMap();
@@ -165,7 +165,7 @@ namespace SwachhBharatAbhiyan.CMS.Controllers
 
         public ActionResult ListAllApp()
         {
-            if (Session["utype"] != null && Session["utype"].ToString() == "A")
+            if (Session["utype"] != null && Session["utype"].ToString() == "SUA")
             {
                 mainRepository = new MainRepository();
                 List<SelectListItem> lstApps = mainRepository.ListAllApp();
@@ -182,7 +182,7 @@ namespace SwachhBharatAbhiyan.CMS.Controllers
 
         public ActionResult GetAppLatLong(int AppId = -1)
         {
-            if (Session["utype"] != null && Session["utype"].ToString() == "A")
+            if (Session["utype"] != null && Session["utype"].ToString() == "SUA")
             {
                 mainRepository = new MainRepository();
                 AppAreaMapVM App = mainRepository.GetAppAreaMap(AppId);
@@ -196,7 +196,7 @@ namespace SwachhBharatAbhiyan.CMS.Controllers
 
         public ActionResult SaveAppAreaMap(AppAreaMapVM AppAreaObj)
         {
-            if (Session["utype"] != null && Session["utype"].ToString() == "A")
+            if (Session["utype"] != null && Session["utype"].ToString() == "SUA")
             {
                 mainRepository = new MainRepository();
                 mainRepository.SaveAppAreaMap(AppAreaObj);
@@ -220,7 +220,7 @@ namespace SwachhBharatAbhiyan.CMS.Controllers
 
         public ActionResult HSURIndex()
         {
-            if (Session["utype"] != null && Session["utype"].ToString() == "A")
+            if (Session["utype"] != null && Session["utype"].ToString() == "SUA")
             {
                 int appid = 1;
                 ViewBag.AppId = appid;
@@ -237,7 +237,7 @@ namespace SwachhBharatAbhiyan.CMS.Controllers
         }
         public ActionResult HSURAttendance()
         {
-            if (Session["utype"] != null && Session["utype"].ToString() == "A")
+            if (Session["utype"] != null && Session["utype"].ToString() == "SUA")
             {
                 int appid = 1;
                 ViewBag.AppId = appid;
@@ -287,6 +287,7 @@ namespace SwachhBharatAbhiyan.CMS.Controllers
             EmployeeVM Result = new EmployeeVM();
             Result.ADUM_LOGIN_ID = model.Email;
             Result.ADUM_PASSWORD = model.Password;
+            Result.ADUM_DESIGNATION = model.AType;
             Result = mainRepository.LoginUR(Result);
 
             //HSUR_Daily_AttendanceVM Daily_Attendance = new HSUR_Daily_AttendanceVM();
@@ -301,7 +302,7 @@ namespace SwachhBharatAbhiyan.CMS.Controllers
                 Daily_Attendance.ipaddress = ipAdd;
                 Daily_Attendance.HostName = hname;
 
-                if(Daily_Attendance.EmployeeType != "A")
+                if(Daily_Attendance.EmployeeType != "SUA")
                 {
                     mainRepository.SaveAttendance(Daily_Attendance);
                 }
@@ -1010,7 +1011,7 @@ namespace SwachhBharatAbhiyan.CMS.Controllers
 
         public ActionResult HSUREMPRoute(int daId)
         {
-            if (Session["utype"] != null && Session["utype"].ToString() == "A")
+            if (Session["utype"] != null && Session["utype"].ToString() == "SUA")
             {
                 ViewBag.daId = daId;
                 ViewBag.UType = Session["utype"];
@@ -1032,7 +1033,7 @@ namespace SwachhBharatAbhiyan.CMS.Controllers
         
         public ActionResult HSURRouteData(int daId)
         {
-            if (Session["utype"] != null && Session["utype"].ToString() == "A")
+            if (Session["utype"] != null && Session["utype"].ToString() == "SUA")
             {
                 List<SBAHSUREmpLocationMapView> obj = new List<SBAHSUREmpLocationMapView>();
                 obj = mainRepository.GetHSUserAttenRoute(daId);
@@ -1244,7 +1245,7 @@ namespace SwachhBharatAbhiyan.CMS.Controllers
         {
             ViewBag.UType = Session["utype"];
             ViewBag.HSuserid = Session["Id"];
-            if (ViewBag.UType == "SA")
+            if (ViewBag.UType != "SUA")
             {
                 HSUR_Daily_AttendanceVM Daily_Attendance = new HSUR_Daily_AttendanceVM();
                 Daily_Attendance.LOGIN_ID = ViewBag.HSuserid;
@@ -1262,7 +1263,7 @@ namespace SwachhBharatAbhiyan.CMS.Controllers
         }
         public ActionResult ExportHouseListPDF(int appId,string appName, int option, int type)
         {
-            if (Session["utype"] != null && Session["utype"].ToString() == "A")
+            if (Session["utype"] != null && Session["utype"].ToString() == "SUA")
             {
                 string strOption = string.Empty;
                 string strType = string.Empty;
@@ -1320,7 +1321,7 @@ namespace SwachhBharatAbhiyan.CMS.Controllers
 
         public ActionResult ExportHouseListExcel(int appId, string appName, int option, int type)
         {
-            if (Session["utype"] != null && Session["utype"].ToString() == "A")
+            if (Session["utype"] != null && Session["utype"].ToString() == "SUA")
             {
                 string strOption = string.Empty;
                 string strType = string.Empty;

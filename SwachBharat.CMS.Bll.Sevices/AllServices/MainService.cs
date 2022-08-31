@@ -1375,7 +1375,7 @@ public int GetUserAppId(string UserId)
         public List<AppDetail> GetAppList(string utype, string LoginId, string Password)
         {
             List<AppDetail> appList = new List<AppDetail>();
-            if (utype == "A")
+            if (utype == "A" || utype == "SUA")
             {
                 appList = dbMain.AppDetails.Where(x => x.IsActive == true && (x.AppName != "Thane Mahanagar Palika" && x.AppName != "Nagpur Mahanagar Palika")).OrderBy(x => x.AppName).ToList();
                 //appNames = dbMain.AppDetails.ToList();

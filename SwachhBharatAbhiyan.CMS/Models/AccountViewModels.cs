@@ -65,8 +65,11 @@ namespace SwachhBharatAbhiyan.CMS.Models
         [Display(Name = "Select Type")]
         public string Type { get; set; }
 
+        [Required]
+        [Display(Name = "Select AType")]
+        public string AType { get; set; }
 
-        
+
 
 
     }

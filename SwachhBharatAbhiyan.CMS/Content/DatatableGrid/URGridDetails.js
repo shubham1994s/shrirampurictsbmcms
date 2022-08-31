@@ -39,9 +39,11 @@
                         return 'Admin';
                     }
                     else if (full["type"] == 'SA') {
-                        return 'Sub Admin';
+                        return 'Supervisor';
                     }
-
+                    else if (full["type"] == 'SUA') {
+                        return 'Super Admin';
+                    }
                     else {
                         return 'Not Available';
                     }
@@ -128,9 +130,11 @@ function LoadNGrid() {
                         return 'Admin';
                     }
                     else if (full["type"] == 'SA') {
-                        return 'Sub Admin';
+                        return 'Supervisor';
                     }
-
+                    else if (full["type"] == 'SUA') {
+                        return 'Super Admin';
+                    }
                     else {
                         return 'Not Available';
                     }
