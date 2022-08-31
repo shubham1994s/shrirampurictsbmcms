@@ -546,6 +546,11 @@ namespace SwachBharat.CMS.Bll.Repository.ChildRepository
             return screenService.GetAllHouseLocation(date, userid, areaid, wardNo, SearchString, GarbageType, FilterType, Emptype);
         }
 
+        public List<SBALHouseLocationMapView> GetAllHouseLocationForEmpBitMap(string date, int userid, int areaid, int wardNo, string SearchString, int? GarbageType, int FilterType, string Emptype)
+        {
+            return screenService.GetAllHouseLocationForEmpBitMap(date, userid, areaid, wardNo, SearchString, GarbageType, FilterType, Emptype);
+        }
+
         //Code Optimization (code)
         //public SBALHouseLocationMapView1 GetAllHouseLocation(string date, int userid, int areaid, int wardNo, string SearchString, string start)
         //{

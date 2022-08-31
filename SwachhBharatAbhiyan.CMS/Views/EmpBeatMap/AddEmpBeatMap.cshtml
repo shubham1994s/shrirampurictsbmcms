@@ -65,6 +65,7 @@
                 <input type="hidden" value="@Model.userId" id="hduserId" />
                 <input type="hidden" value="@Model.userName" id="hduserName" />
                 <input type="hidden" value="@Model.Type" id="hduserType" />
+                <input type="hidden" id="txt_fdate" class="datepicker form-control form-control-sm" type="text" />
 
                 @*<label>तारीख निवडा / Select Date</label>*@
 
@@ -218,7 +219,117 @@
         var map;
         var curIndexId = 0;
         var runMaps = function () {
+            debugger;
+            $.ajax({
+                type: "post",
+                url: "/Location/HouseLocationListForEmpBitMap?date=" + $('#txt_fdate').val() + "&userId=" + "0" + "&areaId=" + "0" + "&wardNo=" + "0" + "&searchstring=" + "" + "&garbageType=" + "-1" + "&FilterType=" + "0" + "&ctype=" + $("#c_type").val(),
+                //url: "/Location/HouseLocationList",
+                datatype: "json",
+                traditional: true,
+                success: function (data) {
+                    debugger;
+                    data.length
 
+
+                    var infowindow = new google.maps.InfoWindow();
+                    bounds = new google.maps.LatLngBounds();
+                    var marker, i;
+
+                    var gar_type;
+                    for (i = 0; i < data.length; i++) {
+                        //debugger;
+                        gar_type = data[i].garbageType
+
+                        var mUrl = "../Content/images/img/segregationImg/icn_house.png";
+                    
+                        if (data[i].dyid != 0) {
+                            var mUrl = "../Content/images/img/segregationImg/Dumpyard_marker.png";
+
+                        }
+                        switch (gar_type) {
+
+                            case 0:
+                                mUrl = "../Content/images/img/segregationImg/icn_mixed_garbage.png"
+                                break;
+                            case 1:
+                                mUrl = "../Content/images/img/segregationImg/icn_segregated_garbage.png"
+                                break;
+                            case 2:
+                                mUrl = "../Content/images/img/segregationImg/icn_garbage_not_recevied.png"
+                                break;
+                            case 3:
+                                mUrl = "../Content/images/img/segregationImg/icn_not_specified.png"
+                                break;
+                        }
+
+                        marker = new google.maps.Marker({
+                            position: new google.maps.LatLng(data[i].houseLat, data[i].houseLong),
+                            map: map,
+
+                            icon: {
+                                // labelOrigin: new google.maps.Point(16, 65),
+                                url: mUrl
+                            }
+
+                        });
+
+                        loc = new google.maps.LatLng(marker.position.lat(), marker.position.lng());
+
+                        bounds.extend(loc);
+
+                        if (gar_type != null) {
+                            google.maps.event.addListener(marker, 'click', (function (marker, i) {
+                                return function () {
+                                    var poptext = '<div class=infowindow style="max-width:190px"> <h4 style="text-transform: capitalize;">' + data[i].houseOwnerName + '</h4><p><b>House Id: </b>' + data[i].ReferanceId + '</p>';
+                                    if (data[i].houseOwnerMobile != '') {
+                                        poptext = poptext + '<p><b>Mobile: </b>' + data[i].houseOwnerMobile + '</p>';
+                                    }
+                                    if (data[i].houseAddress != '') {
+                                        poptext = poptext + '<p><b>Address: </b>' + data[i].houseAddress + '<p>';
+                                    }
+                                    poptext = poptext + '<b>Date: </b>' + data[i].gcDate + '</p><div style="height:auto; width:150px"><p><b>Time: </b>' + data[i].gcTime + '</p></div></div>';
+                                    infowindow.setContent(poptext);
+                                    infowindow.open(map, marker);
+                                }
+                            })(marker, i));
+                        }
+                        
+                        else if (data[i].dyid != 0) {
+
+                            google.maps.event.addListener(marker, 'click', (function (marker, i) {
+                                return function () {
+                                    var poptext = '<div class=infowindow style="max-width:190px"> <h4 style="text-transform: capitalize;">' + data[i].houseOwnerName + '</h4><p><b>Dump Yard Id: </b>' + data[i].ReferanceId + '</p>'
+                                    if (data[i].houseOwnerMobile != '') {
+                                        poptext = poptext + '<p><b>Mobile: </b>' + data[i].houseOwnerMobile + '</p>';
+                                    }
+                                    if (data[i].houseAddress != '') {
+                                        poptext = poptext + '<p><b>Address: </b>' + data[i].houseAddress + '</p>';
+                                    }
+                                    poptext = poptext + '</div>';
+                                    infowindow.setContent(poptext);
+                                    infowindow.open(map, marker);
+                                }
+                            })(marker, i));
+                        }
+                        else {
+                            google.maps.event.addListener(marker, 'click', (function (marker, i) {
+                                return function () {
+                                    var poptext = '<div class=infowindow style="max-width:190px"> <h4 style="text-transform: capitalize;">' + data[i].houseOwnerName + '</h4><p><b>House Id: </b>' + data[i].ReferanceId + '</p>'
+                                    if (data[i].houseOwnerMobile != '') {
+                                        poptext = poptext + '<p><b>Mobile: </b>' + data[i].houseOwnerMobile + '</p>';
+                                    }
+                                    if (data[i].houseAddress != '') {
+                                        poptext = poptext + '<p><b>Address: </b>' + data[i].houseAddress + '</p>';
+                                    }
+                                    poptext = poptext + '</div>';
+                                    infowindow.setContent(poptext);
+                                    infowindow.open(map, marker);
+                                }
+                            })(marker, i));
+                        }
+                    }
+                }
+            });
              map = new google.maps.Map(document.getElementById('googleMap'), {
                  zoom: 16,
                  //controlSize: 100,
@@ -859,10 +970,38 @@
         }
         );
 
+    </script>
 
+    <script>
+        var date = new Date();
 
+        var day = date.getDate();
+        var month = date.getMonth() + 1;
+        var year = date.getFullYear();
 
+        if (month < 10) month = "0" + month;
+        if (day < 10) day = "0" + day;
 
+        // var today = month+ "/" + day+ "/" + year;
+        var today = day + "/" + month + "/" + year;
+        document.getElementById('txt_fdate').value = today;
+
+    </script>
+    <script type="text/javascript">
+        $('.datepicker').datepicker({
+            format: 'dd/mm/yyyy',
+            weekStart: 1,
+            color: 'red',
+            pickTime: false
+        }).on('changeDate', function (e) {
+
+            $(this).datepicker('hide');
+
+        });
+        //hide  show on hover
+        $('#txt_fdate').focus(function () {
+            $('.dtpk_drpdwn').eq(1).hide();
+        });
 
     </script>
     @*<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBnR8YLcfpwSLWXGO6JR3wFPY133r086DI&callback=myMap" type="text/javascript"></script>*@
