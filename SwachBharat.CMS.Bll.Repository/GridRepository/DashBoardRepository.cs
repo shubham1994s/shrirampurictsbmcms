@@ -3391,8 +3391,11 @@ namespace SwachBharat.CMS.Bll.Repository.GridRepository
 
                 foreach (var x in data)
                 {
-                    int a = Convert.ToInt32(x.vtId.Trim());
-
+                    int a = 0;
+                    if(x.vtId!=null)
+                    {
+                     a = Convert.ToInt32(x.vtId.Trim());
+                    }
                     string vt = "";
                     if(a == 0)
                     {

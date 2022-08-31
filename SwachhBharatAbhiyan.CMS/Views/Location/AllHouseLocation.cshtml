@@ -557,7 +557,8 @@
                                     infowindow.open(map, marker);
                                 }
                             })(marker, i));
-                        } else if (data[i].lwid != 0) {
+                        }
+                        else if (data[i].lwid != 0) {
 
                             google.maps.event.addListener(marker, 'click', (function (marker, i) {
                                 return function () {
@@ -573,7 +574,8 @@
                                     infowindow.open(map, marker);
                                 }
                             })(marker, i));
-                        } else if (data[i].ssid != 0) {
+                        }
+                        else if (data[i].ssid != 0) {
 
                             google.maps.event.addListener(marker, 'click', (function (marker, i) {
                                 return function () {
@@ -589,7 +591,8 @@
                                     infowindow.open(map, marker);
                                 }
                             })(marker, i));
-                        } else if (data[i].dyid != 0) {
+                        }
+                        else if (data[i].dyid != 0) {
 
                             google.maps.event.addListener(marker, 'click', (function (marker, i) {
                                 return function () {
@@ -607,7 +610,7 @@
                             })(marker, i));
                         }
                         else {
-                            google.maps.event.addListener(marker, 'click', (function (marker, i) {
+                             google.maps.event.addListener(marker, 'click', (function (marker, i) {
                                 return function () {
                                     var poptext = '<div class=infowindow style="max-width:190px"> <h4 style="text-transform: capitalize;">' + data[i].houseOwnerName + '</h4><p><b>House Id: </b>' + data[i].ReferanceId + '</p>'
                                     if (data[i].houseOwnerMobile != '') {
