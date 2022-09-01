@@ -94,7 +94,7 @@
                             @*उपस्थिती*@  Workers Attendance BeatMap
                         </a>
                     </li>
-                    <li>
+                    <li id="DYP" style="display:none;">
                         <a href="#exampledropdownDropdownDumpPlant" aria-expanded="false" data-toggle="collapse">
 
                             <i class="svg_gc" style=" fill: #000;"> </i>
@@ -213,12 +213,12 @@
                             @*<li><a href="/GarbagePoint/MenuIndex">Garbage Point Registration </a></li>*@
                             <li><a href="/DumpYard/MenuIndex">Dump Yard Registration </a></li>
                             <li><a href="/Employee/MenuIndex">Employee Registration  </a></li>
-                            <li><a href="/DumpyardEmployee/MenuIndex">Dumpyard Employee Registration  </a></li>
+                            <li  id="DYER" style="display:none;"><a href="/DumpyardEmployee/MenuIndex">Dumpyard Employee Registration  </a></li>
                             <li><a href="/MainMaster/MenuVehicalRegistrationIndex">Vehical Registration  </a></li>
                             <li id="EBMR" style="display:none;"><a href="/EmpBeatMap/MenuIndex">Employee Beat Map Registration  </a></li>
                             <li class="ctpt_reg" style="display:none;"><a href="/Sauchalay/SauchalayRegistrationMenuIndex">CT / PT Registration  </a></li>
-                            <li id="empShift" style="display:block;"><a href="/EmpShift/MenuIndex">Employee Shift Registration  </a></li>
-                            <li><a href="/MasterQR/MenuIndex">Master QR Registration </a></li>
+                            <li id="empShift" style="display:none;"><a href="/EmpShift/MenuIndex">Employee Shift Registration  </a></li>
+                            <li  id="MQR" style="display:none;" ><a href="/MasterQR/MenuIndex">Master QR Registration </a></li>
                         </ul>
                     <li>
 
@@ -679,6 +679,11 @@
                 $("#EBMR").css("display", "block");
                 $(".ctpt_reg").css("display", "block");
                 $("#Beatid").css("display", "block");
+
+                $("#DYP").css("display", "block");
+                $("#DYER").css("display", "block");
+                $("#empShift").css("display", "block");
+                $("#MQR").css("display", "block");
                 
 
             }
