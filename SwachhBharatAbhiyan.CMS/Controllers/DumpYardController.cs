@@ -76,39 +76,60 @@ namespace SwachhBharatAbhiyan.CMS.Controllers
         {
             if (SessionHandler.Current.AppId != 0)
             {
+                int teamId = dumpYard.dyId;
                 var AppDetails = mainRepository.GetApplicationDetails(SessionHandler.Current.AppId);
-                var guid = Guid.NewGuid().ToString().Split('-');
-                string image_Guid = DateTime.Now.ToString("MMddyyyymmss") + "_" + guid[1] + ".jpg";
+                var dyId = childRepository.GetDumpYardById(teamId);
 
-                //Converting  Url to image 
-                // var url = string.Format("http://api.qrserver.com/v1/create-qr-code/?data="+ point.ReferanceId);
-
-                var url = string.Format("https://chart.googleapis.com/chart?cht=qr&chl=" + dumpYard.ReferanceId + "&chs=160x160&chld=L|0");
-
-                WebResponse response = default(WebResponse);
-                Stream remoteStream = default(Stream);
-                StreamReader readStream = default(StreamReader);
-                WebRequest request = WebRequest.Create(url);
-                response = request.GetResponse();
-                remoteStream = response.GetResponseStream();
-                readStream = new StreamReader(remoteStream);
-                //Creating Path to save image in folder
-                System.Drawing.Image img = System.Drawing.Image.FromStream(remoteStream);
-                string imgpath = Path.Combine(Server.MapPath(AppDetails.basePath + AppDetails.DumpYardQRCode), image_Guid);
-                var exists = System.IO.Directory.Exists(Server.MapPath(AppDetails.basePath + AppDetails.DumpYardQRCode));
-                if (!exists)
+                if (dyId.dyQRCode == "/Images/QRcode.png" || dyId.dyQRCode == "/Images/default_not_upload.png")
                 {
-                    System.IO.Directory.CreateDirectory(Server.MapPath(AppDetails.basePath + AppDetails.DumpYardQRCode));
+                    dyId.dyQRCode = null;
                 }
-                img.Save(imgpath);
-                response.Close();
-                remoteStream.Close();
-                readStream.Close();
-                dumpYard.dyQRCode = image_Guid;
 
+                if (dyId.dyQRCode == null)
+                {
+                    var guid = Guid.NewGuid().ToString().Split('-');
+                    string image_Guid = DateTime.Now.ToString("MMddyyyymmss") + "_" + guid[1] + ".jpg";
+
+                    //Converting  Url to image 
+                    // var url = string.Format("http://api.qrserver.com/v1/create-qr-code/?data="+ point.ReferanceId);
+
+                    var url = string.Format("https://chart.googleapis.com/chart?cht=qr&chl=" + dumpYard.ReferanceId + "&chs=160x160&chld=L|0");
+
+                    WebResponse response = default(WebResponse);
+                    Stream remoteStream = default(Stream);
+                    StreamReader readStream = default(StreamReader);
+                    WebRequest request = WebRequest.Create(url);
+                    response = request.GetResponse();
+                    remoteStream = response.GetResponseStream();
+                    readStream = new StreamReader(remoteStream);
+                    //Creating Path to save image in folder
+                    System.Drawing.Image img = System.Drawing.Image.FromStream(remoteStream);
+                    string imgpath = Path.Combine(Server.MapPath(AppDetails.basePath + AppDetails.DumpYardQRCode), image_Guid);
+                    var exists = System.IO.Directory.Exists(Server.MapPath(AppDetails.basePath + AppDetails.DumpYardQRCode));
+                    if (!exists)
+                    {
+                        System.IO.Directory.CreateDirectory(Server.MapPath(AppDetails.basePath + AppDetails.DumpYardQRCode));
+                    }
+                    img.Save(imgpath);
+                    response.Close();
+                    remoteStream.Close();
+                    readStream.Close();
+                    dumpYard.dyQRCode = image_Guid;
+                }
+                else
+                {
+                    string bb = dyId.dyQRCode;
+                    var ii = bb.Split('/');
+                    if (ii.Length == 6)
+                    {
+                        dumpYard.dyQRCode = ii[6];
+                    }
+                    if (ii.Length > 6)
+                    {
+                        dumpYard.dyQRCode = ii[6];
+                    }
+                }
                 DumpYardDetailsVM pointDetails = childRepository.SaveDumpYard(dumpYard,null);
-
-
                 return Redirect("Index");
             }
             else

@@ -32,9 +32,6 @@
         <EntityTypeShape EntityType="DevSwachhBharatNagpurModel.HouseMaster" Width="1.5" PointX="9.375" PointY="15.75" />
         <EntityTypeShape EntityType="DevSwachhBharatNagpurModel.StreetSweepingBeat" Width="1.5" PointX="3.375" PointY="14.75" />
         <EntityTypeShape EntityType="DevSwachhBharatNagpurModel.VW_HSGetHouseDetails" Width="1.5" PointX="11.375" PointY="18.75" />
-        <EntityTypeShape EntityType="DevSwachhBharatNagpurModel.DumpYardDetail" Width="1.5" PointX="11.375" PointY="4.75" />
-        <EntityTypeShape EntityType="DevSwachhBharatNagpurModel.LiquidWasteDetail" Width="1.5" PointX="3.375" PointY="18.75" />
-        <EntityTypeShape EntityType="DevSwachhBharatNagpurModel.StreetSweepingDetail" Width="1.5" PointX="5.375" PointY="18.75" />
         <EntityTypeShape EntityType="DevSwachhBharatNagpurModel.VW_HSGetDumpyardDetails" Width="1.5" PointX="13.375" PointY="18.75" />
         <EntityTypeShape EntityType="DevSwachhBharatNagpurModel.VW_HSGetLiquidDetails" Width="1.5" PointX="15.375" PointY="18.75" />
         <EntityTypeShape EntityType="DevSwachhBharatNagpurModel.VW_HSGetStreetDetails" Width="1.5" PointX="17.375" PointY="18.75" />
@@ -48,6 +45,9 @@
         <EntityTypeShape EntityType="DevSwachhBharatNagpurModel.MasterQR" Width="1.5" PointX="17.375" PointY="3.75" />
         <EntityTypeShape EntityType="DevSwachhBharatNagpurModel.HouseList" Width="1.5" PointX="22.375" PointY="0.75" />
         <EntityTypeShape EntityType="DevSwachhBharatNagpurModel.Daily_Attendance" Width="1.5" PointX="0.75" PointY="8.75" />
+        <EntityTypeShape EntityType="DevSwachhBharatNagpurModel.DumpYardDetail" Width="1.5" PointX="9.375" PointY="5.75" />
+        <EntityTypeShape EntityType="DevSwachhBharatNagpurModel.LiquidWasteDetail" Width="1.5" PointX="11.375" PointY="4.75" />
+        <EntityTypeShape EntityType="DevSwachhBharatNagpurModel.StreetSweepingDetail" Width="1.5" PointX="3.375" PointY="18.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

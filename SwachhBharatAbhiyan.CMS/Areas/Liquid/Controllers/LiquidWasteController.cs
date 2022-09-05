@@ -102,39 +102,60 @@ namespace SwachhBharatAbhiyan.CMS.Areas.Liquid.Controllers
         {
             if (SessionHandler.Current.AppId != 0)
             {
+                int teamId = LiquidWaste.LWId;
                 var AppDetails = mainRepository.GetApplicationDetails(SessionHandler.Current.AppId);
-                var guid = Guid.NewGuid().ToString().Split('-');
-                string image_Guid = DateTime.Now.ToString("MMddyyyymmss") + "_" + guid[1] + ".jpg";
+                var LWId = childRepository.GetLiquidWasteId(teamId);
 
-                //Converting  Url to image 
-                // var url = string.Format("http://api.qrserver.com/v1/create-qr-code/?data="+ point.ReferanceId);
-
-                var url = string.Format("https://chart.googleapis.com/chart?cht=qr&chl=" + LiquidWaste.ReferanceId + "&chs=160x160&chld=L|0");
-
-                WebResponse response = default(WebResponse);
-                Stream remoteStream = default(Stream);
-                StreamReader readStream = default(StreamReader);
-                WebRequest request = WebRequest.Create(url);
-                response = request.GetResponse();
-                remoteStream = response.GetResponseStream();
-                readStream = new StreamReader(remoteStream);
-                //Creating Path to save image in folder
-                System.Drawing.Image img = System.Drawing.Image.FromStream(remoteStream);
-                string imgpath = Path.Combine(Server.MapPath(AppDetails.basePath + AppDetails.LiquidQRCode), image_Guid);
-                var exists = System.IO.Directory.Exists(Server.MapPath(AppDetails.basePath + AppDetails.LiquidQRCode));
-                if (!exists)
+                if (LWId.LWQRCode == "/Images/QRcode.png" || LWId.LWQRCode == "/Images/default_not_upload.png")
                 {
-                    System.IO.Directory.CreateDirectory(Server.MapPath(AppDetails.basePath + AppDetails.LiquidQRCode));
+                    LWId.LWQRCode = null;
                 }
-                img.Save(imgpath);
-                response.Close();
-                remoteStream.Close();
-                readStream.Close();
-                LiquidWaste.LWQRCode = image_Guid;
 
+                if (LWId.LWQRCode == null)
+                {
+                    var guid = Guid.NewGuid().ToString().Split('-');
+                    string image_Guid = DateTime.Now.ToString("MMddyyyymmss") + "_" + guid[1] + ".jpg";
+
+                    //Converting  Url to image 
+                    // var url = string.Format("http://api.qrserver.com/v1/create-qr-code/?data="+ point.ReferanceId);
+
+                    var url = string.Format("https://chart.googleapis.com/chart?cht=qr&chl=" + LiquidWaste.ReferanceId + "&chs=160x160&chld=L|0");
+
+                    WebResponse response = default(WebResponse);
+                    Stream remoteStream = default(Stream);
+                    StreamReader readStream = default(StreamReader);
+                    WebRequest request = WebRequest.Create(url);
+                    response = request.GetResponse();
+                    remoteStream = response.GetResponseStream();
+                    readStream = new StreamReader(remoteStream);
+                    //Creating Path to save image in folder
+                    System.Drawing.Image img = System.Drawing.Image.FromStream(remoteStream);
+                    string imgpath = Path.Combine(Server.MapPath(AppDetails.basePath + AppDetails.LiquidQRCode), image_Guid);
+                    var exists = System.IO.Directory.Exists(Server.MapPath(AppDetails.basePath + AppDetails.LiquidQRCode));
+                    if (!exists)
+                    {
+                        System.IO.Directory.CreateDirectory(Server.MapPath(AppDetails.basePath + AppDetails.LiquidQRCode));
+                    }
+                    img.Save(imgpath);
+                    response.Close();
+                    remoteStream.Close();
+                    readStream.Close();
+                    LiquidWaste.LWQRCode = image_Guid;
+                }
+                else
+                {
+                    string bb = LWId.LWQRCode;
+                    var ii = bb.Split('/');
+                    if (ii.Length == 6)
+                    {
+                        LiquidWaste.LWQRCode = ii[6];
+                    }
+                    if (ii.Length > 6)
+                    {
+                        LiquidWaste.LWQRCode = ii[6];
+                    }
+                }
                 LiquidWasteVM pointDetails = childRepository.SaveLiquidWastes(LiquidWaste);
-
-
                 return Redirect("Index");
             }
             else
@@ -239,7 +260,7 @@ namespace SwachhBharatAbhiyan.CMS.Areas.Liquid.Controllers
                     name = "_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ ";
                 }
 
-               
+
 
                 var guid = Guid.NewGuid().ToString().Split('-');
                 string image_Guid = DateTime.Now.ToString("MMddyyyymmss") + "_" + guid[1] + ".jpg";

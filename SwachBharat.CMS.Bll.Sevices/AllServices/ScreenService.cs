@@ -6346,7 +6346,8 @@ namespace SwachBharat.CMS.Bll.Services
                             model.dyNameMar = data.dyNameMar;
                             model.dyQRCode = data.dyQRCode;
                             model.ReferanceId = data.ReferanceId;
-                            model.lastModifiedDate = DateTime.Now;
+                            //model.lastModifiedDate = DateTime.Now;
+                            model.DataEntryDate = DateTime.Now;
                             //model.EmployeeType = data.EmployeType;
                             db.SaveChanges();
                         }
@@ -6389,7 +6390,8 @@ namespace SwachBharat.CMS.Bll.Services
                             model.SSNameMar = data.SSNameMar;
                             model.SSQRCode = data.SSQRCode;
                             model.ReferanceId = data.ReferanceId;
-                            model.lastModifiedDate = DateTime.Now;
+                            // model.lastModifiedDate = DateTime.Now;
+                            model.DataEntryDate = DateTime.Now;
                             db.SaveChanges();
                         }
                     }
@@ -6431,7 +6433,8 @@ namespace SwachBharat.CMS.Bll.Services
                             model.LWNameMar = data.LWNameMar;
                             model.LWQRCode = data.LWQRCode;
                             model.ReferanceId = data.ReferanceId;
-                            model.lastModifiedDate = DateTime.Now;
+                            // model.lastModifiedDate = DateTime.Now;
+                            model.DataEntryDate = DateTime.Now;
                             db.SaveChanges();
                         }
                     }
