@@ -148,12 +148,12 @@ namespace SwachhBharatAbhiyan.CMS.Controllers
                 }
                 else
                 {
-                    
+
                     string bb = houseId.houseQRCode;
                     var ii = bb.Split('/');
-                    if(ii.Length==6)
-                    { 
-                    house.houseQRCode = ii[6];
+                    if (ii.Length == 6)
+                    {
+                        house.houseQRCode = ii[6];
                     }
                     if (ii.Length > 6)
                     {
@@ -244,8 +244,8 @@ namespace SwachhBharatAbhiyan.CMS.Controllers
                 string GridHtml = "";
                 //string src = AppDetails.baseImageUrlCMS + "/Content/images/img/app_icon_cms.png";
                 //string GridHtml = "<div style='width:100%;height: 100%;text-align: center;background: #fff;border : 2px solid black;'><div style='text-align:center;margin-top: 8px;font-size:22px;background: #abd037;'> O </div> <div style='background: #abd037;;font-weight: bold;font-size: 18px;'> " + AppDetails.AppName + "</div><div style='font-size: 15px;background: #abd037;'> House Id: " + details.ReferanceId + " </div><div style='height:10px;background: #abd037;'></div> <div style='height:10px;background: #fff;'></div><div style='background: #fff;'> <img style='width:250px;height:250px;' src='" + details.houseQRCode + "'/> </div></div>";
-               
-                
+
+
                 if (SessionHandler.Current.AppId == 3068) // For Nagpur ULB
                 {
                     string src = AppDetails.baseImageUrlCMS + "/Content/images/icons/Nagpur_logo.png";
@@ -317,7 +317,7 @@ namespace SwachhBharatAbhiyan.CMS.Controllers
                         XMLWorkerHelper.GetInstance().ParseXHtml(writer, pdfDoc, sr);
                         pdfDoc.Close();
                     }
-                  
+
                     return File(stream.ToArray(), "application/pdf", Filename);
                 }
             }
@@ -473,7 +473,7 @@ namespace SwachhBharatAbhiyan.CMS.Controllers
                     owner = "_ _ _ _ _ _ _ _ _ _ _ _";
                 }
 
-                
+
                 string GridHtml = "<div style='width:100%;height: 100%;text-align: center;background: #fff;border : 2px solid black;'><div style='text-align:center;margin-top: 8px;font-size:22px;background: #abd037;'> O </div> <div style='background: #abd037;;font-weight: bold;font-size: 18px;'> " + AppDetails.AppName + "</div><div style='font-size: 15px;background: #abd037;'> House Id: " + ReferanceId + " </div><div style='height:10px;background: #abd037;'></div> <div style='height:10px;background: #fff;'></div><div style='background: #fff;'> <img style='width:250px;height:250px;' src='" + string.Format("https://api.qrserver.com/v1/create-qr-code/?data=" + ReferanceId) + "'/>  </div></div>";
                 using (MemoryStream stream = new System.IO.MemoryStream())
                 {
@@ -551,7 +551,7 @@ namespace SwachhBharatAbhiyan.CMS.Controllers
                 remoteStream = response.GetResponseStream();
                 readStream = new StreamReader(remoteStream);
 
-                
+
                 //Creating Path to save image in folder
                 System.Drawing.Image img = System.Drawing.Image.FromStream(remoteStream);
                 string imgpath = Path.Combine(Server.MapPath(AppDetails.basePath + AppDetails.HouseQRCode), image_Guid);
@@ -1271,7 +1271,7 @@ namespace SwachhBharatAbhiyan.CMS.Controllers
                     string image_Guid = DateTime.Now.ToString("MMddyyyymmss") + "_" + guid[1] + ".jpg";
 
                     //Converting  Url to image 
-                    var url = string.Format("http://api.qrserver.com/v1/create-qr-code/?data=" + house.ReferanceId );
+                    var url = string.Format("http://api.qrserver.com/v1/create-qr-code/?data=" + house.ReferanceId);
                     // var url = string.Format("https://chart.googleapis.com/chart?cht=qr&chl=" + house.ReferanceId + "&chs=250x250&chld=L|0");
                     WebResponse response = default(WebResponse);
                     Stream remoteStream = default(Stream);
@@ -1447,10 +1447,10 @@ namespace SwachhBharatAbhiyan.CMS.Controllers
                     string slogan = AppDetails.baseImageUrlCMS + "/Content/images/icons/slogan_sarni.png";
 
                     // For DryWet without Yocc Image visiting card size
-                   //  string GridHtml = "<div style='width:100%;height: 100%;text-align: center;background:#004B27;border : 2px solid black;'><div style='text-align:center;padding-top: 8px;font-size:22px;background:#004B27;'> <img style='width:180px;height:101px;' src='" + byhandy_top_image + "'/> </div> <div style='font-size: 12px;background:#004B27;color:#ffffff'><b> House Id:" + house.ReferanceId + "</b> </div> <div style='height:5px;background: #004B27;'></div><div style='background:#004B27;'> <img style='width:180px;height:180px;border:5px solid #ffffff' src='" + imgpath + "'/> <p style='text-align:right;font-size: 10px;margin-right:8px;margin-top:10px'><img style='width:120px;height:12px;' src='" + slogan + "'/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b style='color:#ffffff;vertical-align: middle;'>" + house.SerielNo + "</b></p> </div></div>";
+                    //  string GridHtml = "<div style='width:100%;height: 100%;text-align: center;background:#004B27;border : 2px solid black;'><div style='text-align:center;padding-top: 8px;font-size:22px;background:#004B27;'> <img style='width:180px;height:101px;' src='" + byhandy_top_image + "'/> </div> <div style='font-size: 12px;background:#004B27;color:#ffffff'><b> House Id:" + house.ReferanceId + "</b> </div> <div style='height:5px;background: #004B27;'></div><div style='background:#004B27;'> <img style='width:180px;height:180px;border:5px solid #ffffff' src='" + imgpath + "'/> <p style='text-align:right;font-size: 10px;margin-right:8px;margin-top:10px'><img style='width:120px;height:12px;' src='" + slogan + "'/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b style='color:#ffffff;vertical-align: middle;'>" + house.SerielNo + "</b></p> </div></div>";
 
                     // For DryWet with Yocc Image visiting card size
-                   string GridHtml = "<div style='width:100%;height: 100%;text-align: center;background: #004B27;border : 1px solid black;'><div style='text-align:center;padding-top: 8px;font-size:22px;background:#004B27;'> <img style='width:170px;height:95px;' src='" + byhandy_top_image + "'/> </div> <div style='font-size: 12px;background: #004B27;color:#ffffff'><b> House Id:" + house.ReferanceId + "</b> </div> <div style='height:5px;background:#004B27;'></div><div style='background:#004B27;'> <img style='width:170px;height:170px;border:5px solid #ffffff' src='" + imgpath + "'/> <p style='text-align:left;font-size: 10px;margin-left:12px;margin-top:5px'><img style='width:138px;height:35px;' src='" + kannad_byhandy + "'/>&nbsp;&nbsp;&nbsp;&nbsp;<b style='color:#ffffff;vertical-align:top;margin-left:25px'>" + house.SerielNo + "</b></p> </div></div>";
+                    string GridHtml = "<div style='width:100%;height: 100%;text-align: center;background: #004B27;border : 1px solid black;'><div style='text-align:center;padding-top: 8px;font-size:22px;background:#004B27;'> <img style='width:170px;height:95px;' src='" + byhandy_top_image + "'/> </div> <div style='font-size: 12px;background: #004B27;color:#ffffff'><b> House Id:" + house.ReferanceId + "</b> </div> <div style='height:5px;background:#004B27;'></div><div style='background:#004B27;'> <img style='width:170px;height:170px;border:5px solid #ffffff' src='" + imgpath + "'/> <p style='text-align:left;font-size: 10px;margin-left:12px;margin-top:5px'><img style='width:138px;height:35px;' src='" + kannad_byhandy + "'/>&nbsp;&nbsp;&nbsp;&nbsp;<b style='color:#ffffff;vertical-align:top;margin-left:25px'>" + house.SerielNo + "</b></p> </div></div>";
 
 
                     using (MemoryStream stream = new System.IO.MemoryStream())
@@ -1615,7 +1615,7 @@ namespace SwachhBharatAbhiyan.CMS.Controllers
 
 
                         content.SetColorStroke(BaseColor.BLUE);
-                       // content.SetCMYKColorStrokeF(BaseColor.BLUE);
+                        // content.SetCMYKColorStrokeF(BaseColor.BLUE);
                         content.SetLineWidth(2);
                         content.Rectangle(pageBorderRect.Left, pageBorderRect.Bottom, pageBorderRect.Width, pageBorderRect.Height);
                         content.Stroke();
@@ -1779,90 +1779,90 @@ namespace SwachhBharatAbhiyan.CMS.Controllers
 
 }
 
-     
 
-        //    [HttpPost]
 
-        ////For bigger size
-        //public ActionResult SaveBundel(ZoneVM zone)
-        //{
+//    [HttpPost]
 
-        //    if (SessionHandler.Current.AppId != 0)
-        //    {
-        //        HouseDetailsVM house = childRepository.GetHouseById(-1);
-        //        List<string> list = new List<string>();
-        //        int n = house.houseId;
-        //        for (int i = 1; i <= zone.id; i++)
-        //        {
-        //            int number = 1000;
-        //            string refer = "HPSBA" + (number + n + i);
-        //            house.ReferanceId = refer;
+////For bigger size
+//public ActionResult SaveBundel(ZoneVM zone)
+//{
 
-        //            house.houseId = 0;
-        //            var AppDetails = mainRepository.GetApplicationDetails(SessionHandler.Current.AppId);
-        //            var guid = Guid.NewGuid().ToString().Split('-');
-        //            string image_Guid = DateTime.Now.ToString("MMddyyyymmss") + "_" + guid[1] + ".jpg";
+//    if (SessionHandler.Current.AppId != 0)
+//    {
+//        HouseDetailsVM house = childRepository.GetHouseById(-1);
+//        List<string> list = new List<string>();
+//        int n = house.houseId;
+//        for (int i = 1; i <= zone.id; i++)
+//        {
+//            int number = 1000;
+//            string refer = "HPSBA" + (number + n + i);
+//            house.ReferanceId = refer;
 
-        //            //Converting  Url to image 
-        //            var url = string.Format("http://api.qrserver.com/v1/create-qr-code/?data=" + house.ReferanceId);
-        //            // var url = string.Format("https://chart.googleapis.com/chart?cht=qr&chl=" + house.ReferanceId + "&chs=250x250&chld=L|0");
-        //            WebResponse response = default(WebResponse);
-        //            Stream remoteStream = default(Stream);
-        //            StreamReader readStream = default(StreamReader);
-        //            WebRequest request = WebRequest.Create(url);
-        //            response = request.GetResponse();
-        //            remoteStream = response.GetResponseStream();
-        //            readStream = new StreamReader(remoteStream);
+//            house.houseId = 0;
+//            var AppDetails = mainRepository.GetApplicationDetails(SessionHandler.Current.AppId);
+//            var guid = Guid.NewGuid().ToString().Split('-');
+//            string image_Guid = DateTime.Now.ToString("MMddyyyymmss") + "_" + guid[1] + ".jpg";
 
-        //            readStream = new StreamReader(remoteStream);
-        //            //Creating Path to save image in folder
-        //            System.Drawing.Image img = System.Drawing.Image.FromStream(remoteStream);
-        //            string imgpath = Path.Combine(Server.MapPath(AppDetails.basePath + AppDetails.HouseQRCode), image_Guid);
-        //            var exists = System.IO.Directory.Exists(Server.MapPath(AppDetails.basePath + AppDetails.HouseQRCode));
-        //            if (!exists)
-        //            {
-        //                System.IO.Directory.CreateDirectory(Server.MapPath(AppDetails.basePath + AppDetails.HouseQRCode));
-        //            }
-        //            img.Save(imgpath);
-        //            response.Close();
-        //            remoteStream.Close();
-        //            readStream.Close();
-        //            house.houseQRCode = image_Guid;
-        //            house.ReferanceId = house.ReferanceId;
-        //            HouseDetailsVM houseDetails = childRepository.SaveHouse(house);
+//            //Converting  Url to image 
+//            var url = string.Format("http://api.qrserver.com/v1/create-qr-code/?data=" + house.ReferanceId);
+//            // var url = string.Format("https://chart.googleapis.com/chart?cht=qr&chl=" + house.ReferanceId + "&chs=250x250&chld=L|0");
+//            WebResponse response = default(WebResponse);
+//            Stream remoteStream = default(Stream);
+//            StreamReader readStream = default(StreamReader);
+//            WebRequest request = WebRequest.Create(url);
+//            response = request.GetResponse();
+//            remoteStream = response.GetResponseStream();
+//            readStream = new StreamReader(remoteStream);
 
-        //            // generate pdf
-        //            string Filename = "";
+//            readStream = new StreamReader(remoteStream);
+//            //Creating Path to save image in folder
+//            System.Drawing.Image img = System.Drawing.Image.FromStream(remoteStream);
+//            string imgpath = Path.Combine(Server.MapPath(AppDetails.basePath + AppDetails.HouseQRCode), image_Guid);
+//            var exists = System.IO.Directory.Exists(Server.MapPath(AppDetails.basePath + AppDetails.HouseQRCode));
+//            if (!exists)
+//            {
+//                System.IO.Directory.CreateDirectory(Server.MapPath(AppDetails.basePath + AppDetails.HouseQRCode));
+//            }
+//            img.Save(imgpath);
+//            response.Close();
+//            remoteStream.Close();
+//            readStream.Close();
+//            house.houseQRCode = image_Guid;
+//            house.ReferanceId = house.ReferanceId;
+//            HouseDetailsVM houseDetails = childRepository.SaveHouse(house);
 
-        //            string cdatetime = DateTime.Now.ToString("_ddmmyyyyhhmmss");
+//            // generate pdf
+//            string Filename = "";
 
-        //            Filename = house.ReferanceId + "(" + cdatetime + ").pdf";
-        //            string src = AppDetails.baseImageUrlCMS + "/Content/images/img/app_icon_cms.png";
-        //            string GridHtml = "<style>table{border-collapse: collapse;}table, td, th { padding:8px;border: 1px solid black;}<style><div><center><p style='margin-top:0px'><img style='width:200px;height200px' src='" + src + "'/></p><p style='font-size:25px;font-weight:bold;margin:0px'>Ghanta Gadi</p><p style='font-size:25px;font-weight:bold;margin:0px'>" + AppDetails.AppName + "</p><br/><hr/><br/></center></div><div><center><p style='font-size:32px;margin-bottom:15px'>< b id = 'hide_Name' > _ _ _ _ _ _ _ _ _ _ _</b ></p ></center><table align='center' class='table'> <tr> <td style='font-weight: bold;'>House Number  </td> <td style=''></td> </tr> <tr> <td style='font-weight: bold;'>Ward Number  </td> <td style=''></td> </tr> <tr> <td style='font-weight: bold;'>Area  </td> <td style=''> </td> </tr> <tr> <td style='font-weight: bold;'> House Id  </td> <td style=''>" + house.ReferanceId + "</td> </tr> </table><center><br/><p style='font-weight: bold;'> Scan Scaniffy Code <br /><br/>< img class='img-responsive' id='imggg' alt='hoto Not Found'  src='" + url + "'/></p><br /></center><div class='modal-footer'></div></div>";
+//            string cdatetime = DateTime.Now.ToString("_ddmmyyyyhhmmss");
 
-        //            using (MemoryStream stream = new System.IO.MemoryStream())
-        //            {
-        //                //string path = Path.GetDirectoryName(Application.ExecutablePath);
+//            Filename = house.ReferanceId + "(" + cdatetime + ").pdf";
+//            string src = AppDetails.baseImageUrlCMS + "/Content/images/img/app_icon_cms.png";
+//            string GridHtml = "<style>table{border-collapse: collapse;}table, td, th { padding:8px;border: 1px solid black;}<style><div><center><p style='margin-top:0px'><img style='width:200px;height200px' src='" + src + "'/></p><p style='font-size:25px;font-weight:bold;margin:0px'>Ghanta Gadi</p><p style='font-size:25px;font-weight:bold;margin:0px'>" + AppDetails.AppName + "</p><br/><hr/><br/></center></div><div><center><p style='font-size:32px;margin-bottom:15px'>< b id = 'hide_Name' > _ _ _ _ _ _ _ _ _ _ _</b ></p ></center><table align='center' class='table'> <tr> <td style='font-weight: bold;'>House Number  </td> <td style=''></td> </tr> <tr> <td style='font-weight: bold;'>Ward Number  </td> <td style=''></td> </tr> <tr> <td style='font-weight: bold;'>Area  </td> <td style=''> </td> </tr> <tr> <td style='font-weight: bold;'> House Id  </td> <td style=''>" + house.ReferanceId + "</td> </tr> </table><center><br/><p style='font-weight: bold;'> Scan Scaniffy Code <br /><br/>< img class='img-responsive' id='imggg' alt='hoto Not Found'  src='" + url + "'/></p><br /></center><div class='modal-footer'></div></div>";
 
-        //                StringReader sr = new StringReader(GridHtml);
-        //                Document pdfDoc = new Document(PageSize.A4, 10f, 10f, 10f, 0f);
-        //                var path = Path.Combine(Server.MapPath("~/" + AppDetails.basePath + AppDetails.HouseQRCode + "/bundel"), Filename);
-        //                PdfWriter writer = PdfWriter.GetInstance(pdfDoc, new FileStream(path, FileMode.Create));
-        //                pdfDoc.Open();
-        //                XMLWorkerHelper.GetInstance().ParseXHtml(writer, pdfDoc, sr);
-        //                pdfDoc.Close();
+//            using (MemoryStream stream = new System.IO.MemoryStream())
+//            {
+//                //string path = Path.GetDirectoryName(Application.ExecutablePath);
 
-        //            }
-        //        }
-        //        // test(house);
-        //        ZoneVM v = new ZoneVM();
-        //        return View();
-        //    }
-        //    else
-        //        return Redirect("/Account/Login");
+//                StringReader sr = new StringReader(GridHtml);
+//                Document pdfDoc = new Document(PageSize.A4, 10f, 10f, 10f, 0f);
+//                var path = Path.Combine(Server.MapPath("~/" + AppDetails.basePath + AppDetails.HouseQRCode + "/bundel"), Filename);
+//                PdfWriter writer = PdfWriter.GetInstance(pdfDoc, new FileStream(path, FileMode.Create));
+//                pdfDoc.Open();
+//                XMLWorkerHelper.GetInstance().ParseXHtml(writer, pdfDoc, sr);
+//                pdfDoc.Close();
 
-        //}
-        //  end of bigger size
+//            }
+//        }
+//        // test(house);
+//        ZoneVM v = new ZoneVM();
+//        return View();
+//    }
+//    else
+//        return Redirect("/Account/Login");
+
+//}
+//  end of bigger size
 
 
 

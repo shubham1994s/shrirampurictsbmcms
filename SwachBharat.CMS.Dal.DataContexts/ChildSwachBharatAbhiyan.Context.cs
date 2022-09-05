@@ -18,10 +18,9 @@ namespace SwachBharat.CMS.Dal.DataContexts
     public partial class DevChildSwachhBharatNagpurEntities : DbContext
     {
         public DevChildSwachhBharatNagpurEntities(int AppId)
-       : base(SwachBharatAppConnection.GetConnectionString(AppId))
+                : base(SwachBharatAppConnection.GetConnectionString(AppId))
         {
         }
-
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
@@ -52,9 +51,6 @@ namespace SwachBharat.CMS.Dal.DataContexts
         public virtual DbSet<StreetSweepingBeat> StreetSweepingBeats { get; set; }
         public virtual DbSet<HouseMaster> HouseMasters { get; set; }
         public virtual DbSet<VW_HSGetHouseDetails> VW_HSGetHouseDetails { get; set; }
-        public virtual DbSet<DumpYardDetail> DumpYardDetails { get; set; }
-        public virtual DbSet<LiquidWasteDetail> LiquidWasteDetails { get; set; }
-        public virtual DbSet<StreetSweepingDetail> StreetSweepingDetails { get; set; }
         public virtual DbSet<VW_HSGetDumpyardDetails> VW_HSGetDumpyardDetails { get; set; }
         public virtual DbSet<VW_HSGetLiquidDetails> VW_HSGetLiquidDetails { get; set; }
         public virtual DbSet<VW_HSGetStreetDetails> VW_HSGetStreetDetails { get; set; }
@@ -68,6 +64,9 @@ namespace SwachBharat.CMS.Dal.DataContexts
         public virtual DbSet<MasterQR> MasterQRs { get; set; }
         public virtual DbSet<HouseList> HouseLists { get; set; }
         public virtual DbSet<Daily_Attendance> Daily_Attendance { get; set; }
+        public virtual DbSet<DumpYardDetail> DumpYardDetails { get; set; }
+        public virtual DbSet<LiquidWasteDetail> LiquidWasteDetails { get; set; }
+        public virtual DbSet<StreetSweepingDetail> StreetSweepingDetails { get; set; }
     
         public virtual ObjectResult<GetAttendenceDetailsTotal_Result> GetAttendenceDetailsTotal(Nullable<int> userId, Nullable<int> year, Nullable<int> month)
         {

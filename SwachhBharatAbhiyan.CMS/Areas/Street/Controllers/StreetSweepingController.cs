@@ -147,39 +147,58 @@ namespace SwachhBharatAbhiyan.CMS.Areas.Street.Controllers
         {
             if (SessionHandler.Current.AppId != 0)
             {
+                int teamId = StreetSweep.SSId;
                 var AppDetails = mainRepository.GetApplicationDetails(SessionHandler.Current.AppId);
-                var guid = Guid.NewGuid().ToString().Split('-');
-                string image_Guid = DateTime.Now.ToString("MMddyyyymmss") + "_" + guid[1] + ".jpg";
-
-                //Converting  Url to image 
-                // var url = string.Format("http://api.qrserver.com/v1/create-qr-code/?data="+ point.ReferanceId);
-
-                var url = string.Format("https://chart.googleapis.com/chart?cht=qr&chl=" + StreetSweep.ReferanceId + "&chs=160x160&chld=L|0");
-
-                WebResponse response = default(WebResponse);
-                Stream remoteStream = default(Stream);
-                StreamReader readStream = default(StreamReader);
-                WebRequest request = WebRequest.Create(url);
-                response = request.GetResponse();
-                remoteStream = response.GetResponseStream();
-                readStream = new StreamReader(remoteStream);
-                //Creating Path to save image in folder
-                System.Drawing.Image img = System.Drawing.Image.FromStream(remoteStream);
-                string imgpath = Path.Combine(Server.MapPath(AppDetails.basePath + AppDetails.StreetQRCode), image_Guid);
-                var exists = System.IO.Directory.Exists(Server.MapPath(AppDetails.basePath + AppDetails.StreetQRCode));
-                if (!exists)
+                var SSId = childRepository.GetStreetSweepId(teamId);
+                if (SSId.SSQRCode == "/Images/QRcode.png" || SSId.SSQRCode == "/Images/default_not_upload.png")
                 {
-                    System.IO.Directory.CreateDirectory(Server.MapPath(AppDetails.basePath + AppDetails.StreetQRCode));
+                    SSId.SSQRCode = null;
                 }
-                img.Save(imgpath);
-                response.Close();
-                remoteStream.Close();
-                readStream.Close();
-                StreetSweep.SSQRCode = image_Guid;
+                if (SSId.SSQRCode == null)
+                {
+                    var guid = Guid.NewGuid().ToString().Split('-');
+                    string image_Guid = DateTime.Now.ToString("MMddyyyymmss") + "_" + guid[1] + ".jpg";
 
+                    //Converting  Url to image 
+                    // var url = string.Format("http://api.qrserver.com/v1/create-qr-code/?data="+ point.ReferanceId);
+
+                    var url = string.Format("https://chart.googleapis.com/chart?cht=qr&chl=" + StreetSweep.ReferanceId + "&chs=160x160&chld=L|0");
+
+                    WebResponse response = default(WebResponse);
+                    Stream remoteStream = default(Stream);
+                    StreamReader readStream = default(StreamReader);
+                    WebRequest request = WebRequest.Create(url);
+                    response = request.GetResponse();
+                    remoteStream = response.GetResponseStream();
+                    readStream = new StreamReader(remoteStream);
+                    //Creating Path to save image in folder
+                    System.Drawing.Image img = System.Drawing.Image.FromStream(remoteStream);
+                    string imgpath = Path.Combine(Server.MapPath(AppDetails.basePath + AppDetails.StreetQRCode), image_Guid);
+                    var exists = System.IO.Directory.Exists(Server.MapPath(AppDetails.basePath + AppDetails.StreetQRCode));
+                    if (!exists)
+                    {
+                        System.IO.Directory.CreateDirectory(Server.MapPath(AppDetails.basePath + AppDetails.StreetQRCode));
+                    }
+                    img.Save(imgpath);
+                    response.Close();
+                    remoteStream.Close();
+                    readStream.Close();
+                    StreetSweep.SSQRCode = image_Guid;
+                }
+                else
+                {
+                    string bb = SSId.SSQRCode;
+                    var ii = bb.Split('/');
+                    if (ii.Length == 6)
+                    {
+                        StreetSweep.SSQRCode = ii[6];
+                    }
+                    if (ii.Length > 6)
+                    {
+                        StreetSweep.SSQRCode = ii[6];
+                    }
+                }
                 StreetSweepVM pointDetails = childRepository.SaveStreetSweep(StreetSweep);
-
-
                 return Redirect("Index");
             }
             else
