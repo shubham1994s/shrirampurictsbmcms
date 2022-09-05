@@ -63,7 +63,7 @@
                             @Html.DropDownListFor(model => model.bloodGroup, RlistItems, new { style = "font-family:Arial, FontAwesome", required = "required", @class = "form-control RequiredInput validate[required] RequiredInput" })
 
 
-                            <span class="text-danger" id="err_pw"></span>
+                            <span class="text-danger" id="err_pw1"></span>
                             <span class="help-block with-errors"></span>
                         </div>
 
@@ -250,6 +250,7 @@
 
 
         $("#btnSubmit").click(function () {
+            debugger;
             if ($.trim($("#qrEmpName").val()) == '') {
                 //$("#err_name").html("नाव आवश्यक आहे / Name is Required").delay(1500).show().fadeOut('slow');
                 $("#err_name").html("Name is Required").delay(1500).show().fadeOut('slow');
@@ -272,7 +273,7 @@
 
             if ($.trim($("#qrEmpLoginId").val()) == '') {
                 //$("#err_login").html("लॉगिन आईडी आवश्यक आहे / Login ID is Required").delay(1500).show().fadeOut('slow');
-                $("#err_login").html("ogin ID is Required").delay(1500).show().fadeOut('slow');
+                $("#err_login").html("Login ID is Required").delay(1500).show().fadeOut('slow');
                 $('#qrEmpLoginId').focus();
                 return false;
             }
