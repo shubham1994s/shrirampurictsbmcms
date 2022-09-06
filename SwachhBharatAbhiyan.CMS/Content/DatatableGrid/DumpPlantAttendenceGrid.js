@@ -43,9 +43,9 @@
                 "searchable": false
             },
             {
-            "targets": [3],
-            "visible": false,
-            "searchable": false
+                "targets": [3],
+                "visible": false,
+                "searchable": false
             },
             {
                 "targets": [5],
@@ -58,9 +58,9 @@
                 "searchable": false
             },
             {
-            "targets": [8],
-            "visible": false,
-            "searchable": false
+                "targets": [8],
+                "visible": false,
+                "searchable": false
             }, {
                 "targets": [9],
                 "visible": false,
@@ -71,9 +71,14 @@
                 "visible": false,
                 "searchable": false
             },
+            //{
+            //    "targets": [11],
+            //    "orderable": false
+            //},
             {
                 "targets": [11],
-                "orderable": false
+                "visible": false,
+                "searchable": false
             },
             {
                 "targets": [13],
@@ -102,7 +107,7 @@
         "columns": [
             { "data": "daID", "name": "daID", "autoWidth": true },
             { "data": "userName", "name": "userName", "autoWidth": true },
-           // { "data": "daDate", "name": "daDate", "autoWidth": true },
+            // { "data": "daDate", "name": "daDate", "autoWidth": true },
             {
                 "data": "daDate", "name": "daDate", "render": function (data, type, full, meta) {
                     var SDT = full.daDate + ' ' + full.startTime;
