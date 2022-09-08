@@ -100,6 +100,12 @@
                 <a href="Index" id="AH" class="btn btn-primary btn-sm " style="float: right;" type="button">Back</a>
             </div>
         </div>
+        <div class="row">
+            <div style="border: 1px solid #cccccc; width: 35%; margin-right: 5%; border-radius: 4px; padding: 3px;"> <span style="font-weight: bold; font-size: 14px;">Inner Count :</span><span style="font-weight: bold; font-size: 14px; margin-right: 4%" id="spnInner">0</span></div><br />
+            <div style="border: 1px solid #cccccc; width: 35%; border-radius: 4px; padding: 3px; ">
+                <span style="font-weight: bold; font-size: 14px;">Outer Count :</span><span style="font-weight: bold; font-size: 14px;" id="spnOuter">0</span>
+            </div>
+        </div>
         <div>
             <p class="text-center"><b><span class="text-danger" id="BeatMaap_pop"></span></b></p>
         </div>
@@ -179,6 +185,7 @@
         $('#selectEmpType').on('change', function () {
             $('#hduserType').val((this.value));
             LoadEmpList();
+            runMaps();
         });
 
         function LoadEmpList() {
@@ -219,10 +226,11 @@
         var map;
         var curIndexId = 0;
         var runMaps = function () {
+            arrCoordinate = @Html.Raw(Json.Encode(@Model.ebmLatLong));
             debugger;
             $.ajax({
                 type: "post",
-                url: "/Location/HouseLocationListForEmpBitMap?date=" + $('#txt_fdate').val() + "&userId=" + "0" + "&areaId=" + "0" + "&wardNo=" + "0" + "&searchstring=" + "" + "&garbageType=" + "-1" + "&FilterType=" + "0" + "&ctype=" + $("#c_type").val(),
+                url: "/Location/HouseLocationListForEmpBitMap?Emptype=" + $("#hduserType").val() + "&ebmId=" + $("#hdebmId").val(),
                 //url: "/Location/HouseLocationList",
                 datatype: "json",
                 traditional: true,
@@ -230,18 +238,28 @@
                     debugger;
                     data.length
 
-
+                    var innerCount = 0;
+                    var outerCount = 0;
                     var infowindow = new google.maps.InfoWindow();
                     bounds = new google.maps.LatLngBounds();
                     var marker, i;
 
                     var gar_type;
                     for (i = 0; i < data.length; i++) {
+                        if (arrCoordinate) {
+                            if (data[i].IsIn == true && arrCoordinate.length > 0) {
+                                innerCount++;
+
+                            } else if (data[i].IsIn == false && arrCoordinate.length > 0) {
+
+                                outerCount++;
+                            }
+                        }
                         //debugger;
                         gar_type = data[i].garbageType
 
                         var mUrl = "../Content/images/img/segregationImg/icn_house.png";
-                    
+
                         if (data[i].dyid != 0) {
                             var mUrl = "../Content/images/img/segregationImg/Dumpyard_marker.png";
 
@@ -293,7 +311,7 @@
                                 }
                             })(marker, i));
                         }
-                        
+
                         else if (data[i].dyid != 0) {
 
                             google.maps.event.addListener(marker, 'click', (function (marker, i) {
@@ -328,6 +346,9 @@
                             })(marker, i));
                         }
                     }
+
+                    $("#spnInner").text(innerCount);
+                    $("#spnOuter").text(outerCount);
                 }
             });
              map = new google.maps.Map(document.getElementById('googleMap'), {
