@@ -804,7 +804,7 @@ namespace SwachBharat.CMS.Bll.Services
             }
         }
 
-        public MasterQRDetailsVM GetMasterQRDetails(int teamId , string houseId)
+        public MasterQRDetailsVM GetMasterQRDetails(int teamId, string houseId)
         {
             try
             {
@@ -824,10 +824,10 @@ namespace SwachBharat.CMS.Bll.Services
 
                 }
                 if (Details != null)
-                    {
+                {
                     master = FillMasterQRDetailsViewModel(Details);
 
-                    if(houseId != "")
+                    if (houseId != "")
                     {
                         var areaid = db.HouseLists.Where(x => x.ReferanceId == houseId).FirstOrDefault();
                         master.CheckHlist = db.HouseLists.Where(x => x.IsActive == true & x.AreaId == areaid.AreaId).OrderBy(x => x.ReferanceId).ToList<HouseList>();
@@ -837,52 +837,52 @@ namespace SwachBharat.CMS.Bll.Services
                         var areaid = db.HouseLists.Where(x => x.ReferanceId == master.ReferanceId).FirstOrDefault();
                         master.CheckHlist = db.HouseLists.Where(x => x.IsActive == true & x.AreaId == areaid.AreaId).OrderBy(x => x.ReferanceId).ToList<HouseList>();
                     }
-                 
+
 
                     // master.CheckAppDs = (List<HouseMaster>)db.HouseMasters.Where(x => x.ReferanceId != null).Select(x => new { x.ReferanceId, x.houseId });
-                   
+
                     if (master.QRList != null)
-                        {
-                            string s = master.QRList;
-                            string[] values = s.Split(',');
-                          
+                    {
+                        string s = master.QRList;
+                        string[] values = s.Split(',');
+
                         for (int i = 0; i < values.Length; i++)
-                            {
+                        {
                             char[] MyChar = { 'H', 'P', 'S', 'B', 'A' };
                             values[i] = values[i].Trim(MyChar);
-                           
+
 
                             int u = 0;
-                                if (values[i] != "")
-                                {
-                                    u = Convert.ToInt32(values[i]);
-                                    int number = 1000;
-                                    u = u - number;
+                            if (values[i] != "")
+                            {
+                                u = Convert.ToInt32(values[i]);
+                                int number = 1000;
+                                u = u - number;
                             }
-                                string state1 = "";
-                                foreach (var v in master.CheckHlist)
+                            string state1 = "";
+                            foreach (var v in master.CheckHlist)
+                            {
+                                if (v.HouseId == u)
                                 {
-                                    if (v.HouseId == u)
-                                    {
 
-                                        v.IsCheked = true;
+                                    v.IsCheked = true;
 
-                                    }
                                 }
                             }
-
                         }
-                    master.HouseList = ListHouse(teamId , houseId);
+
+                    }
+                    master.HouseList = ListHouse(teamId, houseId);
                     return master;
                 }
                 else
                 {
-                 
+
                     var areaid = db.HouseLists.Where(x => x.ReferanceId == houseId).FirstOrDefault();
-                    if(areaid == null)
+                    if (areaid == null)
                     {
                         var AreaId = 0;
-                        master.CheckHlist = db.HouseLists.Where(x => x.IsActive == true &  x.AreaId > 0).OrderBy(x => x.HouseId).ToList<HouseList>();
+                        master.CheckHlist = db.HouseLists.Where(x => x.IsActive == true & x.AreaId > 0).OrderBy(x => x.HouseId).ToList<HouseList>();
                         // master.CheckAppDs = (List<HouseMaster>)db.HouseMasters.Where(x => x.ReferanceId != null).Select(x => new { x.ReferanceId, x.houseId });
                         master.HouseList = ListHouse(teamId, houseId);
                         return master;
@@ -895,9 +895,9 @@ namespace SwachBharat.CMS.Bll.Services
                         master.HouseList = ListHouse(teamId, houseId);
                         return master;
                     }
-                    
+
                 }
-                
+
             }
             catch (Exception ex)
             {
@@ -1493,12 +1493,14 @@ namespace SwachBharat.CMS.Bll.Services
                         {
                             empBeatMap.ebmId = -1;
                             empBeatMap.userId = -1;
+                            empBeatMap.Type = "W";
                         }
                     }
                     else
                     {
                         empBeatMap.ebmId = -1;
                         empBeatMap.userId = -1;
+                        empBeatMap.Type = "W";
 
                     }
 
@@ -2987,8 +2989,10 @@ namespace SwachBharat.CMS.Bll.Services
             foreach (var strLine in lstLine)
             {
                 var strLine1 = strLine;
-                Task t1 = Task.Run(() => {
-                    using (var db1 = new DevChildSwachhBharatNagpurEntities(AppID)) {
+                Task t1 = Task.Run(() =>
+                {
+                    using (var db1 = new DevChildSwachhBharatNagpurEntities(AppID))
+                    {
                         db1.Database.CommandTimeout = 6000;
                         var houselst = db1.SP_CalcMinRouteDist(strLine1, 20).ToList();
                         resultLst.AddRange(houselst);
@@ -3481,7 +3485,7 @@ namespace SwachBharat.CMS.Bll.Services
                         string dat = Convert.ToDateTime(d.gcDate).ToString("dd/MM/yyyy");
                         string tim = Convert.ToDateTime(d.gcDate).ToString("hh:mm tt");
                         bool bIsIn = false;
-                        
+
                         coordinates p = new coordinates()
                         {
                             lat = Convert.ToDouble(d.Lat),
@@ -4369,203 +4373,203 @@ namespace SwachBharat.CMS.Bll.Services
         }
 
 
-        public List<SBALHouseLocationMapView> GetAllHouseLocationForEmpBitMap(string date, int userid, int areaid, int wardNo, string SearchString, int? GarbageType, int FilterType, string Emptype)
-        {
+        //public List<SBALHouseLocationMapView> GetAllHouseLocationForEmpBitMap(string date, int userid, int areaid, int wardNo, string SearchString, int? GarbageType, int FilterType, string Emptype)
+        //{
 
-            List<SBALHouseLocationMapView> houseLocation = new List<SBALHouseLocationMapView>();
-            var zoneId = 0;
-            DateTime dt1 = DateTime.ParseExact(date, "d/M/yyyy", CultureInfo.InvariantCulture);
-            if (Emptype == null)
-            {
-                var data = db.SP_HouseOnMapDetailsForEmpBitMap(Convert.ToDateTime(dt1), userid == -1 ? 0 : userid, zoneId, areaid, wardNo, GarbageType, FilterType).ToList();
-                foreach (var x in data)
-                {
+        //    List<SBALHouseLocationMapView> houseLocation = new List<SBALHouseLocationMapView>();
+        //    var zoneId = 0;
+        //    DateTime dt1 = DateTime.ParseExact(date, "d/M/yyyy", CultureInfo.InvariantCulture);
+        //    if (Emptype == null)
+        //    {
+        //        var data = db.SP_HouseOnMapDetailsForEmpBitMap(Convert.ToDateTime(dt1), userid == -1 ? 0 : userid, zoneId, areaid, wardNo, GarbageType, FilterType).ToList();
+        //        foreach (var x in data)
+        //        {
 
-                    DateTime dt = DateTime.Parse(x.gcDate == null ? DateTime.Now.ToString() : x.gcDate.ToString());
-                    //string gcTime = x.gcDate.ToString();
-                    houseLocation.Add(new SBALHouseLocationMapView()
-                    {
-                        dyid = Convert.ToInt32(x.dyId),
-                        houseId = Convert.ToInt32(x.houseId),
-                        ReferanceId = x.ReferanceId,
-                        houseOwnerName = (x.houseOwner == null ? "" : x.houseOwner),
-                        houseOwnerMobile = (x.houseOwnerMobile == null ? "" : x.houseOwnerMobile),
-                        houseAddress = checkNull(x.houseAddress).Replace("Unnamed Road, ", ""),
-                        gcDate = dt.ToString("dd-MM-yyyy"),
-                        gcTime = dt.ToString("h:mm tt"), // 7:00 AM // 12 hour clock
-                                                         //string gcTime = x.gcDate.ToString(),
-                                                         //gcTime = x.gcDate.ToString("hh:mm tt"),
-                                                         //myDateTime.ToString("HH:mm:ss")
-                        ///date = Convert.ToDateTime(x.datt).ToString("dd/MM/yyyy"),
-                        //time = Convert.ToDateTime(x.datt).ToString("hh:mm:ss tt"),
-                        houseLat = x.houseLat,
-                        houseLong = x.houseLong,
-                        // address = x.houseAddress,
-                        //vehcileNumber = x.v,
-                        //userMobile = x.mobile,
-                        garbageType = x.garbageType,
-                    });
-                }
-                if (!string.IsNullOrEmpty(SearchString))
-                {
-                    // var abc = db.HouseMasters.ToList();
-                    var model = houseLocation.Where(c => c.houseOwnerName.Contains(SearchString) || c.ReferanceId.Contains(SearchString)
-                                                         || c.houseOwnerName.ToLower().Contains(SearchString) || c.ReferanceId.ToLower().Contains(SearchString)).ToList();
+        //            DateTime dt = DateTime.Parse(x.gcDate == null ? DateTime.Now.ToString() : x.gcDate.ToString());
+        //            //string gcTime = x.gcDate.ToString();
+        //            houseLocation.Add(new SBALHouseLocationMapView()
+        //            {
+        //                dyid = Convert.ToInt32(x.dyId),
+        //                houseId = Convert.ToInt32(x.houseId),
+        //                ReferanceId = x.ReferanceId,
+        //                houseOwnerName = (x.houseOwner == null ? "" : x.houseOwner),
+        //                houseOwnerMobile = (x.houseOwnerMobile == null ? "" : x.houseOwnerMobile),
+        //                houseAddress = checkNull(x.houseAddress).Replace("Unnamed Road, ", ""),
+        //                gcDate = dt.ToString("dd-MM-yyyy"),
+        //                gcTime = dt.ToString("h:mm tt"), // 7:00 AM // 12 hour clock
+        //                                                 //string gcTime = x.gcDate.ToString(),
+        //                                                 //gcTime = x.gcDate.ToString("hh:mm tt"),
+        //                                                 //myDateTime.ToString("HH:mm:ss")
+        //                ///date = Convert.ToDateTime(x.datt).ToString("dd/MM/yyyy"),
+        //                //time = Convert.ToDateTime(x.datt).ToString("hh:mm:ss tt"),
+        //                houseLat = x.houseLat,
+        //                houseLong = x.houseLong,
+        //                // address = x.houseAddress,
+        //                //vehcileNumber = x.v,
+        //                //userMobile = x.mobile,
+        //                garbageType = x.garbageType,
+        //            });
+        //        }
+        //        if (!string.IsNullOrEmpty(SearchString))
+        //        {
+        //            // var abc = db.HouseMasters.ToList();
+        //            var model = houseLocation.Where(c => c.houseOwnerName.Contains(SearchString) || c.ReferanceId.Contains(SearchString)
+        //                                                 || c.houseOwnerName.ToLower().Contains(SearchString) || c.ReferanceId.ToLower().Contains(SearchString)).ToList();
 
-                    //var model = houseLocation.Where(c => ((string.IsNullOrEmpty(c.ReferanceId) ? " " : c.houseOwnerName) + " " +
-                    //                                     (string.IsNullOrEmpty(c.houseOwnerName) ? " " : c.houseOwnerName) + " " +
-                    //                                     (string.IsNullOrEmpty(c.houseOwnerMobile) ? " " : c.houseOwnerMobile) + " " +
-                    //                                     (string.IsNullOrEmpty(c.houseAddress) ? " " : c.houseAddress)).ToLower().Contains(SearchString)).ToList();
+        //            //var model = houseLocation.Where(c => ((string.IsNullOrEmpty(c.ReferanceId) ? " " : c.houseOwnerName) + " " +
+        //            //                                     (string.IsNullOrEmpty(c.houseOwnerName) ? " " : c.houseOwnerName) + " " +
+        //            //                                     (string.IsNullOrEmpty(c.houseOwnerMobile) ? " " : c.houseOwnerMobile) + " " +
+        //            //                                     (string.IsNullOrEmpty(c.houseAddress) ? " " : c.houseAddress)).ToLower().Contains(SearchString)).ToList();
 
-                    houseLocation = model.ToList();
+        //            houseLocation = model.ToList();
 
-                    //var model = data.Where(c => ((string.IsNullOrEmpty(c.WardNo) ? " " : c.WardNo) + " " +
-                    //                        (string.IsNullOrEmpty(c.zone) ? " " : c.zone) + " " +
-                    //                        (string.IsNullOrEmpty(c.Area) ? " " : c.Area) + " " +
-                    //                        (string.IsNullOrEmpty(c.Name) ? " " : c.Name) + " " +
-                    //                        (string.IsNullOrEmpty(c.houseNo) ? " " : c.houseNo) + " " +
-                    //                        (string.IsNullOrEmpty(c.Mobile) ? " " : c.Mobile) + " " +
-                    //                        (string.IsNullOrEmpty(c.Address) ? " " : c.Address) + " " +
-                    //                        (string.IsNullOrEmpty(c.ReferanceId) ? " " : c.ReferanceId) + " " +
-                    //                        (string.IsNullOrEmpty(c.QRCode) ? " " : c.QRCode)).ToUpper().Contains(SearchString.ToUpper())).ToList();
+        //            //var model = data.Where(c => ((string.IsNullOrEmpty(c.WardNo) ? " " : c.WardNo) + " " +
+        //            //                        (string.IsNullOrEmpty(c.zone) ? " " : c.zone) + " " +
+        //            //                        (string.IsNullOrEmpty(c.Area) ? " " : c.Area) + " " +
+        //            //                        (string.IsNullOrEmpty(c.Name) ? " " : c.Name) + " " +
+        //            //                        (string.IsNullOrEmpty(c.houseNo) ? " " : c.houseNo) + " " +
+        //            //                        (string.IsNullOrEmpty(c.Mobile) ? " " : c.Mobile) + " " +
+        //            //                        (string.IsNullOrEmpty(c.Address) ? " " : c.Address) + " " +
+        //            //                        (string.IsNullOrEmpty(c.ReferanceId) ? " " : c.ReferanceId) + " " +
+        //            //                        (string.IsNullOrEmpty(c.QRCode) ? " " : c.QRCode)).ToUpper().Contains(SearchString.ToUpper())).ToList();
 
-                }
-            }
-            else if (Emptype == "L")
-            {
-                var data = db.SP_LiquidWasteOnMapDetails(Convert.ToDateTime(dt1), userid == -1 ? 0 : userid, zoneId, areaid, wardNo, GarbageType, FilterType).ToList();
-                foreach (var x in data)
-                {
+        //        }
+        //    }
+        //    else if (Emptype == "L")
+        //    {
+        //        var data = db.SP_LiquidWasteOnMapDetails(Convert.ToDateTime(dt1), userid == -1 ? 0 : userid, zoneId, areaid, wardNo, GarbageType, FilterType).ToList();
+        //        foreach (var x in data)
+        //        {
 
-                    DateTime dt = DateTime.Parse(x.gcDate == null ? DateTime.Now.ToString() : x.gcDate.ToString());
-                    //string gcTime = x.gcDate.ToString();
-                    houseLocation.Add(new SBALHouseLocationMapView()
-                    {
-                        houseId = Convert.ToInt32(x.LWId),
-                        ReferanceId = x.ReferanceId,
-                        houseOwnerName = (x.LWName == null ? "" : x.LWName),
-                        //houseOwnerMobile = (x.houseOwnerMobile == null ? "" : x.houseOwnerMobile),
-                        houseAddress = checkNull(x.LWAddreLW).Replace("Unnamed Road, ", ""),
-                        gcDate = dt.ToString("dd-MM-yyyy"),
-                        gcTime = dt.ToString("h:mm tt"), // 7:00 AM // 12 hour clock
-                                                         //string gcTime = x.gcDate.ToString(),
-                                                         //gcTime = x.gcDate.ToString("hh:mm tt"),
-                                                         //myDateTime.ToString("HH:mm:ss")
-                        ///date = Convert.ToDateTime(x.datt).ToString("dd/MM/yyyy"),
-                        //time = Convert.ToDateTime(x.datt).ToString("hh:mm:ss tt"),
-                        houseLat = x.LWLat,
-                        houseLong = x.LWLong,
-                        // address = x.houseAddress,
-                        //vehcileNumber = x.v,
-                        //userMobile = x.mobile,
-                        garbageType = x.garbageType,
-                        gcType = x.gcType,
+        //            DateTime dt = DateTime.Parse(x.gcDate == null ? DateTime.Now.ToString() : x.gcDate.ToString());
+        //            //string gcTime = x.gcDate.ToString();
+        //            houseLocation.Add(new SBALHouseLocationMapView()
+        //            {
+        //                houseId = Convert.ToInt32(x.LWId),
+        //                ReferanceId = x.ReferanceId,
+        //                houseOwnerName = (x.LWName == null ? "" : x.LWName),
+        //                //houseOwnerMobile = (x.houseOwnerMobile == null ? "" : x.houseOwnerMobile),
+        //                houseAddress = checkNull(x.LWAddreLW).Replace("Unnamed Road, ", ""),
+        //                gcDate = dt.ToString("dd-MM-yyyy"),
+        //                gcTime = dt.ToString("h:mm tt"), // 7:00 AM // 12 hour clock
+        //                                                 //string gcTime = x.gcDate.ToString(),
+        //                                                 //gcTime = x.gcDate.ToString("hh:mm tt"),
+        //                                                 //myDateTime.ToString("HH:mm:ss")
+        //                ///date = Convert.ToDateTime(x.datt).ToString("dd/MM/yyyy"),
+        //                //time = Convert.ToDateTime(x.datt).ToString("hh:mm:ss tt"),
+        //                houseLat = x.LWLat,
+        //                houseLong = x.LWLong,
+        //                // address = x.houseAddress,
+        //                //vehcileNumber = x.v,
+        //                //userMobile = x.mobile,
+        //                garbageType = x.garbageType,
+        //                gcType = x.gcType,
 
-                    });
-                }
-                if (!string.IsNullOrEmpty(SearchString))
-                {
-                    // var abc = db.HouseMasters.ToList();
-                    var model = houseLocation.Where(c => c.houseOwnerName.Contains(SearchString) || c.ReferanceId.Contains(SearchString)
-                                                         || c.houseOwnerName.ToLower().Contains(SearchString) || c.ReferanceId.ToLower().Contains(SearchString)).ToList();
+        //            });
+        //        }
+        //        if (!string.IsNullOrEmpty(SearchString))
+        //        {
+        //            // var abc = db.HouseMasters.ToList();
+        //            var model = houseLocation.Where(c => c.houseOwnerName.Contains(SearchString) || c.ReferanceId.Contains(SearchString)
+        //                                                 || c.houseOwnerName.ToLower().Contains(SearchString) || c.ReferanceId.ToLower().Contains(SearchString)).ToList();
 
-                    houseLocation = model.ToList();
+        //            houseLocation = model.ToList();
 
-                }
-            }
+        //        }
+        //    }
 
-            else if (Emptype == "S")
-            {
-                var data = db.SP_StreetSweepingOnMapDetails(Convert.ToDateTime(dt1), userid == -1 ? 0 : userid, zoneId, areaid, wardNo, GarbageType, FilterType).ToList();
-                foreach (var x in data)
-                {
+        //    else if (Emptype == "S")
+        //    {
+        //        var data = db.SP_StreetSweepingOnMapDetails(Convert.ToDateTime(dt1), userid == -1 ? 0 : userid, zoneId, areaid, wardNo, GarbageType, FilterType).ToList();
+        //        foreach (var x in data)
+        //        {
 
-                    DateTime dt = DateTime.Parse(x.gcDate == null ? DateTime.Now.ToString() : x.gcDate.ToString());
-                    //string gcTime = x.gcDate.ToString();
-                    houseLocation.Add(new SBALHouseLocationMapView()
-                    {
-                        houseId = Convert.ToInt32(x.SSId),
-                        ReferanceId = x.ReferanceId,
-                        houseOwnerName = (x.SSName == null ? "" : x.SSName),
-                        //houseOwnerMobile = (x.houseOwnerMobile == null ? "" : x.houseOwnerMobile),
-                        houseAddress = checkNull(x.SSAddress).Replace("Unnamed Road, ", ""),
-                        gcDate = dt.ToString("dd-MM-yyyy"),
-                        gcTime = dt.ToString("h:mm tt"), // 7:00 AM // 12 hour clock
-                                                         //string gcTime = x.gcDate.ToString(),
-                                                         //gcTime = x.gcDate.ToString("hh:mm tt"),
-                                                         //myDateTime.ToString("HH:mm:ss")
-                        ///date = Convert.ToDateTime(x.datt).ToString("dd/MM/yyyy"),
-                        //time = Convert.ToDateTime(x.datt).ToString("hh:mm:ss tt"),
-                        houseLat = x.SSLat,
-                        houseLong = x.SSLong,
-                        // address = x.houseAddress,
-                        //vehcileNumber = x.v,
-                        //userMobile = x.mobile,
-                        garbageType = x.garbageType,
-                        gcType = x.gcType,
-                        BeatId = db.StreetSweepingBeats.Where(s => s.ReferanceId1 == x.ReferanceId || s.ReferanceId2 == x.ReferanceId || s.ReferanceId3 == x.ReferanceId || s.ReferanceId4 == x.ReferanceId || s.ReferanceId5 == x.ReferanceId).Select(a => a.BeatId).FirstOrDefault()
+        //            DateTime dt = DateTime.Parse(x.gcDate == null ? DateTime.Now.ToString() : x.gcDate.ToString());
+        //            //string gcTime = x.gcDate.ToString();
+        //            houseLocation.Add(new SBALHouseLocationMapView()
+        //            {
+        //                houseId = Convert.ToInt32(x.SSId),
+        //                ReferanceId = x.ReferanceId,
+        //                houseOwnerName = (x.SSName == null ? "" : x.SSName),
+        //                //houseOwnerMobile = (x.houseOwnerMobile == null ? "" : x.houseOwnerMobile),
+        //                houseAddress = checkNull(x.SSAddress).Replace("Unnamed Road, ", ""),
+        //                gcDate = dt.ToString("dd-MM-yyyy"),
+        //                gcTime = dt.ToString("h:mm tt"), // 7:00 AM // 12 hour clock
+        //                                                 //string gcTime = x.gcDate.ToString(),
+        //                                                 //gcTime = x.gcDate.ToString("hh:mm tt"),
+        //                                                 //myDateTime.ToString("HH:mm:ss")
+        //                ///date = Convert.ToDateTime(x.datt).ToString("dd/MM/yyyy"),
+        //                //time = Convert.ToDateTime(x.datt).ToString("hh:mm:ss tt"),
+        //                houseLat = x.SSLat,
+        //                houseLong = x.SSLong,
+        //                // address = x.houseAddress,
+        //                //vehcileNumber = x.v,
+        //                //userMobile = x.mobile,
+        //                garbageType = x.garbageType,
+        //                gcType = x.gcType,
+        //                BeatId = db.StreetSweepingBeats.Where(s => s.ReferanceId1 == x.ReferanceId || s.ReferanceId2 == x.ReferanceId || s.ReferanceId3 == x.ReferanceId || s.ReferanceId4 == x.ReferanceId || s.ReferanceId5 == x.ReferanceId).Select(a => a.BeatId).FirstOrDefault()
 
-                    });
-                }
-                if (!string.IsNullOrEmpty(SearchString))
-                {
-                    // var abc = db.HouseMasters.ToList();
-                    var model = houseLocation.Where(c => c.houseOwnerName.Contains(SearchString) || c.ReferanceId.Contains(SearchString)
-                                                         || c.houseOwnerName.ToLower().Contains(SearchString) || c.ReferanceId.ToLower().Contains(SearchString)).ToList();
+        //            });
+        //        }
+        //        if (!string.IsNullOrEmpty(SearchString))
+        //        {
+        //            // var abc = db.HouseMasters.ToList();
+        //            var model = houseLocation.Where(c => c.houseOwnerName.Contains(SearchString) || c.ReferanceId.Contains(SearchString)
+        //                                                 || c.houseOwnerName.ToLower().Contains(SearchString) || c.ReferanceId.ToLower().Contains(SearchString)).ToList();
 
-                    houseLocation = model.ToList();
+        //            houseLocation = model.ToList();
 
-                }
-            }
+        //        }
+        //    }
 
 
-            else
-            {
-                var data = db.SP_HouseOnMapDetails(Convert.ToDateTime(dt1), userid == -1 ? 0 : userid, zoneId, areaid, wardNo, GarbageType, FilterType).ToList();
-                foreach (var x in data)
-                {
+        //    else
+        //    {
+        //        var data = db.SP_HouseOnMapDetails(Convert.ToDateTime(dt1), userid == -1 ? 0 : userid, zoneId, areaid, wardNo, GarbageType, FilterType).ToList();
+        //        foreach (var x in data)
+        //        {
 
-                    DateTime dt = DateTime.Parse(x.gcDate == null ? DateTime.Now.ToString() : x.gcDate.ToString());
-                    //string gcTime = x.gcDate.ToString();
-                    houseLocation.Add(new SBALHouseLocationMapView()
-                    {
-                        houseId = Convert.ToInt32(x.houseId),
-                        ReferanceId = x.ReferanceId,
-                        houseOwnerName = (x.houseOwner == null ? "" : x.houseOwner),
-                        houseOwnerMobile = (x.houseOwnerMobile == null ? "" : x.houseOwnerMobile),
-                        houseAddress = checkNull(x.houseAddress).Replace("Unnamed Road, ", ""),
-                        gcDate = dt.ToString("dd-MM-yyyy"),
-                        gcTime = dt.ToString("h:mm tt"), // 7:00 AM // 12 hour clock
-                                                         //string gcTime = x.gcDate.ToString(),
-                                                         //gcTime = x.gcDate.ToString("hh:mm tt"),
-                                                         //myDateTime.ToString("HH:mm:ss")
-                        ///date = Convert.ToDateTime(x.datt).ToString("dd/MM/yyyy"),
-                        //time = Convert.ToDateTime(x.datt).ToString("hh:mm:ss tt"),
-                        houseLat = x.houseLat,
-                        houseLong = x.houseLong,
-                        // address = x.houseAddress,
-                        //vehcileNumber = x.v,
-                        //userMobile = x.mobile,
-                        garbageType = x.garbageType,
-                    });
-                }
-                if (!string.IsNullOrEmpty(SearchString))
-                {
-                    // var abc = db.HouseMasters.ToList();
-                    var model = houseLocation.Where(c => c.houseOwnerName.Contains(SearchString) || c.ReferanceId.Contains(SearchString)
-                                                         || c.houseOwnerName.ToLower().Contains(SearchString) || c.ReferanceId.ToLower().Contains(SearchString)).ToList();
-
-        
-
-                    houseLocation = model.ToList();
+        //            DateTime dt = DateTime.Parse(x.gcDate == null ? DateTime.Now.ToString() : x.gcDate.ToString());
+        //            //string gcTime = x.gcDate.ToString();
+        //            houseLocation.Add(new SBALHouseLocationMapView()
+        //            {
+        //                houseId = Convert.ToInt32(x.houseId),
+        //                ReferanceId = x.ReferanceId,
+        //                houseOwnerName = (x.houseOwner == null ? "" : x.houseOwner),
+        //                houseOwnerMobile = (x.houseOwnerMobile == null ? "" : x.houseOwnerMobile),
+        //                houseAddress = checkNull(x.houseAddress).Replace("Unnamed Road, ", ""),
+        //                gcDate = dt.ToString("dd-MM-yyyy"),
+        //                gcTime = dt.ToString("h:mm tt"), // 7:00 AM // 12 hour clock
+        //                                                 //string gcTime = x.gcDate.ToString(),
+        //                                                 //gcTime = x.gcDate.ToString("hh:mm tt"),
+        //                                                 //myDateTime.ToString("HH:mm:ss")
+        //                ///date = Convert.ToDateTime(x.datt).ToString("dd/MM/yyyy"),
+        //                //time = Convert.ToDateTime(x.datt).ToString("hh:mm:ss tt"),
+        //                houseLat = x.houseLat,
+        //                houseLong = x.houseLong,
+        //                // address = x.houseAddress,
+        //                //vehcileNumber = x.v,
+        //                //userMobile = x.mobile,
+        //                garbageType = x.garbageType,
+        //            });
+        //        }
+        //        if (!string.IsNullOrEmpty(SearchString))
+        //        {
+        //            // var abc = db.HouseMasters.ToList();
+        //            var model = houseLocation.Where(c => c.houseOwnerName.Contains(SearchString) || c.ReferanceId.Contains(SearchString)
+        //                                                 || c.houseOwnerName.ToLower().Contains(SearchString) || c.ReferanceId.ToLower().Contains(SearchString)).ToList();
 
 
 
-                }
-            }
-            return houseLocation;
+        //            houseLocation = model.ToList();
 
-        }
+
+
+        //        }
+        //    }
+        //    return houseLocation;
+
+        //}
 
         // Code Optimization(code)
         //public SBALHouseLocationMapView1 GetAllHouseLocation(string date, int userid, int areaid, int wardNo, string SearchString, string start)
@@ -4684,6 +4688,67 @@ namespace SwachBharat.CMS.Bll.Services
 
         //}
         // Added By Saurabh (02 July 2019)
+
+        public List<SBALHouseLocationMapView> GetAllHouseLocationForEmpBitMap(string Emptype, int ebmId)
+        {
+
+            List<SBALHouseLocationMapView> houseLocation = new List<SBALHouseLocationMapView>();
+            List<List<coordinates>> lstPoly = new List<List<coordinates>>();
+
+            EmpBeatMapVM ebm = GetEmpBeatMap(ebmId);
+            lstPoly = ebm.ebmLatLong;
+            var data = db.SP_HouseOnMapDetailsForEmpBitMap(Emptype).ToList();
+            foreach (var x in data)
+            {
+                bool bIsIn = false;
+
+                coordinates p = new coordinates()
+                {
+                    lat = Convert.ToDouble(x.houseLat),
+                    lng = Convert.ToDouble(x.houseLong)
+                };
+                if (lstPoly != null && lstPoly.Count > 0)
+                {
+                    foreach (var poly in lstPoly)
+                    {
+                        if (IsPointInPolygon(poly, p))
+                        {
+                            bIsIn = true;
+                        }
+                    }
+                }
+                DateTime dt = DateTime.Parse(x.gcDate == null ? DateTime.Now.ToString() : x.gcDate.ToString());
+                //string gcTime = x.gcDate.ToString();
+                houseLocation.Add(new SBALHouseLocationMapView()
+                {
+                    dyid = Convert.ToInt32(x.dyId),
+                    houseId = Convert.ToInt32(x.houseId),
+                    ReferanceId = x.ReferanceId,
+                    houseOwnerName = (x.houseOwner == null ? "" : x.houseOwner),
+                    houseOwnerMobile = (x.houseOwnerMobile == null ? "" : x.houseOwnerMobile),
+                    houseAddress = checkNull(x.houseAddress).Replace("Unnamed Road, ", ""),
+                    gcDate = dt.ToString("dd-MM-yyyy"),
+                    gcTime = dt.ToString("h:mm tt"), // 7:00 AM // 12 hour clock
+                                                     //string gcTime = x.gcDate.ToString(),
+                                                     //gcTime = x.gcDate.ToString("hh:mm tt"),
+                                                     //myDateTime.ToString("HH:mm:ss")
+                    ///date = Convert.ToDateTime(x.datt).ToString("dd/MM/yyyy"),
+                    //time = Convert.ToDateTime(x.datt).ToString("hh:mm:ss tt"),
+                    houseLat = x.houseLat,
+                    houseLong = x.houseLong,
+                    // address = x.houseAddress,
+                    //vehcileNumber = x.v,
+                    //userMobile = x.mobile,
+                    garbageType = x.garbageType,
+                    IsIn = bIsIn
+                });
+            }
+
+
+            return houseLocation;
+
+        }
+
         public DashBoardVM GetHouseOnMapDetails()
         {
             DashBoardVM model = new DashBoardVM();
@@ -5351,26 +5416,38 @@ namespace SwachBharat.CMS.Bll.Services
             return Zone;
         }
 
-        public List<SelectListItem> ListHouse( int teamId , string houseId)
+        public List<SelectListItem> ListHouse(int teamId, string houseId)
         {
             var House = new List<SelectListItem>();
-            SelectListItem itemAdd = new SelectListItem() { Text = "--Select HouseId--", Value = "0"};
+            SelectListItem itemAdd = new SelectListItem() { Text = "--Select HouseId--", Value = "0" };
 
             try
             {
-                if(houseId==null)
+                if (houseId == null)
                 {
-                if(teamId > 0)
-                {
+                    if (teamId > 0)
+                    {
 
-                    House = db.HouseLists.Where(x=> x.AreaId > 0).ToList()
-                       .Select(x => new SelectListItem
-                       {
-                           Text = x.ReferanceId,
-                           Value = x.ReferanceId.ToString()
-                       }).OrderBy(t => t.Text).ToList();
+                        House = db.HouseLists.Where(x => x.AreaId > 0).ToList()
+                           .Select(x => new SelectListItem
+                           {
+                               Text = x.ReferanceId,
+                               Value = x.ReferanceId.ToString()
+                           }).OrderBy(t => t.Text).ToList();
 
-                            House.Insert(0, itemAdd);
+                        House.Insert(0, itemAdd);
+                    }
+                    else
+                    {
+                        House = db.HouseLists.Where(p => db.MasterQRs.All(x => x.ReferanceId != p.ReferanceId & p.AreaId > 0)).ToList()
+                           .Select(x => new SelectListItem
+                           {
+                               Text = x.ReferanceId,
+                               Value = x.ReferanceId.ToString()
+                           }).OrderBy(t => t.Text).ToList();
+
+                        House.Insert(0, itemAdd);
+                    }
                 }
                 else
                 {
@@ -5378,23 +5455,11 @@ namespace SwachBharat.CMS.Bll.Services
                        .Select(x => new SelectListItem
                        {
                            Text = x.ReferanceId,
-                           Value = x.ReferanceId.ToString()
+                           Value = x.ReferanceId.ToString(),
                        }).OrderBy(t => t.Text).ToList();
 
-                            House.Insert(0, itemAdd);
-                }
-                }
-                else
-                {
-                    House = db.HouseLists.Where(p => db.MasterQRs.All(x => x.ReferanceId != p.ReferanceId & p.AreaId > 0)).ToList()
-                       .Select(x => new SelectListItem
-                       {
-                           Text = x.ReferanceId,
-                           Value = x.ReferanceId.ToString(),    
-                       }).OrderBy(t => t.Text).ToList();
-                    
                     House.Insert(0, itemAdd);
-                   // House.Select(houseId);
+                    // House.Select(houseId);
                 }
             }
             catch (Exception ex) { throw ex; }
@@ -5670,7 +5735,7 @@ namespace SwachBharat.CMS.Bll.Services
             model.ReferanceId = data.ReferanceId;
             model.QRList = data.QRList;
             model.isActive = data.ISActive;
-           
+
 
             return model;
         }
@@ -8672,7 +8737,7 @@ namespace SwachBharat.CMS.Bll.Services
                     return data;
                 }
 
-              
+
 
 
                 else if (teamId == -2 && AppID == 3099)
@@ -8693,7 +8758,7 @@ namespace SwachBharat.CMS.Bll.Services
                         // var sId = id.Split('0').Last();
                         string appName = (appDetails.AppName).Split(' ').First();
 
-                        string name = Convert.ToInt32(sId) < 9 ? "802784PTB00"  + ("0" + (Convert.ToInt32(sId) + 1)) : "802784PTB00"  + ((Convert.ToInt32(sId)) + (1));
+                        string name = Convert.ToInt32(sId) < 9 ? "802784PTB00" + ("0" + (Convert.ToInt32(sId) + 1)) : "802784PTB00" + ((Convert.ToInt32(sId)) + (1));
                         data.SauchalayID = name;
                         data.Id = 0;
                         data.Image = "/Images/add_image_square.png";
@@ -8753,16 +8818,16 @@ namespace SwachBharat.CMS.Bll.Services
                         if (id == null)
                         {
                             string appName = (appDetails.AppName).Split(' ').First();
-                            string name = "802784PTB00"  + ("0" + 1);
+                            string name = "802784PTB00" + ("0" + 1);
                             data.SauchalayID = name;
                             data.Id = 0;
                         }
                         else
                         {
                             var sId = id.Substring(id.Length - 2);
-                         //   var sId = id.Split('0').Last();
+                            //   var sId = id.Split('0').Last();
                             string appName = (appDetails.AppName).Split(' ').First();
-                            string name = Convert.ToInt32(sId) < 9 ? "802784PTB00"  + ("0" + (Convert.ToInt32(sId) + 1)) : "802784PTB00"  + ((Convert.ToInt32(sId)) + (1));
+                            string name = Convert.ToInt32(sId) < 9 ? "802784PTB00" + ("0" + (Convert.ToInt32(sId) + 1)) : "802784PTB00" + ((Convert.ToInt32(sId)) + (1));
                             data.SauchalayID = name;
                             data.Id = Convert.ToInt32(sId);
                         }

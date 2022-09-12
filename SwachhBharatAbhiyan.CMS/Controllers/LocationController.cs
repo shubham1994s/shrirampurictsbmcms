@@ -365,63 +365,13 @@ namespace SwachhBharatAbhiyan.CMS.Controllers
         }
 
 
-        public ActionResult HouseLocationListForEmpBitMap(string date, string userid, string areaId, string wardNo, string SearchString, string garbageType, string filterType)
+        public ActionResult HouseLocationListForEmpBitMap(string Emptype,int ebmId)
         {
             if (SessionHandler.Current.AppId != 0)
             {
-                int user;
-                int area;
-                int ward;
-                int? GarbageType;
-                int FilterType;
-                if (userid == "-1" || userid == "0" || userid == "null")
-                {
-                    user = 0;
-                }
-                else
-                {
-                    user = Convert.ToInt32(userid);
-                }
-
-                if (areaId == "-1" || areaId == "0" || areaId == "null")
-                {
-                    area = 0;
-                }
-                else
-                {
-                    area = Convert.ToInt32(areaId);
-                }
-                if (wardNo == "-1" || wardNo == "0" || wardNo == "null")
-                {
-                    ward = 0;
-                }
-                else
-                {
-                    ward = Convert.ToInt32(wardNo);
-                }
-                if (garbageType == "-1" || garbageType == null)
-                {
-                    GarbageType = null;
-                }
-                else
-                {
-                    GarbageType = Convert.ToInt32(garbageType);
-                }
-                if (filterType == "-1" || filterType == "0" || filterType == "null")
-                {
-                    FilterType = 0;
-                }
-                else
-                {
-                    FilterType = Convert.ToInt32(filterType);
-                }
-                if (date == null || date == "")
-                {
-                    date = DateTime.Now.ToShortDateString();
-                }
 
                 List<SBALHouseLocationMapView> obj = new List<SBALHouseLocationMapView>();
-                obj = childRepository.GetAllHouseLocationForEmpBitMap(date, user, area, ward, SearchString, GarbageType, FilterType, null);
+                obj = childRepository.GetAllHouseLocationForEmpBitMap(Emptype, ebmId);
                 // return Json(obj);
                 //if (houseid != null && houseid != "null" && houseid != "-1")
                 //{

@@ -1,7 +1,7 @@
 ﻿$(document).ready(function () {
      
 
-   
+    debugger;
     var UserId = $('#selectnumber').val();
     $.ajax({
         type: "post",
@@ -21,7 +21,18 @@
 
     $('#selecttype').html('<option value=0>Select Monitoring Type</option><option value=S>Waste Collection Monitoring Technology</option><option value=SS>Street Sweeping Monitoring System</option><option value=L>Liquid Waste Cleaning Monitoring System</option>');
    
-    $("#demoGrid").DataTable({
+    var table =  $("#demoGrid").DataTable({
+
+        "initComplete": function (settings, json) {
+
+            if ($("#asdf").text() != "appynittywaste@ulb.com!") {
+                table.columns([16]).visible(false);
+                table.columns([17]).visible(false);
+               
+            }
+
+        },
+
         "sDom": "ltipr",
         "order": [[15, "desc"]],
         "processing": true, // for show progress bar
