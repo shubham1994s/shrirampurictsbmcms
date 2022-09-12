@@ -254,7 +254,7 @@
                             <li><a href="/Report/Housewise">Garbage Collection Summary (House-wise)</a></li>
                             <li><a href="/Report/Daywise">Day-wise Collection Summary </a></li>
                             <li><a href="/Report/EmployeeCollectionAverage">Employee Collection Average</a></li>
-                            <li><a href="/Report/CTPTFeedbackReport">CTPT Feedback Report</a></li>
+                            <li id="CTPT_FeedBack" style="display:none;"><a href="/Report/CTPTFeedbackReport">CTPT Feedback Report</a></li>
                         </ul>
                     <li>
                     <li>
@@ -694,6 +694,7 @@
                 $("#Beatid").css("display", "block");
                 $("#EBMR").css("display", "block");
                 $("#Atten").css("display", "none");
+                $("#CTPT_FeedBack").css("display", "block");
             }
 
             if ($("#asdf").text() == "palgharwaste@ulb.com!") {
@@ -701,6 +702,7 @@
                 $("#Beatid").css("display", "block");
                 $("#EBMR").css("display", "block");
                 $("#Atten").css("display", "none");
+                $("#CTPT_FeedBack").css("display", "block");
             }
 
 
