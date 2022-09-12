@@ -229,6 +229,16 @@ namespace SwachhBharatAbhiyan.CMS
                         rptViewer.ServerReport.SetParameters(param);
 
                     }
+                    else if (ReportName == "CTPT_Feedback")
+                    {
+                        ReportParameter[] param = new ReportParameter[3];
+                        param[0] = new ReportParameter("appid", AppID);
+                        param[1] = new ReportParameter("from", FromDate);
+                        param[2] = new ReportParameter("to", ToDate);
+                        rptViewer.ServerReport.SetParameters(param);
+
+                    }
+                    
                     else if (ReportName == "T20_1.1")
                     {
                         ReportParameter[] param = new ReportParameter[4];

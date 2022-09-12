@@ -3235,6 +3235,8 @@
     <Content Include="Views\MasterQR\MenuIndex.cshtml" />
     <Content Include="Views\MasterQR\Index.cshtml" />
     <Content Include="Views\MasterQR\AddMasterQRDetails.cshtml" />
+    <Content Include="Views\Report\CTPTReport.cshtml" />
+    <Content Include="Views\Report\CTPTFeedbackReport.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
