@@ -3436,6 +3436,7 @@ namespace SwachBharat.CMS.Bll.Services
             HouseAttenRouteVM houseAtten = new HouseAttenRouteVM();
             List<SBALUserLocationMapView> userLocation = new List<SBALUserLocationMapView>();
             List<List<coordinates>> lstPoly = new List<List<coordinates>>();
+            int houseCount = 0;
             //List<coordinates> poly = new List<coordinates>();
             DateTime newdate = DateTime.Now.Date;
             var datt = newdate;
@@ -3468,7 +3469,28 @@ namespace SwachBharat.CMS.Bll.Services
             //{
             //    poly = lstPoly[polyId];
             //}
+            var Hdata = db.SP_HouseOnMapDetailsForEmpBitMap(userName.EmployeeType ?? "W").ToList();
+            foreach (var h in Hdata)
+            {
+               
 
+                coordinates p = new coordinates()
+                {
+                    lat = Convert.ToDouble(h.houseLat),
+                    lng = Convert.ToDouble(h.houseLong)
+                };
+                if (lstPoly != null && lstPoly.Count > 0)
+                {
+                    foreach (var poly in lstPoly)
+                    {
+                        if (IsPointInPolygon(poly, p))
+                        {
+                            houseCount++;
+                        }
+                    }
+                }
+
+            }
             var data = db.Locations.Where(c => c.userId == att.userId & c.datetime >= fdate & c.datetime <= edate & c.type == 1).OrderByDescending(a => a.datetime).ToList();
 
             foreach (var x in data)
@@ -3656,7 +3678,7 @@ namespace SwachBharat.CMS.Bll.Services
 
             houseAtten.poly = lstPoly;
             houseAtten.lstUserLocation = userLocation;
-
+            houseAtten.TotalHouseCount = houseCount;
             return houseAtten;
         }
 
