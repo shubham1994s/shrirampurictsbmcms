@@ -433,23 +433,37 @@ function Delete(Id) {
 };
 
 
-function Search() {
-    var value = ",,," + $("#s").val();//txt_fdate + "," + txt_tdate + "," + UserId + "," + Client + "," + NesEvent + "," + Product + "," + catProduct + "," + 1;
+function SearchActiveW() {
+    var value = ",,," + $("#sActiveW").val();//txt_fdate + "," + txt_tdate + "," + UserId + "," + Client + "," + NesEvent + "," + Product + "," + catProduct + "," + 1;
     // alert(value );
-    oTable = $('#demoGrid').DataTable();
+    oTable = $('#demoGridW').DataTable();
     oTable.search(value).draw();
     oTable.search("");
-   /* document.getElementById('USER_ID_FK').value = -1;*/
+    document.getElementById('USER_ID_FK').value = -1;
 }
-
-
-function Sea() {
-    var value = ",,," + $("#a").val();//txt_fdate + "," + txt_tdate + "," + UserId + "," + Client + "," + NesEvent + "," + Product + "," + catProduct + "," + 1;
+function SearchActiveCT() {
+    var value = ",,," + $("#sActiveCT").val();//txt_fdate + "," + txt_tdate + "," + UserId + "," + Client + "," + NesEvent + "," + Product + "," + catProduct + "," + 1;
     // alert(value );
-    oTable = $('#demoGridNonActive').DataTable();
+    oTable = $('#demoGridCT').DataTable();
     oTable.search(value).draw();
     oTable.search("");
-   /*document.getElementById('USER_ID_FK').value = -1;*/
+    document.getElementById('USER_ID_FK').value = -1;
+}
+function SearchNonActiveW() {
+    var value = ",,," + $("#sNonActiveW").val();//txt_fdate + "," + txt_tdate + "," + UserId + "," + Client + "," + NesEvent + "," + Product + "," + catProduct + "," + 1;
+    // alert(value );
+    oTable = $('#demoGridNonActiveW').DataTable();
+    oTable.search(value).draw();
+    oTable.search("");
+    document.getElementById('USER_ID_FK').value = -1;
+}
+function SearchNonActiveCT() {
+    var value = ",,," + $("#sNonActiveCT").val();//txt_fdate + "," + txt_tdate + "," + UserId + "," + Client + "," + NesEvent + "," + Product + "," + catProduct + "," + 1;
+    // alert(value );
+    oTable = $('#demoGridNonActiveCT').DataTable();
+    oTable.search(value).draw();
+    oTable.search("");
+    document.getElementById('USER_ID_FK').value = -1;
 }
 
 
