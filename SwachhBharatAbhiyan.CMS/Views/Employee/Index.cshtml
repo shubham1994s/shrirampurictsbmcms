@@ -8,7 +8,7 @@
 <link href='https://fonts.googleapis.com/css?family=Roboto:400,700,300|Material+Icons' rel='stylesheet' type='text/css'>
 
 @Scripts.Render("~/Scripts/IndexScript")
-<script src="~/Content/DatatableGrid/EmployeeDetailsGrid.js"></script>
+<script src="~/Content/DatatableGrid/EmployeeDetailsGrids.js"></script>
 
 
 <body>
@@ -33,7 +33,7 @@
         <div style="width:100%; margin:0 auto;">
             <button onclick="goBack()" class="btn btn-primary btn-sm float-left mr-3" id="btn">Go Back</button>
             <a href="AddEmployeeDetails" class="btn btn-primary btn-sm float-right mr-3" type="button">Add Employee</a>
-            <a href="" id="NotActivebtn" class="btn btn-primary btn-sm float-right mr-3" type="button">Not Active Employee</a>
+            <a href="" id="NotActivebtn" class="btn btn-primary btn-sm float-right mr-3" type="button" onclick="NotActivebtnClick()">Not Active Employee</a>
 
 
 
@@ -138,7 +138,7 @@
         </div>
 
 
-
+        </div>
 
     <div id="myModal_Image" class="modal fade" role="dialog">
         <div class="modal-dialog modal-lg">

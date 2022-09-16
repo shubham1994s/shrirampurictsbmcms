@@ -1777,6 +1777,7 @@
     <Content Include="Content\DatatableGrid\DumpYardSupervisorDetailsGrid.js" />
     <Content Include="Content\DatatableGrid\EmpBeatMapGrid.js" />
     <Content Include="Content\DatatableGrid\EmployeeDetailsGrid.js" />
+    <Content Include="Content\DatatableGrid\EmployeeDetailsGrids.js" />
     <Content Include="Content\DatatableGrid\EmployeeSummaryGrid.js" />
     <Content Include="Content\DatatableGrid\EmpShiftDetailsGrid.js" />
     <Content Include="Content\DatatableGrid\GarbageCountGrid.js" />
