@@ -1924,6 +1924,7 @@ namespace SwachBharat.CMS.Bll.Services
                             model.bloodGroup = data.bloodGroup;
                             model.gcTarget = data.gcTarget;
                             model.shiftIds = GetEmpShiftIds(data.Shifts);
+                            model.EmployeeType = data.EmployeeType == "Waste" ? null : data.EmployeeType;
                             //model.EmployeeType = Emptype;
                             db.SaveChanges();
                         }
@@ -5212,7 +5213,8 @@ namespace SwachBharat.CMS.Bll.Services
             model.bloodGroup = data.bloodGroup;
             model.isActive = data.isActive;
             model.gcTarget = data.gcTarget;
-            model.EmployeeType = Emptype;
+            // model.EmployeeType = Emptype;
+            model.EmployeeType = data.EmployeeType == "Waste" ? null : data.EmployeeType;
             return model;
         }
 
