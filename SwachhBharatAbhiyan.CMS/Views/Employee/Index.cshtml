@@ -10,7 +10,6 @@
 @Scripts.Render("~/Scripts/IndexScript")
 <script src="~/Content/DatatableGrid/EmployeeDetailsGrids.js"></script>
 
-
 <body>
 
     <div class="container">
@@ -33,15 +32,13 @@
         <div style="width:100%; margin:0 auto;">
             <button onclick="goBack()" class="btn btn-primary btn-sm float-left mr-3" id="btn">Go Back</button>
             <a href="AddEmployeeDetails" class="btn btn-primary btn-sm float-right mr-3" type="button">Add Employee</a>
-            <a href="" id="NotActivebtn" class="btn btn-primary btn-sm float-right mr-3" type="button" onclick="NotActivebtnClick()">Not Active Employee</a>
-
-
-
+            <button id="NotActivebtn" class="btn btn-primary btn-sm float-right mr-3" type="button" onclick="NotActivebtnClick()">Not Active Employee</button>
+            @*<a href="" id="NotActivebtn" class="btn btn-primary btn-sm float-right mr-3" type="button">Not Active Employee</a>*@
             <div class="container" id="divActiveW" style="overflow-y:auto;display:none">
                 <label style="display:inline-flex;padding-right:5px" class="float-right">Search:&nbsp;<input type="text" id="sActiveW" class="form-control form-control-sm" onkeyup="SearchActiveW()"></label>
                 <table id="demoGridW" class="table table-striped table-bordered dt-responsive nowrap" width="100%" cellspacing="0">
                     <thead>
-                     
+
 
                         <tr>
                             <th>Id</th>
@@ -64,7 +61,7 @@
                 <label style="display:inline-flex;padding-right:5px" class="float-right">Search:&nbsp;<input type="text" id="sActiveCT" class="form-control form-control-sm" onkeyup="SearchActiveCT()"></label>
                 <table id="demoGridCT" class="table table-striped table-bordered dt-responsive nowrap" width="100%" cellspacing="0">
                     <thead>
-                    
+
 
                         <tr>
                             <th>Id</th>
@@ -88,7 +85,7 @@
 
                 <table id="demoGridNonActiveW" class="table table-striped table-bordered dt-responsive nowrap" width="100%" cellspacing="0">
                     <thead>
-                      
+
 
                         <tr>
                             <th>Id</th>
@@ -113,7 +110,7 @@
 
                 <table id="demoGridNonActiveCT" class="table table-striped table-bordered dt-responsive nowrap" width="100%" cellspacing="0">
                     <thead>
-                   
+
 
                         <tr>
                             <th>Id</th>
@@ -136,9 +133,10 @@
 
             </div>
         </div>
+    </div>
 
 
-        </div>
+
 
     <div id="myModal_Image" class="modal fade" role="dialog">
         <div class="modal-dialog modal-lg">
@@ -168,4 +166,4 @@
     </div>
 
     <div id="snackbar">Image not uploaded...</div>
-</body>  
+</body>
