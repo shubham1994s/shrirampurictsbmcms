@@ -4183,7 +4183,82 @@ namespace SwachBharat.CMS.Bll.Repository.GridRepository
 
         }
 
+        public IEnumerable<SBAGrabageCollectionGridRow> GetCTPTGarbageCollectionData(long wildcard, string SearchString, DateTime? fdate, DateTime? tdate, int userId, int appId, int? param1, int? param2, int? param3, int? param4)
+        {
+            DevSwachhBharatMainEntities dbMain = new DevSwachhBharatMainEntities();
+            var appDetails = dbMain.AppDetails.Where(x => x.AppId == appId).FirstOrDefault();
+            string ThumbnaiUrlAPI = appDetails.baseImageUrl + appDetails.basePath + appDetails.Collection + "/";
 
+            using (DevChildSwachhBharatNagpurEntities db = new DevChildSwachhBharatNagpurEntities(appId))
+            {
+
+                var ctptcountdata = db.SP_CTPT_Collection(fdate, tdate, userId).Where(x => x.RowCounts == param1).FirstOrDefault();
+                param1 = null;
+                var data = db.SP_CTPTGarbageCollection(appId, userId, fdate, tdate, param1, param2, param3, param4).Select(x => new SBAGrabageCollectionGridRow
+                {
+                    Id = x.gcId,
+                    userId = x.userId,
+                    houseId = x.CTPTId,
+                    UserName = x.Name,
+                    HouseNumber = x.Name,
+                    gcDate = x.gcDate,
+                    // gcType = 1,
+                    gpBeforImageTime = Convert.ToDateTime(x.gpBeforImageTime).ToString("dd/MM/yyyy hh:mm tt"),
+                    TimeSpan = x.TimeSpan.ToString(),
+                    type1 = x.TOT,
+                    Ctype = x.gcType.ToString(),
+                    Address = (x.locAddresss).Replace("Unnamed Road,", ""),
+                    gpBeforImage = x.gpBeforImage,
+                    gpAfterImage = x.gpAfterImage,
+                    VehicleNumber = x.vehicleNumber,
+                    Note = x.note,
+                    ReferanceId = x.ReferanceId,
+                    Employee = x.userName,
+                    attandDate = Convert.ToDateTime(x.gcDate).ToString("dd/MM/yyyy hh:mm tt"),
+                    gpIdfk = x.gcId,
+                    gpIdpk = x.gcId,
+                    batteryStatus = x.batteryStatus,
+                    los = x.los,
+                    tns = x.TNS,
+                    PrabhagName = x.PrabhagName
+                    //ctype = x.CType,
+
+
+                }).Where(x => x.ReferanceId == ctptcountdata.CTPTID && Convert.ToDateTime(x.gcDate).ToString("dd/MM/yyyy") == Convert.ToDateTime(ctptcountdata.Date).ToString("dd/MM/yyyy")).OrderByDescending(c => c.gcDate).ToList().ToList();
+
+                if (!string.IsNullOrEmpty(SearchString))
+                {
+                    //var model = data.Where(c => c.UserName.Contains(SearchString) || c.HouseNumber.Contains(SearchString) || c.VehicleNumber.Contains(SearchString) || c.ReferanceId.Contains(SearchString) || c.Address.Contains(SearchString) || c.Employee.Contains(SearchString) || c.attandDate.Contains(SearchString) || c.Note.Contains(SearchString)
+
+                    //   || c.UserName.ToLower().Contains(SearchString) || c.HouseNumber.ToLower().Contains(SearchString) || c.VehicleNumber.ToLower().Contains(SearchString) || c.ReferanceId.ToLower().Contains(SearchString) || c.Address.ToLower().Contains(SearchString) || c.Employee.ToLower().Contains(SearchString) || c.attandDate.ToLower().Contains(SearchString) || c.Note.ToLower().Contains(SearchString)
+
+                    //   || c.UserName.ToUpper().Contains(SearchString) || c.HouseNumber.ToUpper().Contains(SearchString) || c.VehicleNumber.ToUpper().Contains(SearchString) || c.ReferanceId.ToUpper().Contains(SearchString) || c.Address.ToUpper().Contains(SearchString) || c.Employee.ToUpper().Contains(SearchString) || c.attandDate.ToUpper().Contains(SearchString) || c.Note.ToUpper().Contains(SearchString)
+                    //   ).ToList();
+                    var model = data.Where(c => ((c.UserName == null ? " " : c.UserName) + " " +
+                    (c.HouseNumber == null ? " " : c.HouseNumber) + " " +
+                    (c.VehicleNumber == null ? " " : c.VehicleNumber) + " " +
+                    (c.ReferanceId == null ? "" : c.ReferanceId) + " " +
+                    (c.Address == null ? " " : c.Address) + " " +
+                    (c.Employee == null ? " " : c.Employee) + " " +
+                    (c.attandDate == null ? " " : c.attandDate) + " " +
+                    (c.PrabhagName == null ? " " : c.PrabhagName) + " " +
+                    (c.Note == null ? " " : c.Note)).ToUpper().Contains(SearchString.ToUpper())
+                       ).ToList();
+
+
+                    data = model.OrderByDescending(c => c.gcDate).ToList().ToList();
+                }
+
+                if (userId > 0)
+                {
+                    var model = data.Where(c => c.userId == userId).ToList();
+
+                    data = model.ToList();
+                }
+                return data.OrderByDescending(c => c.gcDate).ToList().ToList(); ;
+
+            }
+        }
         // Added By Saurabh
 
         public IEnumerable<SBADumpYardDetailsGridRow> GetDumpYardData(long wildcard, string SearchString, int appId)
