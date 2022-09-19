@@ -3242,6 +3242,7 @@
     <Content Include="Views\GarbageCollection\MenuCTPTDetailGarbageIndex.cshtml" />
     <Content Include="Views\GarbageCollection\CTPTCountGarbageIndex.cshtml" />
     <Content Include="Views\Shared\_CTPTGarbageIndex.cshtml" />
+    <Content Include="Views\GarbageCollection\MenuCTPTGarbageIndex.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

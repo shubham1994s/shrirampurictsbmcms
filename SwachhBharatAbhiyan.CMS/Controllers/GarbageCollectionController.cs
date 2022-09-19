@@ -194,6 +194,16 @@ namespace SwachhBharatAbhiyan.CMS.Controllers
                 return Redirect("/Account/Login");
         }
 
+        public ActionResult MenuCTPTGarbageIndex()
+        {
+            if (SessionHandler.Current.AppId != 0)
+            {
+                return View();
+            }
+            else
+                return Redirect("/Account/Login");
+        }
+
         public ActionResult MenuCTPTDetailGarbageIndex(int teamId, string fdate, string tdate, int param1)
         {
 
