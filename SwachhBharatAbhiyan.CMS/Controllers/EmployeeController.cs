@@ -39,6 +39,8 @@ namespace SwachhBharatAbhiyan.CMS.Controllers
                 return Redirect("/Account/Login");
         }
 
+      
+
         public ActionResult MenuIndex()
         {
             if (SessionHandler.Current.AppId != 0)
