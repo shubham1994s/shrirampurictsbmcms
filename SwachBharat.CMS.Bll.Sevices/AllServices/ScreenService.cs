@@ -2302,6 +2302,94 @@ namespace SwachBharat.CMS.Bll.Services
 
                     }
                 }
+                else if (Emptype == "CT")
+                {
+                    using (var db = new DevChildSwachhBharatNagpurEntities(AppID))
+                    {
+                        //var Details = db.Locations.Where(c => c.EmployeeType == Emptype).FirstOrDefault();
+                        var Details = db.Locations.FirstOrDefault();
+
+                        if (teamId > 0)
+                        {
+                            //Details = db.Locations.Where(c => c.locId == teamId && c.EmployeeType == Emptype).FirstOrDefault();
+                            Details = db.Locations.Where(c => c.locId == teamId).FirstOrDefault();
+
+                        }
+
+                        if (Details != null)
+                        {
+                            //var atten = db.Daily_Attendance.Where(c => c.daDate == EntityFunctions.TruncateTime(Details.datetime) && c.userId == Details.userId && c.EmployeeType == Emptype).FirstOrDefault();
+                            var atten = db.Daily_Attendance.Where(c => c.daDate == EntityFunctions.TruncateTime(Details.datetime) && c.userId == Details.userId).FirstOrDefault();
+                          
+                            SBALUserLocationMapView loc = new SBALUserLocationMapView();
+                            var user = db.UserMasters.Where(c => c.userId == Details.userId).FirstOrDefault();
+                            loc.userName = user.userName;
+                            loc.date = Convert.ToDateTime(Details.datetime).ToString("dd/MM/yyyy");
+                            loc.time = Convert.ToDateTime(Details.datetime).ToString("hh:mm tt");
+                            loc.address = checkNull(Details.address).Replace("Unnamed Road, ", "");
+                            loc.lat = Details.lat;
+                            loc.log = Details.@long;
+                            loc.UserList = CTPTListUser(Emptype);
+                            loc.userMobile = user.userMobileNumber;
+                            loc.type = Convert.ToInt32(user.Type);
+                            if (atten != null)
+                            {
+                                try { loc.vehcileNumber = atten.vehicleNumber; } catch { loc.vehcileNumber = ""; }
+                            }
+                            else
+                            {
+                                loc.vehcileNumber = "";
+                            }
+
+                            return loc;
+                        }
+                        else
+                        {
+                            return new SBALUserLocationMapView();
+                        }
+
+                    }
+                }
+                else if (Emptype == "WCT")
+                {
+                    using (var db = new DevChildSwachhBharatNagpurEntities(AppID))
+                    {
+                        //var Details = db.Locations.Where(c => c.EmployeeType == Emptype).FirstOrDefault();
+                        var Details = db.Locations.FirstOrDefault();
+
+                        if (teamId > 0)
+                        {
+                            // Details = db.Locations.Where(c => c.locId == teamId && c.EmployeeType == Emptype).FirstOrDefault();
+                            Details = db.Locations.Where(c => c.locId == teamId).FirstOrDefault();
+                        }
+
+                        if (Details != null)
+                        {
+                            //var atten = db.Daily_Attendance.Where(c => c.daDate == EntityFunctions.TruncateTime(Details.datetime) && c.userId == Details.userId && c.EmployeeType == Emptype).FirstOrDefault();
+                            var atten = db.Daily_Attendance.Where(c => c.daDate == EntityFunctions.TruncateTime(Details.datetime) && c.userId == Details.userId).FirstOrDefault();
+                          
+                            SBALUserLocationMapView loc = new SBALUserLocationMapView();
+                            var user = db.UserMasters.Where(c => c.userId == Details.userId).FirstOrDefault();
+                            loc.userName = user.userName;
+                            loc.date = Convert.ToDateTime(Details.datetime).ToString("dd/MM/yyyy");
+                            loc.time = Convert.ToDateTime(Details.datetime).ToString("hh:mm tt");
+                            loc.address = checkNull(Details.address).Replace("Unnamed Road, ", "");
+                            loc.lat = Details.lat;
+                            loc.log = Details.@long;
+                            loc.UserList = ListUser(Emptype);
+                            loc.userMobile = user.userMobileNumber;
+                            loc.type = Convert.ToInt32(user.Type);
+                            try { loc.vehcileNumber = atten.vehicleNumber; } catch { loc.vehcileNumber = ""; }
+
+                            return loc;
+                        }
+                        else
+                        {
+                            return new SBALUserLocationMapView();
+                        }
+
+                    }
+                }
                 else
                 {
                     using (var db = new DevChildSwachhBharatNagpurEntities(AppID))
@@ -4740,17 +4828,29 @@ namespace SwachBharat.CMS.Bll.Services
                         }
                     }
                 }
+                DateTime dt = DateTime.Parse(x.gcDate == null ? DateTime.Now.ToString() : x.gcDate.ToString());
                 //string gcTime = x.gcDate.ToString();
                 houseLocation.Add(new SBALHouseLocationMapView()
                 {
-                    CTPTId = Convert.ToInt32(x.ctptId),
+                    dyid = Convert.ToInt32(x.dyId),
                     houseId = Convert.ToInt32(x.houseId),
                     ReferanceId = x.ReferanceId,
                     houseOwnerName = (x.houseOwner == null ? "" : x.houseOwner),
                     houseOwnerMobile = (x.houseOwnerMobile == null ? "" : x.houseOwnerMobile),
                     houseAddress = checkNull(x.houseAddress).Replace("Unnamed Road, ", ""),
+                    gcDate = dt.ToString("dd-MM-yyyy"),
+                    gcTime = dt.ToString("h:mm tt"), // 7:00 AM // 12 hour clock
+                                                     //string gcTime = x.gcDate.ToString(),
+                                                     //gcTime = x.gcDate.ToString("hh:mm tt"),
+                                                     //myDateTime.ToString("HH:mm:ss")
+                    ///date = Convert.ToDateTime(x.datt).ToString("dd/MM/yyyy"),
+                    //time = Convert.ToDateTime(x.datt).ToString("hh:mm:ss tt"),
                     houseLat = x.houseLat,
                     houseLong = x.houseLong,
+                    // address = x.houseAddress,
+                    //vehcileNumber = x.v,
+                    //userMobile = x.mobile,
+                    garbageType = x.garbageType,
                     IsIn = bIsIn
                 });
             }
@@ -5539,6 +5639,32 @@ namespace SwachBharat.CMS.Bll.Services
             return user;
         }
 
+        public List<SelectListItem> CTPTListUser(string Emptype)
+        {
+            var user = new List<SelectListItem>();
+            SelectListItem itemAdd = new SelectListItem() { Text = "Select Employee", Value = "0" };
+
+            try
+            {
+                
+                user = db.UserMasters.Join(db.Daily_Attendance, u => u.userId, uir => uir.userId, (u, uir) => new { u, uir })
+                    .Where(m => m.uir.EmployeeType == "CT")
+                        .Select(m => new SelectListItem
+                        {
+                            Text = m.u.userName,
+                            Value = m.u.userId.ToString()
+
+                        }).OrderBy(t => t.Text).Distinct().ToList();
+                
+
+            
+
+
+            }
+            catch (Exception ex) { throw ex; }
+
+            return user;
+        }
 
         public List<SelectListItem> LoadListWardNo(Int32 ZoneId)
         {

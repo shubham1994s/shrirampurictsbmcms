@@ -24,5 +24,8 @@ namespace SwachBharat.CMS.Dal.DataContexts
         public string ImageUrl { get; set; }
         public string QrImageUrl { get; set; }
         public string Mobile { get; set; }
+        public Nullable<int> ZoneId { get; set; }
+        public Nullable<int> AreaId { get; set; }
+        public Nullable<int> WardNo { get; set; }
     }
 }

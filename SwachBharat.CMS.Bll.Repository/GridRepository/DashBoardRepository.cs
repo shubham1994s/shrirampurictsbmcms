@@ -4212,15 +4212,14 @@ namespace SwachBharat.CMS.Bll.Repository.GridRepository
                     gpAfterImage = x.gpAfterImage,
                     VehicleNumber = x.vehicleNumber,
                     Note = x.note,
-                    ReferanceId = x.ReferanceId,
+                    ReferanceId = x.SauchalayID,
                     Employee = x.userName,
                     attandDate = Convert.ToDateTime(x.gcDate).ToString("dd/MM/yyyy hh:mm tt"),
                     gpIdfk = x.gcId,
                     gpIdpk = x.gcId,
                     batteryStatus = x.batteryStatus,
                     los = x.los,
-                    tns = x.TNS,
-                    PrabhagName = x.PrabhagName
+                    tns = x.TNS
                     //ctype = x.CType,
 
 
@@ -4241,7 +4240,6 @@ namespace SwachBharat.CMS.Bll.Repository.GridRepository
                     (c.Address == null ? " " : c.Address) + " " +
                     (c.Employee == null ? " " : c.Employee) + " " +
                     (c.attandDate == null ? " " : c.attandDate) + " " +
-                    (c.PrabhagName == null ? " " : c.PrabhagName) + " " +
                     (c.Note == null ? " " : c.Note)).ToUpper().Contains(SearchString.ToUpper())
                        ).ToList();
 
@@ -4259,6 +4257,49 @@ namespace SwachBharat.CMS.Bll.Repository.GridRepository
 
             }
         }
+
+        public IEnumerable<SBAGrabageCollectionGridRow> GetCTPTContGarbageCollectionData(long wildcard, string SearchString, DateTime? fdate, DateTime? tdate, int userId, int appId)
+        {
+            DevSwachhBharatMainEntities dbMain = new DevSwachhBharatMainEntities();
+            var appDetails = dbMain.AppDetails.Where(x => x.AppId == appId).FirstOrDefault();
+            string ThumbnaiUrlAPI = appDetails.baseImageUrl + appDetails.basePath + appDetails.Collection + "/";
+
+            using (DevChildSwachhBharatNagpurEntities db = new DevChildSwachhBharatNagpurEntities(appId))
+            {
+
+
+
+                var data = db.SP_CTPT_Collection(fdate, tdate, userId).Select(x => new SBAGrabageCollectionGridRow
+                {
+
+                    userId = x.userid,
+                    UserName = x.CTPT_UserName,
+                    HouseNumber = x.CTPTID,
+                    attandDate = Convert.ToDateTime(x.Date).ToString("dd/MM/yyyy"),
+                    TCount = x.today_ctpt_count,
+                    Row = x.RowCounts,
+                }).OrderByDescending(c => c.gcDate).ToList().ToList();
+
+                if (!string.IsNullOrEmpty(SearchString))
+                {
+                    var model = data.Where(c => ((c.UserName == null ? " " : c.UserName) + " " + (c.HouseNumber == null ? " " : c.HouseNumber) + " " + (c.VehicleNumber == null ? " " : c.VehicleNumber) + " " + (c.ReferanceId == null ? "" : c.ReferanceId) + " " + (c.Address == null ? " " : c.Address) + " " + (c.Employee == null ? " " : c.Employee) + " " + (c.attandDate == null ? " " : c.attandDate) + " " + (c.Note == null ? " " : c.Note)).ToUpper().Contains(SearchString.ToUpper())
+                       ).ToList();
+
+
+                    data = model.OrderByDescending(c => c.gcDate).ToList().ToList();
+                }
+
+                if (userId > 0)
+                {
+                    var model = data.Where(c => c.userId == userId).ToList();
+
+                    data = model.ToList();
+                }
+                return data.OrderByDescending(c => c.gcDate).ToList().ToList(); ;
+
+            }
+        }
+
         // Added By Saurabh
 
         public IEnumerable<SBADumpYardDetailsGridRow> GetDumpYardData(long wildcard, string SearchString, int appId)

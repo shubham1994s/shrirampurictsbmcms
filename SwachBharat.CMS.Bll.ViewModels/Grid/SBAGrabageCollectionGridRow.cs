@@ -46,7 +46,16 @@ namespace SwachBharat.CMS.Bll.ViewModels.ChildModel.Grid
 
         public string wastetype { get; set; }
 
+        public string gpBeforImageTime { get; set; }
+        public string TimeSpan { get; set; }
+        public string Ctype { get; set; }
 
+        public string los { get; set; }
 
+        public Nullable<int> tns { get; set; }
+
+        public Nullable<int> TCount { get; set; }
+
+        public Nullable<long> Row { get; set; }
     }
 }
