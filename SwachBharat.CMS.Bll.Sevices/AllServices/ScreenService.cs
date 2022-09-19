@@ -4828,29 +4828,17 @@ namespace SwachBharat.CMS.Bll.Services
                         }
                     }
                 }
-                DateTime dt = DateTime.Parse(x.gcDate == null ? DateTime.Now.ToString() : x.gcDate.ToString());
                 //string gcTime = x.gcDate.ToString();
                 houseLocation.Add(new SBALHouseLocationMapView()
                 {
-                    dyid = Convert.ToInt32(x.dyId),
+                    CTPTId = Convert.ToInt32(x.ctptId),
                     houseId = Convert.ToInt32(x.houseId),
                     ReferanceId = x.ReferanceId,
                     houseOwnerName = (x.houseOwner == null ? "" : x.houseOwner),
                     houseOwnerMobile = (x.houseOwnerMobile == null ? "" : x.houseOwnerMobile),
                     houseAddress = checkNull(x.houseAddress).Replace("Unnamed Road, ", ""),
-                    gcDate = dt.ToString("dd-MM-yyyy"),
-                    gcTime = dt.ToString("h:mm tt"), // 7:00 AM // 12 hour clock
-                                                     //string gcTime = x.gcDate.ToString(),
-                                                     //gcTime = x.gcDate.ToString("hh:mm tt"),
-                                                     //myDateTime.ToString("HH:mm:ss")
-                    ///date = Convert.ToDateTime(x.datt).ToString("dd/MM/yyyy"),
-                    //time = Convert.ToDateTime(x.datt).ToString("hh:mm:ss tt"),
                     houseLat = x.houseLat,
                     houseLong = x.houseLong,
-                    // address = x.houseAddress,
-                    //vehcileNumber = x.v,
-                    //userMobile = x.mobile,
-                    garbageType = x.garbageType,
                     IsIn = bIsIn
                 });
             }
@@ -4859,6 +4847,7 @@ namespace SwachBharat.CMS.Bll.Services
             return houseLocation;
 
         }
+
 
         public DashBoardVM GetHouseOnMapDetails()
         {
