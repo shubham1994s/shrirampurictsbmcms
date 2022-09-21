@@ -246,6 +246,9 @@ namespace SwachBharat.CMS.Bll.Services
         List<string> CheckShiftName();
         StreetSweepVM GetBeatDetails(int teamId);
         StreetSweepVM SaveStreetBeatDetails(StreetSweepVM data);
+        SBALUserLocationMapView GetCTPTByIdforMap(int teamId, int daId);
+        List<SBALUserLocationMapView> GetCTPTUserAttenRoute(int userId);
+        HouseAttenRouteVM GetBeatCTPTAttenRoute(int daId, int areaid, int polyId);
 
     }
 }

@@ -387,7 +387,10 @@ namespace SwachhBharatAbhiyan.CMS.Controllers
                     gridRepository = new AttendeceGridRepository(0, searchString, fdate, tdate, userId, appId,null);
                     return gridRepository;
                     break;
-
+                case "CTPTAttendence":
+                    gridRepository = new AttendeceGridRepository(0, searchString, fdate, tdate, userId, appId, "CT");
+                    return gridRepository;
+                    break;
                 case "DumpPlantAttendence":
                     gridRepository = new AttendeceGridRepository(0, searchString, fdate, tdate, userId, appId, "D");
                     return gridRepository;

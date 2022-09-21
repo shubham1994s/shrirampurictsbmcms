@@ -790,6 +790,19 @@ namespace SwachBharat.CMS.Bll.Repository.ChildRepository
             StreetSweepVM dd = screenService.SaveStreetBeatDetails(data);
             return dd;
         }
+
+        public SBALUserLocationMapView GetCTPTByIdforMap(int teamId, int daId)
+        {
+            return screenService.GetCTPTByIdforMap(teamId, daId);
+        }
+        public List<SBALUserLocationMapView> GetCTPTUserAttenRoute(int daId)
+        {
+            return screenService.GetCTPTUserAttenRoute(daId);
+        }
+        public HouseAttenRouteVM GetBeatCTPTAttenRoute(int daId, int areaid, int polyId)
+        {
+            return screenService.GetBeatCTPTAttenRoute(daId, areaid, polyId);
+        }
     }
 }
 

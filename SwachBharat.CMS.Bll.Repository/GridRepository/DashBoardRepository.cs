@@ -3672,7 +3672,28 @@ namespace SwachBharat.CMS.Bll.Repository.GridRepository
                             daDateTIme = (displayTime + " " + time)
                         });
                     }
-
+                    else if (Emptype == "CT")
+                    {
+                        obj.Add(new SBAAttendenceGrid()
+                        {
+                            daID = x.daID,
+                            userId = Convert.ToInt32(x.userId),
+                            userName = db.UserMasters.Where(c => c.userId == x.userId).FirstOrDefault().userName,
+                            ReferanceId = db.SauchalayAddresses.Where(c => c.Id == x.dyid).Select(c =>c.SauchalayID).FirstOrDefault(),
+                            daDate = Convert.ToDateTime(x.daDate).ToString("dd/MM/yyyy"),
+                            daEndDate = endate,
+                            startTime = x.startTime,
+                            endTime = x.endTime,
+                            startLat = x.startLat,
+                            startLong = x.startLong,
+                            endLat = x.startLong,
+                            endLong = x.endLong,
+                            vtId = vt,
+                            vehicleNumber = x.vehicleNumber,
+                            CompareDate = x.daDate,
+                            daDateTIme = (displayTime + " " + time)
+                        });
+                    }
                     else if(x.VQRId > 0)
                     {
                         obj.Add(new SBAAttendenceGrid()
