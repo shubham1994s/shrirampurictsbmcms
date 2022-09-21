@@ -206,9 +206,6 @@
     <Compile Include="HouseDetails_ReferanceId_Result.cs">
       <DependentUpon>ChildSwachBharatAbhiyan.tt</DependentUpon>
     </Compile>
-    <Compile Include="HouseDetails_Result.cs">
-      <DependentUpon>ChildSwachBharatAbhiyan.tt</DependentUpon>
-    </Compile>
     <Compile Include="HouseList.cs">
       <DependentUpon>ChildSwachBharatAbhiyan.tt</DependentUpon>
     </Compile>

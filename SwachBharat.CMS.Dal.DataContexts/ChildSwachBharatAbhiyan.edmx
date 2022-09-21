@@ -721,7 +721,6 @@ warning 6002: The table/view 'LIVEAdvanceShrirampurGhantaGadi.dbo.Vw_MsgNotifica
           <Parameter Name="year" Type="int" Mode="In" />
           <Parameter Name="month" Type="int" Mode="In" />
         </Function>
-        <Function Name="HouseDetails" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="HouseDetails_ReferanceId" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="ReferanceId" Type="nvarchar" Mode="In" />
         </Function>
@@ -1309,7 +1308,6 @@ warning 6002: The table/view 'LIVEAdvanceShrirampurGhantaGadi.dbo.Vw_MsgNotifica
           </FunctionImport>
           <EntitySet Name="Vw_MsgNotification" EntityType="DevSwachhBharatNagpurModel.Vw_MsgNotification" />
           <EntitySet Name="MonthlyAttedances" EntityType="DevSwachhBharatNagpurModel.MonthlyAttedance" />
-          <FunctionImport Name="HouseDetails" ReturnType="Collection(DevSwachhBharatNagpurModel.HouseDetails_Result)" />
           <FunctionImport Name="SP_EmployeeHouseCollectionTime" ReturnType="Collection(DevSwachhBharatNagpurModel.SP_EmployeeHouseCollectionTime_Result)" />
           <FunctionImport Name="SP_GetEmpWiseHouseScan" ReturnType="Collection(DevSwachhBharatNagpurModel.SP_GetEmpWiseHouseScan_Result)" />
           <EntitySet Name="StreetSweepingBeats" EntityType="DevSwachhBharatNagpurModel.StreetSweepingBeat" />
@@ -1412,6 +1410,7 @@ warning 6002: The table/view 'LIVEAdvanceShrirampurGhantaGadi.dbo.Vw_MsgNotifica
             <Parameter Name="WardNo" Mode="In" Type="Int32" />
             <Parameter Name="Segid" Mode="In" Type="Int32" />
           </FunctionImport>
+          <FunctionImport Name="HouseDetails" />
          
         </EntityContainer>
         <ComplexType Name="CurrentAllUserLocation_Result">
@@ -2296,23 +2295,6 @@ warning 6002: The table/view 'LIVEAdvanceShrirampurGhantaGadi.dbo.Vw_MsgNotifica
           <Property Name="H_Count" Type="Int32" />
           <Property Name="A_Count" Type="Int32" />
         </EntityType>
-        <ComplexType Name="HouseDetails_Result">
-          <Property Type="Int32" Name="houseId" Nullable="false" />
-          <Property Type="String" Name="ReferanceId" Nullable="true" MaxLength="350" />
-          <Property Type="String" Name="OccupancyStatus" Nullable="true" />
-          <Property Type="String" Name="Property_Type" Nullable="true" />
-          <Property Type="String" Name="Name" Nullable="false" MaxLength="200" />
-          <Property Type="String" Name="NameMar" Nullable="false" MaxLength="200" />
-          <Property Type="String" Name="Images" Nullable="false" />
-          <Property Type="String" Name="Zone" Nullable="false" MaxLength="500" />
-          <Property Type="String" Name="Ward" Nullable="false" MaxLength="50" />
-          <Property Type="String" Name="Area" Nullable="false" MaxLength="250" />
-          <Property Type="String" Name="HouseNumber" Nullable="false" MaxLength="500" />
-          <Property Type="String" Name="MobileNumber" Nullable="false" MaxLength="200" />
-          <Property Type="String" Name="Address" Nullable="false" MaxLength="500" />
-          <Property Type="String" Name="houseLat" Nullable="false" MaxLength="500" />
-          <Property Type="String" Name="houseLong" Nullable="false" MaxLength="500" />
-        </ComplexType>
         <ComplexType Name="SP_EmployeeHouseCollectionTime_Result">
           <Property Type="Int32" Name="userId" Nullable="false" />
           <Property Type="DateTime" Name="TodayDate" Nullable="true" />
@@ -3829,27 +3811,6 @@ warning 6002: The table/view 'LIVEAdvanceShrirampurGhantaGadi.dbo.Vw_MsgNotifica
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <FunctionImportMapping FunctionImportName="HouseDetails" FunctionName="DevSwachhBharatNagpurModel.Store.HouseDetails">
-            <ResultMapping>
-              <ComplexTypeMapping TypeName="DevSwachhBharatNagpurModel.HouseDetails_Result">
-                <ScalarProperty Name="houseId" ColumnName="houseId" />
-                <ScalarProperty Name="ReferanceId" ColumnName="ReferanceId" />
-                <ScalarProperty Name="OccupancyStatus" ColumnName="OccupancyStatus" />
-                <ScalarProperty Name="Property_Type" ColumnName="Property_Type" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="NameMar" ColumnName="NameMar" />
-                <ScalarProperty Name="Images" ColumnName="Images" />
-                <ScalarProperty Name="Zone" ColumnName="Zone" />
-                <ScalarProperty Name="Ward" ColumnName="Ward" />
-                <ScalarProperty Name="Area" ColumnName="Area" />
-                <ScalarProperty Name="HouseNumber" ColumnName="HouseNumber" />
-                <ScalarProperty Name="MobileNumber" ColumnName="MobileNumber" />
-                <ScalarProperty Name="Address" ColumnName="Address" />
-                <ScalarProperty Name="houseLat" ColumnName="houseLat" />
-                <ScalarProperty Name="houseLong" ColumnName="houseLong" />
-              </ComplexTypeMapping>
-            </ResultMapping>
-          </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="SP_EmployeeHouseCollectionTime" FunctionName="DevSwachhBharatNagpurModel.Store.SP_EmployeeHouseCollectionTime">
             <ResultMapping>
               <ComplexTypeMapping TypeName="DevSwachhBharatNagpurModel.SP_EmployeeHouseCollectionTime_Result">

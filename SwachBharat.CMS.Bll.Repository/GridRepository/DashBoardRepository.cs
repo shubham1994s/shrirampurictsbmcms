@@ -612,6 +612,7 @@ namespace SwachBharat.CMS.Bll.Repository.GridRepository
                     OccupancyStatus = x.OccupancyStatus,
                     Property_Type = x.Property_Type,
                   //  QRCodeImage = string.Format(db.HouseMasters.Where(c=>c.houseId==x.houseId).FirstOrDefault().BinaryQrCodeImage),
+                    QRCodeImage=string.Format(x.BinaryQrCodeImage.ToString())
                 }).ToList();
                 if (!string.IsNullOrEmpty(SearchString))
                 {
