@@ -267,6 +267,9 @@ namespace SwachBharat.CMS.Bll.Repository.ChildRepository
 
         StreetSweepVM GetBeat(int teamId);
         StreetSweepVM SaveStreetBeat(StreetSweepVM data);
+        SBALUserLocationMapView GetCTPTByIdforMap(int teamId, int daId);
+        List<SBALUserLocationMapView> GetCTPTUserAttenRoute(int id);
+        HouseAttenRouteVM GetBeatCTPTAttenRoute(int daId, int areaid, int polyId);
 
     }
 }

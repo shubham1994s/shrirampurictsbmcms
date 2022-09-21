@@ -1769,6 +1769,7 @@
     <Content Include="Content\DatatableGrid\AttendenceGrid.js" />
     <Content Include="Content\DatatableGrid\AURGridDetails.js" />
     <Content Include="Content\DatatableGrid\Complaint.js" />
+    <Content Include="Content\DatatableGrid\CTPTAttendenceBeatMapGrid.js" />
     <Content Include="Content\DatatableGrid\District.js" />
     <Content Include="Content\DatatableGrid\DumpPlantAttendenceGrid.js" />
     <Content Include="Content\DatatableGrid\DumpYardDetailGrid.js" />
@@ -3238,6 +3239,10 @@
     <Content Include="Views\MasterQR\AddMasterQRDetails.cshtml" />
     <Content Include="Views\Report\CTPTReport.cshtml" />
     <Content Include="Views\Report\CTPTFeedbackReport.cshtml" />
+    <Content Include="Views\AttendenceBeatMap\CTPTMenuIndex.cshtml" />
+    <Content Include="Views\AttendenceBeatMap\CTPTIndex.cshtml" />
+    <Content Include="Views\AttendenceBeatMap\CTPTUserRoute.cshtml" />
+    <Content Include="Views\AttendenceBeatMap\CTPTRoute.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
