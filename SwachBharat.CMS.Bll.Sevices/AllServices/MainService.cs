@@ -799,7 +799,7 @@ namespace SwachBharat.CMS.Bll.Services
 public int GetUserAppId(string UserId)
         {
             int AppId = 0;
-            AppId = dbMain.UserInApps.Where(x => x.UserId == UserId && x.AppId!=3109 && x.AppId!=3088 && x.AppId!=3108 && x.AppId != 3111 && x.AppId != 3068).Select(x => x.AppId).FirstOrDefault();
+            AppId = dbMain.UserInApps.Where(x => x.UserId == UserId && x.AppId==3111 ).Select(x => x.AppId).FirstOrDefault();
 
             return AppId;
         }
