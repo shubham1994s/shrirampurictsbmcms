@@ -24,8 +24,25 @@
             "targets": [0],
             "visible": false,
             "searchable": false
-        }],
+            },
 
+             {
+                    "targets": [12],
+                    "visible": true,
+
+                    "render": function (data, type, full, meta) {
+                        if (full["QRCodeImage"] != null) {
+                            return "<div style='cursor:pointer;display:inline-flex;'  onclick=PopImagesHouse(this)><img alt='Photo Not Found'  src='" + data +
+                                "' style='height:35px;width:35px;cursor:pointer;margin-left:0px;'></img><span><ul class='dt_pop'  style='margin:2px -5px -5px -5px; padding:0px;list-style:none;display:none;'><li  class='li_date datediv' >" + full["Name"] + "</li><li  class='li_lat datediv' >" + full["HouseLat"] + "</li></li><li  class='li_long datediv' >" + full["HouseLong"] + "</li><li class='addr-length' style='margin:0px 0px 0px 10px;'>"
+                                + full["ReferanceId"] + "</li><li class='date_time'>" + full["modifiedDate"] + "</li><li style='display:none' class='li_title' >HouseScanify QR Image </li><li class='li_houseId'>" + full["houseId"] + "</li><li class='li_QRStatus'>" + full["QRStatus"] + "</li></ul></span></div>";
+                        }
+                        else {
+
+                            return "<img alt='Photo Not Found' onclick='noImageNotification()' src='/Images/default.png' style='height:35px;width:35px;cursor:pointer;'></img>";
+                        }
+                    },
+                }],
+          
         "columns": [
             
               { "data": "houseId", "name": "houseId", "autoWidth": false },
@@ -47,6 +64,7 @@
             { "data": "Address", "name": "Address", "autoWidth": false },
             { "data": "Property_Type", "name": "Property_Type", "autoWidth": false },
             { "data": "OccupancyStatus", "name": "OccupancyStatus", "autoWidth": false },
+            { "data": "QRCodeImage", "name": "QRCodeImage", "autoWidth": true },
             //   { "render": function (data, type, full, meta) { return '<input class="btn btn-primary btn-sm" type="button" onclick="Edit(' + full["houseId"] + ')" value="Edit" /> <input style="margin-left:2px" class="btn btn-danger btn-sm" type="button" onclick="Delete(' + full["houseId"] + ',' + full["Name"] + ')" value="Delete" />'; } }
         { "render": function (data, type, full, meta) { return '<a  data-toggle="modal" class="tooltip1" style="cursor:pointer"  onclick="Edit(' + full["houseId"] + ')" ><i class="material-icons edit-icon">edit</i><span class="tooltiptext1">Edit</span> </a>'; }, "width": "10%" },
       //<a  data-toggle="modal" style="cursor:pointer;margin-left:10px;" class="tooltip1" style="cursor:pointer" onclick="Delete(' + full["houseId"] + ')" ><i class="material-icons delete-icon">delete</i><span class="tooltiptext1">Delete</span> </a>

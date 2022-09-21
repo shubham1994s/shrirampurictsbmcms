@@ -610,7 +610,8 @@ namespace SwachBharat.CMS.Bll.Repository.GridRepository
                     QRCode = ThumbnaiUrlCMS + x.Images.Trim(),
                     ReferanceId = x.ReferanceId,
                     OccupancyStatus = x.OccupancyStatus,
-                    Property_Type = x.Property_Type
+                    Property_Type = x.Property_Type,
+                  //  QRCodeImage = string.Format(db.HouseMasters.Where(c=>c.houseId==x.houseId).FirstOrDefault().BinaryQrCodeImage),
                 }).ToList();
                 if (!string.IsNullOrEmpty(SearchString))
                 {
