@@ -1769,6 +1769,8 @@
     <Content Include="Content\DatatableGrid\AttendenceGrid.js" />
     <Content Include="Content\DatatableGrid\AURGridDetails.js" />
     <Content Include="Content\DatatableGrid\Complaint.js" />
+    <Content Include="Content\DatatableGrid\Complaint1.js" />
+    <Content Include="Content\DatatableGrid\CTPTAttendenceBeatMapGrid.js" />
     <Content Include="Content\DatatableGrid\CTPTCountGarbageGrid.js" />
     <Content Include="Content\DatatableGrid\District.js" />
     <Content Include="Content\DatatableGrid\DumpPlantAttendenceGrid.js" />
@@ -1820,6 +1822,7 @@
     <Content Include="Content\DatatableGrid\ULBAdmin.js" />
     <Content Include="Content\DatatableGrid\URGridDetails.js" />
     <Content Include="Content\DatatableGrid\VehicalRegDetailsGrid.js" />
+    <Content Include="Content\DatatableGrid\VehicleRegGrid.js" />
     <Content Include="Content\DatatableGrid\VehicleTypeGrid.js" />
     <Content Include="Content\DatatableGrid\WardNumberGrid.js" />
     <Content Include="Content\DatatableGrid\WM_WasteDetailsGrid.js" />
@@ -3243,6 +3246,10 @@
     <Content Include="Views\GarbageCollection\CTPTCountGarbageIndex.cshtml" />
     <Content Include="Views\Shared\_CTPTGarbageIndex.cshtml" />
     <Content Include="Views\GarbageCollection\MenuCTPTGarbageIndex.cshtml" />
+    <Content Include="Views\AttendenceBeatMap\CTPTIndex.cshtml" />
+    <Content Include="Views\AttendenceBeatMap\CTPTMenuIndex.cshtml" />
+    <Content Include="Views\AttendenceBeatMap\CTPTRoute.cshtml" />
+    <Content Include="Views\AttendenceBeatMap\CTPTUserRoute.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
