@@ -16,7 +16,7 @@ namespace SwachhBharatAbhiyan.CMS.Controllers
         IDataTableRepository gridRepository;
 
 
-        public string GetJqGridJson(string INSERT_ID, string draw, string start, string length, string rn, DateTime? fdate = null, DateTime? tdate = null, int userId = 0, string clientName = null, int? param1 = null, int? param2 = null, int? param3 = null, int? param5 = null, int? param6 = null, string smonth="", string emonth="", string syear="", string eyear="")
+        public string GetJqGridJson(string INSERT_ID, string draw, string start, string length, string rn, DateTime? fdate = null, DateTime? tdate = null, int userId = 0, string clientName = null, int? param1 = null, int? param2 = null, int? param3 = null, int? param5 = null, int? param6 = null, string smonth = "", string emonth = "", string syear = "", string eyear = "")
         {
             if (Convert.ToInt32(length) == 5)
             {
@@ -86,25 +86,25 @@ namespace SwachhBharatAbhiyan.CMS.Controllers
             return FiltersDictionary;
         }
 
-        private IDataTableRepository GetRepository(string INSERT_ID, string RepositoryName, string searchString = "", DateTime? fdate = null, DateTime? tdate = null, int userId = 0, string clientId = null, int? param1 = null, int? param2 = null, int? param3 = null, int? param4 = null, int? param5 = null, int? param6 = null, string sortColumn = "", string sortColumnDir = "", string draw = "", string length = "", string start = "", string smonth="", string emonth="", string syear="", string eyear="")
+        private IDataTableRepository GetRepository(string INSERT_ID, string RepositoryName, string searchString = "", DateTime? fdate = null, DateTime? tdate = null, int userId = 0, string clientId = null, int? param1 = null, int? param2 = null, int? param3 = null, int? param4 = null, int? param5 = null, int? param6 = null, string sortColumn = "", string sortColumnDir = "", string draw = "", string length = "", string start = "", string smonth = "", string emonth = "", string syear = "", string eyear = "")
         {
             int product = 0, category = 0;
             //string[] arr = new string[6];
 
-            if (searchString != "" && searchString != null )
+            if (searchString != "" && searchString != null)
             {
                 Session["Search"] = searchString;
                 Session["rn"] = RepositoryName;
 
                 if (Session["rn"].ToString() == "MonthlyAttendence")
                 {
-                   
+
                     string[] arrs = searchString.Split(',');
                     if (arrs[0].ToString() != null && arrs[0] != " " && arrs[0].ToString() != string.Empty)
                     {
                         string[] smontharr = arrs[0].Split('/');
                         smonth = smontharr[1];
-                        syear= smontharr[0];
+                        syear = smontharr[0];
                     }
                     else smonth = null;
                     if (arrs[1].ToString() != null && arrs[1] != " " && arrs[1].ToString() != string.Empty)
@@ -197,36 +197,43 @@ namespace SwachhBharatAbhiyan.CMS.Controllers
                         // searchString = "";
                     }
                 }
-              
+
             }
 
-            else if(RepositoryName== "StreetGarbageBeat" && searchString == "" )
+            else if (RepositoryName == "StreetGarbageBeat" && searchString == "")
             {
                 fdate = fdate;
                 tdate = tdate;
-                userId =userId;
-              
+                userId = userId;
+
 
             }
-            else {
+            else if(RepositoryName == "GarbageCTPT")
+            {
+                fdate = fdate;
+                tdate = tdate;
+                userId = userId;
+            }
+            else
+            {
 
                 string dt = DateTime.Now.ToString("MM/dd/yyyy");
-                fdate = Convert.ToDateTime(dt+ " " + "00:00:00");
+                fdate = Convert.ToDateTime(dt + " " + "00:00:00");
                 tdate = Convert.ToDateTime(dt + " " + "23:59:59");
 
             }
-            
+
             //var appId = ((SessionHandler)Session["clsSession"]).AppId;
             var appId = SessionHandler.Current.AppId;
             switch (RepositoryName)
             {
                 case "Location":
-                    gridRepository = new LocationGridRepository(0, searchString, fdate, tdate, userId, appId,null);
+                    gridRepository = new LocationGridRepository(0, searchString, fdate, tdate, userId, appId, null);
                     return gridRepository;
                     break;
 
                 case "LiquidLocation":
-                    gridRepository = new LocationGridRepository(0, searchString, fdate, tdate, userId, appId,"L");
+                    gridRepository = new LocationGridRepository(0, searchString, fdate, tdate, userId, appId, "L");
                     return gridRepository;
                     break;
                 case "StreetLocation":
@@ -235,7 +242,7 @@ namespace SwachhBharatAbhiyan.CMS.Controllers
                     break;
 
                 case "ActiveEmployee":
-                    gridRepository = new EmployeeGridRepository(0, searchString, appId, "1","");
+                    gridRepository = new EmployeeGridRepository(0, searchString, appId, "1", "");
                     return gridRepository;
                     break;
 
@@ -245,7 +252,7 @@ namespace SwachhBharatAbhiyan.CMS.Controllers
                     break;
 
                 case "LiquidActiveEmployee":
-                    gridRepository = new EmployeeGridRepository(0, searchString, appId, "1","L");
+                    gridRepository = new EmployeeGridRepository(0, searchString, appId, "1", "L");
                     return gridRepository;
                     break;
                 case "StreetActiveEmployee":
@@ -258,7 +265,7 @@ namespace SwachhBharatAbhiyan.CMS.Controllers
                     break;
 
                 case "NotActiveEmployee":
-                    gridRepository = new EmployeeGridRepository(0, searchString, appId, "0","");
+                    gridRepository = new EmployeeGridRepository(0, searchString, appId, "0", "");
                     return gridRepository;
                     break;
                 case "NotActiveEmployeeCT":
@@ -328,7 +335,7 @@ namespace SwachhBharatAbhiyan.CMS.Controllers
                     return gridRepository;
                     break;
                 case "EmpBeatMap":
-                    gridRepository = new EmpBeatMapsGridRepository(0, searchString, appId,null);
+                    gridRepository = new EmpBeatMapsGridRepository(0, searchString, appId, null);
                     return gridRepository;
                     break;
                 case "EmpBeatMapDump":
@@ -384,7 +391,7 @@ namespace SwachhBharatAbhiyan.CMS.Controllers
                     return gridRepository;
                     break;
                 case "Attendence":
-                    gridRepository = new AttendeceGridRepository(0, searchString, fdate, tdate, userId, appId,null);
+                    gridRepository = new AttendeceGridRepository(0, searchString, fdate, tdate, userId, appId, null);
                     return gridRepository;
                     break;
                 case "CTPTAttendence":
@@ -397,13 +404,13 @@ namespace SwachhBharatAbhiyan.CMS.Controllers
                     break;
 
                 case "MonthlyAttendence":
-                    gridRepository = new MonthlyAttendeceGridRepository(0, searchString, smonth, emonth, syear, eyear,userId, appId, null);
+                    gridRepository = new MonthlyAttendeceGridRepository(0, searchString, smonth, emonth, syear, eyear, userId, appId, null);
                     return gridRepository;
                     break;
 
 
                 case "LiquidAttendence":
-                    gridRepository = new AttendeceGridRepository(0, searchString, fdate, tdate, userId, appId,"L");
+                    gridRepository = new AttendeceGridRepository(0, searchString, fdate, tdate, userId, appId, "L");
                     return gridRepository;
                     break;
                 case "StreetAttendence":
@@ -459,7 +466,7 @@ namespace SwachhBharatAbhiyan.CMS.Controllers
                     break;
 
                 case "StreetSweepBeatMap":
-                    gridRepository = new StreetSweepBeatPointGrid(0,  fdate,  tdate,userId, searchString, appId);
+                    gridRepository = new StreetSweepBeatPointGrid(0, fdate, tdate, userId, searchString, appId);
                     return gridRepository;
                     break;
 
@@ -469,7 +476,7 @@ namespace SwachhBharatAbhiyan.CMS.Controllers
                     break;
 
                 case "DumpYardDetails":
-                    gridRepository = new DumpYardCollectionGridRepository(0, searchString, fdate, tdate, userId, appId,param1,param2,param3);
+                    gridRepository = new DumpYardCollectionGridRepository(0, searchString, fdate, tdate, userId, appId, param1, param2, param3);
                     return gridRepository;
                     break;
                 case "DumpYardSupervisorDetails":
@@ -517,7 +524,7 @@ namespace SwachhBharatAbhiyan.CMS.Controllers
                     gridRepository = new SauchalayGridRepository(0, searchString, fdate, tdate, userId, appId);
                     return gridRepository;
                     break;
-               
+
                 case "onepointfourDetail":
                     gridRepository = new OnePointFourGridRepository(0, searchString, appId);
                     return gridRepository;
@@ -528,7 +535,7 @@ namespace SwachhBharatAbhiyan.CMS.Controllers
                     return gridRepository;
                     break;
 
-                case "onepointfiveDetail": 
+                case "onepointfiveDetail":
                     gridRepository = new OnePointFiveGridRepository(0, searchString, appId);
                     return gridRepository;
                     break;
@@ -575,7 +582,7 @@ namespace SwachhBharatAbhiyan.CMS.Controllers
                     break;
 
                 case "URAttendance":
-                    gridRepository = new URAttendanceGridRepository(0, searchString, fdate, tdate, userId,clientId, appId, sortColumn, sortColumnDir, draw, length, start);
+                    gridRepository = new URAttendanceGridRepository(0, searchString, fdate, tdate, userId, clientId, appId, sortColumn, sortColumnDir, draw, length, start);
                     return gridRepository;
                     break;
 
@@ -589,7 +596,7 @@ namespace SwachhBharatAbhiyan.CMS.Controllers
                     return gridRepository;
                     break;
                 case "HSHouseDetails":
-                    gridRepository = new HSHouseDetailsGridRepository(0, searchString, fdate, tdate, userId,param1, appId, sortColumn, sortColumnDir, draw, length, start);
+                    gridRepository = new HSHouseDetailsGridRepository(0, searchString, fdate, tdate, userId, param1, appId, sortColumn, sortColumnDir, draw, length, start);
                     return gridRepository;
                     break;
                 case "HSDumpyardDetails":
@@ -615,7 +622,7 @@ namespace SwachhBharatAbhiyan.CMS.Controllers
                     break;
 
                 case "WM_WasteDetails":
-                    gridRepository = new WM_WasteDetailsGridRepository(0, searchString, fdate, tdate, userId, appId, param1,param2);
+                    gridRepository = new WM_WasteDetailsGridRepository(0, searchString, fdate, tdate, userId, appId, param1, param2);
                     return gridRepository;
                     break;
 
@@ -632,7 +639,7 @@ namespace SwachhBharatAbhiyan.CMS.Controllers
 
                 case "ULBAdmin":
                     //gridRepository = new InfotainmentGridRepository(0, searchString, appId);
-                    gridRepository = new ULBAdminGridRepository(0,searchString,param1,param2,param3,userId);
+                    gridRepository = new ULBAdminGridRepository(0, searchString, param1, param2, param3, userId);
                     return gridRepository;
                     break;
                 case "ULBAdminStatus":
@@ -645,11 +652,11 @@ namespace SwachhBharatAbhiyan.CMS.Controllers
                     return gridRepository;
                     break;
             }
-            
+
             return null;
         }
 
     }
-    
+
 
 }
