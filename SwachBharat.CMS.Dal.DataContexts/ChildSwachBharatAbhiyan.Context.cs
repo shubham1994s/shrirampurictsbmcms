@@ -17,12 +17,11 @@ namespace SwachBharat.CMS.Dal.DataContexts
     
     public partial class DevChildSwachhBharatNagpurEntities : DbContext
     {
-        public DevChildSwachhBharatNagpurEntities(int AppId)
-      : base(SwachBharatAppConnection.GetConnectionString(AppId))
+        public DevChildSwachhBharatNagpurEntities()
+            : base("name=DevChildSwachhBharatNagpurEntities")
         {
         }
-
-
+    
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             throw new UnintentionalCodeFirstException();
@@ -569,11 +568,6 @@ namespace SwachBharat.CMS.Dal.DataContexts
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<SP_StreetSweepingOnMapDetails_Result>("SP_StreetSweepingOnMapDetails", gcDateParameter, userIdParameter, zoneIdParameter, areaIdParameter, wardNoParameter, garbageTypeParameter, filterTypeParameter);
         }
     
-        public virtual ObjectResult<HouseDetails_Result> HouseDetails()
-        {
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<HouseDetails_Result>("HouseDetails");
-        }
-    
         public virtual ObjectResult<SP_EmployeeHouseCollectionTime_Result> SP_EmployeeHouseCollectionTime()
         {
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<SP_EmployeeHouseCollectionTime_Result>("SP_EmployeeHouseCollectionTime");
@@ -872,6 +866,11 @@ namespace SwachBharat.CMS.Dal.DataContexts
                 new ObjectParameter("Segid", typeof(int));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<SP_CTPTGarbageCollection_Result>("SP_CTPTGarbageCollection", appIdParameter, useridParameter, fdateParameter, tdateParameter, zoneIdParameter, areaIdParameter, wardNoParameter, segidParameter);
+        }
+    
+        public virtual int HouseDetails()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("HouseDetails");
         }
     }
 }
