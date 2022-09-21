@@ -29,5 +29,7 @@ namespace SwachBharat.CMS.Bll.ViewModels.ChildModel.Grid
         public Nullable<int> ISActive { get; set; }
         public Nullable<bool> isActive { get; set; }
         public string TotalCount { get; set; }
+
+        public string QRCodeImage { get; set; }
     }
 }
