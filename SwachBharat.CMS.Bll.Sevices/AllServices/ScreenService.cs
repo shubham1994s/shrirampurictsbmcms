@@ -5959,6 +5959,8 @@ namespace SwachBharat.CMS.Bll.Services
             model.bloodGroup = data.bloodGroup;
             model.gcTarget = data.gcTarget;
             model.EmployeeType = data.EmployeeType;
+            model.EmployeeType = data.EmployeeType == null ? "Waste" : data.EmployeeType;
+
             return model;
         }
 
