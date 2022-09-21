@@ -17,11 +17,12 @@ namespace SwachBharat.CMS.Dal.DataContexts
     
     public partial class DevChildSwachhBharatNagpurEntities : DbContext
     {
-        public DevChildSwachhBharatNagpurEntities()
-            : base("name=DevChildSwachhBharatNagpurEntities")
+        public DevChildSwachhBharatNagpurEntities(int AppId)
+         : base(SwachBharatAppConnection.GetConnectionString(AppId))
         {
         }
-    
+
+
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             throw new UnintentionalCodeFirstException();
@@ -868,9 +869,9 @@ namespace SwachBharat.CMS.Dal.DataContexts
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<SP_CTPTGarbageCollection_Result>("SP_CTPTGarbageCollection", appIdParameter, useridParameter, fdateParameter, tdateParameter, zoneIdParameter, areaIdParameter, wardNoParameter, segidParameter);
         }
     
-        public virtual int HouseDetails()
+        public virtual ObjectResult<HouseDetails_Result> HouseDetails()
         {
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("HouseDetails");
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<HouseDetails_Result>("HouseDetails");
         }
     }
 }
