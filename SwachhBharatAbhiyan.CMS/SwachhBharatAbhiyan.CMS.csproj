@@ -1769,6 +1769,7 @@
     <Content Include="Content\DatatableGrid\AttendenceGrid.js" />
     <Content Include="Content\DatatableGrid\AURGridDetails.js" />
     <Content Include="Content\DatatableGrid\Complaint.js" />
+    <Content Include="Content\DatatableGrid\CTPTCountGarbageGrid.js" />
     <Content Include="Content\DatatableGrid\District.js" />
     <Content Include="Content\DatatableGrid\DumpPlantAttendenceGrid.js" />
     <Content Include="Content\DatatableGrid\DumpYardDetailGrid.js" />
@@ -1776,7 +1777,7 @@
     <Content Include="Content\DatatableGrid\DumpYardGrid.js" />
     <Content Include="Content\DatatableGrid\DumpYardSupervisorDetailsGrid.js" />
     <Content Include="Content\DatatableGrid\EmpBeatMapGrid.js" />
-    <Content Include="Content\DatatableGrid\EmployeeDetailsGrid.js" />
+    <Content Include="Content\DatatableGrid\EmployeeDetailsGrids.js" />
     <Content Include="Content\DatatableGrid\EmployeeSummaryGrid.js" />
     <Content Include="Content\DatatableGrid\EmpShiftDetailsGrid.js" />
     <Content Include="Content\DatatableGrid\GarbageCountGrid.js" />
@@ -1926,6 +1927,7 @@
     <Content Include="Content\images\img\New Project %287%29.png" />
     <Content Include="Content\images\img\sba.png" />
     <Content Include="Content\images\img\segregationImg\CMS_AppLink.png" />
+    <Content Include="Content\images\img\segregationImg\CTPT_icn.png" />
     <Content Include="Content\images\img\segregationImg\Dumpyard_marker.png" />
     <Content Include="Content\images\img\segregationImg\Dumpyard_marker_Green.png" />
     <Content Include="Content\images\img\segregationImg\Dump_Yard.png" />
@@ -3237,6 +3239,10 @@
     <Content Include="Views\MasterQR\AddMasterQRDetails.cshtml" />
     <Content Include="Views\Report\CTPTReport.cshtml" />
     <Content Include="Views\Report\CTPTFeedbackReport.cshtml" />
+    <Content Include="Views\GarbageCollection\MenuCTPTDetailGarbageIndex.cshtml" />
+    <Content Include="Views\GarbageCollection\CTPTCountGarbageIndex.cshtml" />
+    <Content Include="Views\Shared\_CTPTGarbageIndex.cshtml" />
+    <Content Include="Views\GarbageCollection\MenuCTPTGarbageIndex.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

@@ -45,4 +45,11 @@ namespace SwachBharat.CMS.Bll.ViewModels.ChildModel.Model
         public List<SBALUserLocationMapView> lstUserLocation { get; set; }
         public int TotalHouseCount { get; set; }
     }
+    public class SBALocationMapViewVM
+    {
+        public List<List<coordinates>> poly { get; set; }
+        public List<SBALHouseLocationMapView> lstUserLocation { get; set; }
+        public int TotalHouseCount { get; set; }
+
+    }
 }

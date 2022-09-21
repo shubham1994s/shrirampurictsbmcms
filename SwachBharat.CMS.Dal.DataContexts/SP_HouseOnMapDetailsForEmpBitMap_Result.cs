@@ -15,14 +15,11 @@ namespace SwachBharat.CMS.Dal.DataContexts
     {
         public Nullable<int> userId { get; set; }
         public int houseId { get; set; }
-        public Nullable<int> dyId { get; set; }
+        public Nullable<int> ctptId { get; set; }
         public string ReferanceId { get; set; }
-        public string houseNumber { get; set; }
         public string houseOwner { get; set; }
         public string houseOwnerMobile { get; set; }
         public string houseAddress { get; set; }
-        public Nullable<int> garbageType { get; set; }
-        public Nullable<int> gcDate { get; set; }
         public string houseLat { get; set; }
         public string houseLong { get; set; }
     }

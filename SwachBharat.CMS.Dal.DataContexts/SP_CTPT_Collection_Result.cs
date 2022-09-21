@@ -10,18 +10,14 @@
 namespace SwachBharat.CMS.Dal.DataContexts
 {
     using System;
-    using System.Collections.Generic;
     
-    public partial class SS_1_4_ANSWER
+    public partial class SP_CTPT_Collection_Result
     {
-        public int ANS_ID { get; set; }
-        public int Q_ID { get; set; }
-        public string TOTAL_COUNT { get; set; }
-        public Nullable<System.DateTime> INSERT_DATE { get; set; }
-        public Nullable<int> INSERT_ID { get; set; }
-        public string MARKS { get; set; }
-    
-        public virtual SS_1_4_ANSWER SS_1_4_ANSWER1 { get; set; }
-        public virtual SS_1_4_ANSWER SS_1_4_ANSWER2 { get; set; }
+        public Nullable<long> RowCounts { get; set; }
+        public Nullable<int> today_ctpt_count { get; set; }
+        public Nullable<int> userid { get; set; }
+        public Nullable<System.DateTime> Date { get; set; }
+        public string CTPTID { get; set; }
+        public string CTPT_UserName { get; set; }
     }
 }

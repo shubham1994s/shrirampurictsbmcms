@@ -335,6 +335,10 @@ namespace SwachhBharatAbhiyan.CMS.Controllers
                     gridRepository = new EmpBeatMapsGridRepository(0, searchString, appId, "D");
                     return gridRepository;
                     break;
+                case "EmpBeatMapCTPT":
+                    gridRepository = new EmpBeatMapsGridRepository(0, searchString, appId, "CT");
+                    return gridRepository;
+                    break;
                 case "EmpShift":
                     gridRepository = new EmpShiftGridRepository(0, searchString, appId);
                     return gridRepository;
@@ -349,6 +353,15 @@ namespace SwachhBharatAbhiyan.CMS.Controllers
                     break;
                 case "GarbageHouse":
                     gridRepository = new HGarbageCotectionGridRepository(0, searchString, fdate, tdate, userId, appId, param1, param2, param3);
+                    return gridRepository;
+                    break;
+
+                case "GarbageCTPT":
+                    gridRepository = new CTPTGarbageCollectionGridRepository(0, searchString, fdate, tdate, userId, appId, param1, param2, param3, param4);
+                    return gridRepository;
+                    break;
+                case "GarbageCountCTPT":
+                    gridRepository = new CTPTCountGarbageCollectionGridRepository(0, searchString, fdate, tdate, userId, appId);
                     return gridRepository;
                     break;
 

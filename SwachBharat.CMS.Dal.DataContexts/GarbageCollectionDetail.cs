@@ -49,5 +49,9 @@ namespace SwachBharat.CMS.Dal.DataContexts
         public Nullable<int> AreaId { get; set; }
         public Nullable<System.DateTime> gpBeforImageTime { get; set; }
         public Nullable<int> vqrid { get; set; }
+        public Nullable<int> CTPTId { get; set; }
+        public string LOS { get; set; }
+        public string TOT { get; set; }
+        public Nullable<int> TNS { get; set; }
     }
 }
