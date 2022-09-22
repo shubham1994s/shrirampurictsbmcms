@@ -589,7 +589,7 @@ namespace SwachBharat.CMS.Bll.Repository.GridRepository
 
             }
         }
-        public IEnumerable<SBAHouseDetailsGridRow> GetHouseDetailsData(long wildcard, string SearchString, int appId)
+        public IEnumerable<SBAHouseDetailsGridRow> GetHouseDetailsData(long wildcard, string SearchString, int appId, string sortColumn = "", string sortColumnDir = "", string draw = "", string length = "", string start = "")
         {
             DevSwachhBharatMainEntities dbMain = new DevSwachhBharatMainEntities();
             var appDetails = dbMain.AppDetails.Where(x => x.AppId == appId).FirstOrDefault();

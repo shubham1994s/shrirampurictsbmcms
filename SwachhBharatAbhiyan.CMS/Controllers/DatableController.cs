@@ -323,7 +323,8 @@ namespace SwachhBharatAbhiyan.CMS.Controllers
                     return gridRepository;
                     break;
                 case "HouseDetail":
-                    gridRepository = new HouseDetailsGridRepository(0, searchString, appId);
+                    //  gridRepository = new HouseDetailsGridRepository(0, searchString, appId);
+                    gridRepository = new HouseDetailsGridRepository(0, searchString, appId, sortColumn, sortColumnDir, draw, length, start);
                     return gridRepository;
                     break;
                 case "MasterQRDetail":
