@@ -18,10 +18,9 @@ namespace SwachBharat.CMS.Dal.DataContexts
     public partial class DevChildSwachhBharatNagpurEntities : DbContext
     {
         public DevChildSwachhBharatNagpurEntities(int AppId)
-         : base(SwachBharatAppConnection.GetConnectionString(AppId))
+                : base(SwachBharatAppConnection.GetConnectionString(AppId))
         {
         }
-
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
@@ -872,6 +871,31 @@ namespace SwachBharat.CMS.Dal.DataContexts
         public virtual ObjectResult<HouseDetails_Result> HouseDetails()
         {
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<HouseDetails_Result>("HouseDetails");
+        }
+    
+        public virtual ObjectResult<SP_GetHouseDetailsNew_Result> SP_GetHouseDetailsNew(string sortColumn, string sortOrder, Nullable<int> offsetValue, Nullable<int> pagingSize, string searchText)
+        {
+            var sortColumnParameter = sortColumn != null ?
+                new ObjectParameter("sortColumn", sortColumn) :
+                new ObjectParameter("sortColumn", typeof(string));
+    
+            var sortOrderParameter = sortOrder != null ?
+                new ObjectParameter("sortOrder", sortOrder) :
+                new ObjectParameter("sortOrder", typeof(string));
+    
+            var offsetValueParameter = offsetValue.HasValue ?
+                new ObjectParameter("OffsetValue", offsetValue) :
+                new ObjectParameter("OffsetValue", typeof(int));
+    
+            var pagingSizeParameter = pagingSize.HasValue ?
+                new ObjectParameter("PagingSize", pagingSize) :
+                new ObjectParameter("PagingSize", typeof(int));
+    
+            var searchTextParameter = searchText != null ?
+                new ObjectParameter("SearchText", searchText) :
+                new ObjectParameter("SearchText", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<SP_GetHouseDetailsNew_Result>("SP_GetHouseDetailsNew", sortColumnParameter, sortOrderParameter, offsetValueParameter, pagingSizeParameter, searchTextParameter);
         }
     }
 }

@@ -792,6 +792,13 @@ warning 6002: The table/view 'LIVEAdvanceShrirampurGhantaGadi.dbo.Vw_MsgNotifica
           <Parameter Name="WardNo" Type="int" Mode="In" />
         </Function>
         <Function Name="SP_GetEmpWiseHouseScan" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="SP_GetHouseDetailsNew" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="sortColumn" Type="varchar" Mode="In" />
+          <Parameter Name="sortOrder" Type="varchar" Mode="In" />
+          <Parameter Name="OffsetValue" Type="int" Mode="In" />
+          <Parameter Name="PagingSize" Type="int" Mode="In" />
+          <Parameter Name="SearchText" Type="varchar" Mode="In" />
+        </Function>
         <Function Name="SP_GetHSHouseDetails" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="fdate" Type="datetime" Mode="In" />
           <Parameter Name="tdate" Type="datetime" Mode="In" />
@@ -1412,6 +1419,13 @@ warning 6002: The table/view 'LIVEAdvanceShrirampurGhantaGadi.dbo.Vw_MsgNotifica
             <Parameter Name="Segid" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="HouseDetails" ReturnType="Collection(DevSwachhBharatNagpurModel.HouseDetails_Result)" />
+          <FunctionImport Name="SP_GetHouseDetailsNew" ReturnType="Collection(DevSwachhBharatNagpurModel.SP_GetHouseDetailsNew_Result)">
+            <Parameter Name="sortColumn" Mode="In" Type="String" />
+            <Parameter Name="sortOrder" Mode="In" Type="String" />
+            <Parameter Name="OffsetValue" Mode="In" Type="Int32" />
+            <Parameter Name="PagingSize" Mode="In" Type="Int32" />
+            <Parameter Name="SearchText" Mode="In" Type="String" />
+          </FunctionImport>
          
         </EntityContainer>
         <ComplexType Name="CurrentAllUserLocation_Result">
@@ -2913,6 +2927,25 @@ warning 6002: The table/view 'LIVEAdvanceShrirampurGhantaGadi.dbo.Vw_MsgNotifica
           <Property Type="String" Name="Address" Nullable="false" MaxLength="500" />
           <Property Type="String" Name="houseLat" Nullable="false" MaxLength="500" />
           <Property Type="String" Name="houseLong" Nullable="false" MaxLength="500" />
+        </ComplexType>
+        <ComplexType Name="SP_GetHouseDetailsNew_Result">
+          <Property Type="Int32" Name="houseId" Nullable="false" />
+          <Property Type="String" Name="ReferanceId" Nullable="true" MaxLength="350" />
+          <Property Type="String" Name="OccupancyStatus" Nullable="true" />
+          <Property Type="String" Name="Property_Type" Nullable="true" />
+          <Property Type="String" Name="Name" Nullable="false" MaxLength="200" />
+          <Property Type="String" Name="NameMar" Nullable="false" MaxLength="200" />
+          <Property Type="String" Name="Images" Nullable="false" />
+          <Property Type="String" Name="Zone" Nullable="false" MaxLength="500" />
+          <Property Type="String" Name="Ward" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="Area" Nullable="false" MaxLength="250" />
+          <Property Type="String" Name="HouseNumber" Nullable="false" MaxLength="500" />
+          <Property Type="String" Name="MobileNumber" Nullable="false" MaxLength="200" />
+          <Property Type="String" Name="Address" Nullable="false" MaxLength="500" />
+          <Property Type="String" Name="houseLat" Nullable="false" MaxLength="500" />
+          <Property Type="String" Name="houseLong" Nullable="false" MaxLength="500" />
+          <Property Type="String" Name="BinaryQrCodeImage" Nullable="false" />
+          <Property Type="Int32" Name="FilterTotalCount" Nullable="true" />
         </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
@@ -4512,6 +4545,29 @@ warning 6002: The table/view 'LIVEAdvanceShrirampurGhantaGadi.dbo.Vw_MsgNotifica
                 <ScalarProperty Name="Address" ColumnName="Address" />
                 <ScalarProperty Name="houseLat" ColumnName="houseLat" />
                 <ScalarProperty Name="houseLong" ColumnName="houseLong" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="SP_GetHouseDetailsNew" FunctionName="DevSwachhBharatNagpurModel.Store.SP_GetHouseDetailsNew">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="DevSwachhBharatNagpurModel.SP_GetHouseDetailsNew_Result">
+                <ScalarProperty Name="houseId" ColumnName="houseId" />
+                <ScalarProperty Name="ReferanceId" ColumnName="ReferanceId" />
+                <ScalarProperty Name="OccupancyStatus" ColumnName="OccupancyStatus" />
+                <ScalarProperty Name="Property_Type" ColumnName="Property_Type" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="NameMar" ColumnName="NameMar" />
+                <ScalarProperty Name="Images" ColumnName="Images" />
+                <ScalarProperty Name="Zone" ColumnName="Zone" />
+                <ScalarProperty Name="Ward" ColumnName="Ward" />
+                <ScalarProperty Name="Area" ColumnName="Area" />
+                <ScalarProperty Name="HouseNumber" ColumnName="HouseNumber" />
+                <ScalarProperty Name="MobileNumber" ColumnName="MobileNumber" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="houseLat" ColumnName="houseLat" />
+                <ScalarProperty Name="houseLong" ColumnName="houseLong" />
+                <ScalarProperty Name="BinaryQrCodeImage" ColumnName="BinaryQrCodeImage" />
+                <ScalarProperty Name="FilterTotalCount" ColumnName="FilterTotalCount" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>

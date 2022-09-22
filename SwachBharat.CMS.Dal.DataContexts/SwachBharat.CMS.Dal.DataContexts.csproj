@@ -366,6 +366,9 @@
     <Compile Include="SP_GetEmpWiseHouseScan_Result.cs">
       <DependentUpon>ChildSwachBharatAbhiyan.tt</DependentUpon>
     </Compile>
+    <Compile Include="SP_GetHouseDetailsNew_Result.cs">
+      <DependentUpon>ChildSwachBharatAbhiyan.tt</DependentUpon>
+    </Compile>
     <Compile Include="SP_GetHSHouseDetailsById_Result.cs">
       <DependentUpon>ChildSwachBharatAbhiyan.tt</DependentUpon>
     </Compile>

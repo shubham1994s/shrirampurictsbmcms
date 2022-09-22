@@ -4,7 +4,7 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="00a410a197d54ea48e9573e29a38d1eb" Name="Diagram1" ZoomLevel="98" ShowGrid="false" SnapToGrid="true">
+      <Diagram DiagramId="00a410a197d54ea48e9573e29a38d1eb" Name="Diagram1" ZoomLevel="73" ShowGrid="false" SnapToGrid="true">
         <EntityTypeShape EntityType="DevSwachhBharatNagpurModel.GarbagePointDetail" Width="1.5" PointX="7.375" PointY="0.75" />
         <EntityTypeShape EntityType="DevSwachhBharatNagpurModel.Qr_Employee_Daily_Attendance" Width="1.5" PointX="12.375" PointY="13.75" />
         <EntityTypeShape EntityType="DevSwachhBharatNagpurModel.GamePlayerDetail" Width="1.5" PointX="14.375" PointY="6.75" />

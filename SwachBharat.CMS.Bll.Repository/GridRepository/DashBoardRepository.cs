@@ -591,13 +591,25 @@ namespace SwachBharat.CMS.Bll.Repository.GridRepository
         }
         public IEnumerable<SBAHouseDetailsGridRow> GetHouseDetailsData(long wildcard, string SearchString, int appId, string sortColumn = "", string sortColumnDir = "", string draw = "", string length = "", string start = "")
         {
+            string strOrderBy = "";
+            if (!(string.IsNullOrEmpty(sortColumn) && string.IsNullOrEmpty(sortColumnDir)))
+            {
+                strOrderBy = sortColumn + " " + sortColumnDir;
+            }
+
+            int pageSize = length != null ? Convert.ToInt32(length) : 0;
+            int skip = start != null ? Convert.ToInt32(start) : 0;
+            List<SBAHouseDetailsGridRow> data = null;
+
             DevSwachhBharatMainEntities dbMain = new DevSwachhBharatMainEntities();
             var appDetails = dbMain.AppDetails.Where(x => x.AppId == appId).FirstOrDefault();
 
             string ThumbnaiUrlCMS = appDetails.baseImageUrlCMS + appDetails.basePath + appDetails.HouseQRCode + "/";
             using (var db = new DevChildSwachhBharatNagpurEntities(appId))
             {
-                var data = db.HouseDetails().Select(x => new SBAHouseDetailsGridRow
+                //var data = db.HouseDetails().Select(x => new SBAHouseDetailsGridRow
+                db.Database.CommandTimeout = 500;
+                data = db.SP_GetHouseDetailsNew(sortColumn, sortColumnDir, skip, pageSize, SearchString).Select(x => new SBAHouseDetailsGridRow
                 {
                     houseId = x.houseId,
                     WardNo = x.Ward,
@@ -611,36 +623,39 @@ namespace SwachBharat.CMS.Bll.Repository.GridRepository
                     ReferanceId = x.ReferanceId,
                     OccupancyStatus = x.OccupancyStatus,
                     Property_Type = x.Property_Type,
-                  //  QRCodeImage = string.Format(db.HouseMasters.Where(c=>c.houseId==x.houseId).FirstOrDefault().BinaryQrCodeImage),
-                //    QRCodeImage=string.Format(x.BinaryQrCodeImage.ToString())
+                    QRCodeImage = string.Format(x.BinaryQrCodeImage),
+                    totalRowCount = x.FilterTotalCount.HasValue ? Convert.ToInt32(x.FilterTotalCount) : 0,
+                    //  QRCodeImage = string.Format(db.HouseMasters.Where(c=>c.houseId==x.houseId).FirstOrDefault().BinaryQrCodeImage),
+                    //    QRCodeImage=string.Format(x.BinaryQrCodeImage.ToString())
                 }).ToList();
-                if (!string.IsNullOrEmpty(SearchString))
-                {
-                    //var model = data.Where(c => c.WardNo.ToUpper().ToString().Contains(SearchString)
-                    //|| c.Area.ToUpper().ToString().Contains(SearchString) || c.Name.ToUpper().ToString().Contains(SearchString) || c.houseNo.ToUpper().ToString().Contains(SearchString) || c.Mobile.ToUpper().ToString().Contains(SearchString) || c.zone.ToString().ToUpper().ToString().Contains(SearchString)|| c.Address.ToUpper().ToString().Contains(SearchString) || c.ReferanceId.ToUpper().ToString().Contains(SearchString)
-                    // || c.WardNo.ToString().ToLower().ToString().Contains(SearchString) || c.zone.ToString().ToLower().ToString().Contains(SearchString)
-                    //|| c.Area.ToString().ToLower().ToString().Contains(SearchString) || c.Name.ToString().ToLower().ToString().Contains(SearchString) || c.houseNo.ToString().ToLower().ToString().Contains(SearchString) || c.Mobile.ToString().ToLower().ToString().Contains(SearchString) || c.Address.ToString().ToLower().ToString().Contains(SearchString) || c.ReferanceId.ToLower().ToString().Contains(SearchString)
-                    //|| c.WardNo.ToString().Contains(SearchString) || c.zone.ToString().Contains(SearchString) 
-                    //|| c.Area.ToString().Contains(SearchString) || c.Name.ToString().Contains(SearchString)
-                    //|| c.houseNo.ToString().Contains(SearchString) || c.Mobile.ToString().Contains(SearchString)
-                    //|| c.Address.ToString().Contains(SearchString) || c.ReferanceId.ToString().Contains(SearchString) || c.QRCode.ToString().Contains(SearchString)).ToList();
+                //if (!string.IsNullOrEmpty(SearchString))
+                //{
+                //    //var model = data.Where(c => c.WardNo.ToUpper().ToString().Contains(SearchString)
+                //    //|| c.Area.ToUpper().ToString().Contains(SearchString) || c.Name.ToUpper().ToString().Contains(SearchString) || c.houseNo.ToUpper().ToString().Contains(SearchString) || c.Mobile.ToUpper().ToString().Contains(SearchString) || c.zone.ToString().ToUpper().ToString().Contains(SearchString)|| c.Address.ToUpper().ToString().Contains(SearchString) || c.ReferanceId.ToUpper().ToString().Contains(SearchString)
+                //    // || c.WardNo.ToString().ToLower().ToString().Contains(SearchString) || c.zone.ToString().ToLower().ToString().Contains(SearchString)
+                //    //|| c.Area.ToString().ToLower().ToString().Contains(SearchString) || c.Name.ToString().ToLower().ToString().Contains(SearchString) || c.houseNo.ToString().ToLower().ToString().Contains(SearchString) || c.Mobile.ToString().ToLower().ToString().Contains(SearchString) || c.Address.ToString().ToLower().ToString().Contains(SearchString) || c.ReferanceId.ToLower().ToString().Contains(SearchString)
+                //    //|| c.WardNo.ToString().Contains(SearchString) || c.zone.ToString().Contains(SearchString) 
+                //    //|| c.Area.ToString().Contains(SearchString) || c.Name.ToString().Contains(SearchString)
+                //    //|| c.houseNo.ToString().Contains(SearchString) || c.Mobile.ToString().Contains(SearchString)
+                //    //|| c.Address.ToString().Contains(SearchString) || c.ReferanceId.ToString().Contains(SearchString) || c.QRCode.ToString().Contains(SearchString)).ToList();
 
-                    var model = data.Where(c => ((string.IsNullOrEmpty(c.WardNo) ? " " : c.WardNo) + " " +
-                                        (string.IsNullOrEmpty(c.zone) ? " " : c.zone) + " " +
-                                        (string.IsNullOrEmpty(c.Area) ? " " : c.Area) + " " +
-                                        (string.IsNullOrEmpty(c.Name) ? " " : c.Name) + " " +
-                                        (string.IsNullOrEmpty(c.houseNo) ? " " : c.houseNo) + " " +
-                                        (string.IsNullOrEmpty(c.Mobile) ? " " : c.Mobile) + " " +
-                                        (string.IsNullOrEmpty(c.Address) ? " " : c.Address) + " " +
-                                        (string.IsNullOrEmpty(c.ReferanceId) ? " " : c.ReferanceId) + " " +
-                                        (string.IsNullOrEmpty(c.OccupancyStatus) ? " " : c.OccupancyStatus) + " " +
-                                        (string.IsNullOrEmpty(c.Property_Type) ? " " : c.Property_Type) + " " +
-                                        (string.IsNullOrEmpty(c.QRCode) ? " " : c.QRCode)).ToUpper().Contains(SearchString.ToUpper())).ToList();
+                //    var model = data.Where(c => ((string.IsNullOrEmpty(c.WardNo) ? " " : c.WardNo) + " " +
+                //                        (string.IsNullOrEmpty(c.zone) ? " " : c.zone) + " " +
+                //                        (string.IsNullOrEmpty(c.Area) ? " " : c.Area) + " " +
+                //                        (string.IsNullOrEmpty(c.Name) ? " " : c.Name) + " " +
+                //                        (string.IsNullOrEmpty(c.houseNo) ? " " : c.houseNo) + " " +
+                //                        (string.IsNullOrEmpty(c.Mobile) ? " " : c.Mobile) + " " +
+                //                        (string.IsNullOrEmpty(c.Address) ? " " : c.Address) + " " +
+                //                        (string.IsNullOrEmpty(c.ReferanceId) ? " " : c.ReferanceId) + " " +
+                //                        (string.IsNullOrEmpty(c.OccupancyStatus) ? " " : c.OccupancyStatus) + " " +
+                //                        (string.IsNullOrEmpty(c.Property_Type) ? " " : c.Property_Type) + " " +
+                //                        (string.IsNullOrEmpty(c.QRCode) ? " " : c.QRCode)).ToUpper().Contains(SearchString.ToUpper())).ToList();
 
 
-                    data = model.ToList();
-                }
-                else  if (appDetails.APIHit == null)
+                //    data = model.ToList();
+                //}
+                //else
+                if (appDetails.APIHit == null)
                 {
                     data = data.ToList();
                 }
@@ -648,7 +663,7 @@ namespace SwachBharat.CMS.Bll.Repository.GridRepository
                 {
                     data = data.Where(c => c.houseId <= appDetails.APIHit).ToList();
                 }
-               
+
                 return data.OrderByDescending(c => c.houseId);
             }
         }
@@ -6581,7 +6596,7 @@ namespace SwachBharat.CMS.Bll.Repository.GridRepository
 
             using (var db = new DevChildSwachhBharatNagpurEntities(appId))
             {
-
+               
                 data = db.SP_GetHSHouseDetailsnew(fdate, tdate, userId, iQRStatus, sortColumn, sortColumnDir, skip, pageSize, SearchString).Select(x => new SBAHSHouseDetailsGrid
                 {
                     houseId = x.houseId,

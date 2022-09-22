@@ -27,7 +27,7 @@
             },
 
              {
-                    "targets": [12],
+                    "targets": [13],
                     "visible": true,
 
                     "render": function (data, type, full, meta) {
