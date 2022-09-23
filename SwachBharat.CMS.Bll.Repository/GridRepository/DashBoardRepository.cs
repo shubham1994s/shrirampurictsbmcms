@@ -3710,7 +3710,7 @@ namespace SwachBharat.CMS.Bll.Repository.GridRepository
                             daDateTIme = (displayTime + " " + time)
                         });
                     }
-                    else if(x.VQRId > 0)
+                    else if(x.VQRID > 0)
                     {
                         obj.Add(new SBAAttendenceGrid()
                         {
@@ -3729,7 +3729,7 @@ namespace SwachBharat.CMS.Bll.Repository.GridRepository
                             vehicleNumber = x.vehicleNumber,
                             CompareDate = x.daDate,
                             daDateTIme = (displayTime + " " + time),
-                            ReferanceId = db.Vehical_QR_Master.Where(c => c.vqrId == x.VQRId).FirstOrDefault().ReferanceId,
+                            ReferanceId = db.Vehical_QR_Master.Where(c => c.vqrId == x.VQRID).FirstOrDefault().ReferanceId,
                             QRCodeImage = (x.BinaryQrCodeImage == null || x.BinaryQrCodeImage.Length == 0) ? "/Images/default_not_upload.png" : ("data:image/jpeg;base64," + System.Convert.ToBase64String(x.BinaryQrCodeImage))
                         });
 

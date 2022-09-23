@@ -29,7 +29,7 @@
           <Property Name="EmployeeType" Type="varchar" MaxLength="10" />
           <Property Name="dyid" Type="int" />
           <Property Name="BinaryQrCodeImage" Type="varbinary(max)" />
-          <Property Name="VQRId" Type="int" />
+          <Property Name="VQRID" Type="int" />
         </EntityType>
         <EntityType Name="DumpYardDetails">
           <Key>
@@ -1402,7 +1402,6 @@ warning 6002: The table/view 'LIVEAdvanceShrirampurGhantaGadi.dbo.Vw_MsgNotifica
           <EntitySet Name="MasterQRs" EntityType="DevSwachhBharatNagpurModel.MasterQR" />
           <EntitySet Name="VehicleRegistrations" EntityType="DevSwachhBharatNagpurModel.VehicleRegistration" />
           <EntitySet Name="HouseLists" EntityType="DevSwachhBharatNagpurModel.HouseList" />
-          <EntitySet Name="Daily_Attendance" EntityType="DevSwachhBharatNagpurModel.Daily_Attendance" />
           <FunctionImport Name="SP_CTPT_Collection" ReturnType="Collection(DevSwachhBharatNagpurModel.SP_CTPT_Collection_Result)">
             <Parameter Name="FDate" Mode="In" Type="DateTime" />
             <Parameter Name="TDate" Mode="In" Type="DateTime" />
@@ -1426,6 +1425,7 @@ warning 6002: The table/view 'LIVEAdvanceShrirampurGhantaGadi.dbo.Vw_MsgNotifica
             <Parameter Name="PagingSize" Mode="In" Type="Int32" />
             <Parameter Name="SearchText" Mode="In" Type="String" />
           </FunctionImport>
+          <EntitySet Name="Daily_Attendance" EntityType="DevSwachhBharatNagpurModel.Daily_Attendance" />
          
         </EntityContainer>
         <ComplexType Name="CurrentAllUserLocation_Result">
@@ -2855,32 +2855,6 @@ warning 6002: The table/view 'LIVEAdvanceShrirampurGhantaGadi.dbo.Vw_MsgNotifica
           <Property Name="IsActive" Type="Boolean" />
           <Property Name="AreaId" Type="Int32" />
         </EntityType>
-        <EntityType Name="Daily_Attendance">
-          <Key>
-            <PropertyRef Name="daID" />
-          </Key>
-          <Property Name="daID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="userId" Type="Int32" />
-          <Property Name="startLat" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
-          <Property Name="startLong" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
-          <Property Name="endLat" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
-          <Property Name="endLong" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
-          <Property Name="startTime" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
-          <Property Name="endTime" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
-          <Property Name="daDate" Type="DateTime" Precision="0" />
-          <Property Name="daEndDate" Type="DateTime" Precision="0" />
-          <Property Name="vtId" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
-          <Property Name="daStartNote" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="daEndNote" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="vehicleNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="batteryStatus" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
-          <Property Name="totalKm" Type="Int32" />
-          <Property Name="OutbatteryStatus" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
-          <Property Name="EmployeeType" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
-          <Property Name="dyid" Type="Int32" />
-          <Property Name="BinaryQrCodeImage" Type="Binary" MaxLength="Max" FixedLength="false" />
-          <Property Name="VQRId" Type="Int32" />
-        </EntityType>
         <ComplexType Name="SP_CTPT_Collection_Result">
           <Property Type="Int64" Name="RowCounts" Nullable="true" />
           <Property Type="Int32" Name="today_ctpt_count" Nullable="true" />
@@ -2944,9 +2918,36 @@ warning 6002: The table/view 'LIVEAdvanceShrirampurGhantaGadi.dbo.Vw_MsgNotifica
           <Property Type="String" Name="Address" Nullable="false" MaxLength="500" />
           <Property Type="String" Name="houseLat" Nullable="false" MaxLength="500" />
           <Property Type="String" Name="houseLong" Nullable="false" MaxLength="500" />
+          <Property Type="DateTime" Name="modifieddate" Nullable="false" Precision="23" />
           <Property Type="String" Name="BinaryQrCodeImage" Nullable="false" />
           <Property Type="Int32" Name="FilterTotalCount" Nullable="true" />
         </ComplexType>
+        <EntityType Name="Daily_Attendance">
+          <Key>
+            <PropertyRef Name="daID" />
+          </Key>
+          <Property Name="daID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="userId" Type="Int32" />
+          <Property Name="startLat" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="startLong" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="endLat" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="endLong" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="startTime" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="endTime" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="daDate" Type="DateTime" Precision="0" />
+          <Property Name="daEndDate" Type="DateTime" Precision="0" />
+          <Property Name="vtId" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="daStartNote" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="daEndNote" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="vehicleNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="batteryStatus" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="totalKm" Type="Int32" />
+          <Property Name="OutbatteryStatus" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="EmployeeType" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="dyid" Type="Int32" />
+          <Property Name="BinaryQrCodeImage" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <Property Name="VQRID" Type="Int32" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -4462,33 +4463,6 @@ warning 6002: The table/view 'LIVEAdvanceShrirampurGhantaGadi.dbo.Vw_MsgNotifica
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Daily_Attendance">
-            <EntityTypeMapping TypeName="DevSwachhBharatNagpurModel.Daily_Attendance">
-              <MappingFragment StoreEntitySet="Daily_Attendance">
-                <ScalarProperty Name="VQRId" ColumnName="VQRId" />
-                <ScalarProperty Name="BinaryQrCodeImage" ColumnName="BinaryQrCodeImage" />
-                <ScalarProperty Name="dyid" ColumnName="dyid" />
-                <ScalarProperty Name="EmployeeType" ColumnName="EmployeeType" />
-                <ScalarProperty Name="OutbatteryStatus" ColumnName="OutbatteryStatus" />
-                <ScalarProperty Name="totalKm" ColumnName="totalKm" />
-                <ScalarProperty Name="batteryStatus" ColumnName="batteryStatus" />
-                <ScalarProperty Name="vehicleNumber" ColumnName="vehicleNumber" />
-                <ScalarProperty Name="daEndNote" ColumnName="daEndNote" />
-                <ScalarProperty Name="daStartNote" ColumnName="daStartNote" />
-                <ScalarProperty Name="vtId" ColumnName="vtId" />
-                <ScalarProperty Name="daEndDate" ColumnName="daEndDate" />
-                <ScalarProperty Name="daDate" ColumnName="daDate" />
-                <ScalarProperty Name="endTime" ColumnName="endTime" />
-                <ScalarProperty Name="startTime" ColumnName="startTime" />
-                <ScalarProperty Name="endLong" ColumnName="endLong" />
-                <ScalarProperty Name="endLat" ColumnName="endLat" />
-                <ScalarProperty Name="startLong" ColumnName="startLong" />
-                <ScalarProperty Name="startLat" ColumnName="startLat" />
-                <ScalarProperty Name="userId" ColumnName="userId" />
-                <ScalarProperty Name="daID" ColumnName="daID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <FunctionImportMapping FunctionImportName="SP_CTPT_Collection" FunctionName="DevSwachhBharatNagpurModel.Store.SP_CTPT_Collection">
             <ResultMapping>
               <ComplexTypeMapping TypeName="DevSwachhBharatNagpurModel.SP_CTPT_Collection_Result">
@@ -4566,11 +4540,39 @@ warning 6002: The table/view 'LIVEAdvanceShrirampurGhantaGadi.dbo.Vw_MsgNotifica
                 <ScalarProperty Name="Address" ColumnName="Address" />
                 <ScalarProperty Name="houseLat" ColumnName="houseLat" />
                 <ScalarProperty Name="houseLong" ColumnName="houseLong" />
+                <ScalarProperty Name="modifieddate" ColumnName="modifieddate" />
                 <ScalarProperty Name="BinaryQrCodeImage" ColumnName="BinaryQrCodeImage" />
                 <ScalarProperty Name="FilterTotalCount" ColumnName="FilterTotalCount" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
+          <EntitySetMapping Name="Daily_Attendance">
+            <EntityTypeMapping TypeName="DevSwachhBharatNagpurModel.Daily_Attendance">
+              <MappingFragment StoreEntitySet="Daily_Attendance">
+                <ScalarProperty Name="VQRID" ColumnName="VQRID" />
+                <ScalarProperty Name="BinaryQrCodeImage" ColumnName="BinaryQrCodeImage" />
+                <ScalarProperty Name="dyid" ColumnName="dyid" />
+                <ScalarProperty Name="EmployeeType" ColumnName="EmployeeType" />
+                <ScalarProperty Name="OutbatteryStatus" ColumnName="OutbatteryStatus" />
+                <ScalarProperty Name="totalKm" ColumnName="totalKm" />
+                <ScalarProperty Name="batteryStatus" ColumnName="batteryStatus" />
+                <ScalarProperty Name="vehicleNumber" ColumnName="vehicleNumber" />
+                <ScalarProperty Name="daEndNote" ColumnName="daEndNote" />
+                <ScalarProperty Name="daStartNote" ColumnName="daStartNote" />
+                <ScalarProperty Name="vtId" ColumnName="vtId" />
+                <ScalarProperty Name="daEndDate" ColumnName="daEndDate" />
+                <ScalarProperty Name="daDate" ColumnName="daDate" />
+                <ScalarProperty Name="endTime" ColumnName="endTime" />
+                <ScalarProperty Name="startTime" ColumnName="startTime" />
+                <ScalarProperty Name="endLong" ColumnName="endLong" />
+                <ScalarProperty Name="endLat" ColumnName="endLat" />
+                <ScalarProperty Name="startLong" ColumnName="startLong" />
+                <ScalarProperty Name="startLat" ColumnName="startLat" />
+                <ScalarProperty Name="userId" ColumnName="userId" />
+                <ScalarProperty Name="daID" ColumnName="daID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
          
         </EntityContainerMapping>
       </Mapping>
