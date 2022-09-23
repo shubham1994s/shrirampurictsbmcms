@@ -34,6 +34,6 @@ namespace SwachBharat.CMS.Dal.DataContexts
         public string EmployeeType { get; set; }
         public Nullable<int> dyid { get; set; }
         public byte[] BinaryQrCodeImage { get; set; }
-        public Nullable<int> VQRId { get; set; }
+        public Nullable<int> VQRID { get; set; }
     }
 }

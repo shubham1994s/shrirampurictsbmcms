@@ -28,6 +28,7 @@ namespace SwachBharat.CMS.Dal.DataContexts
         public string Address { get; set; }
         public string houseLat { get; set; }
         public string houseLong { get; set; }
+        public System.DateTime modifieddate { get; set; }
         public string BinaryQrCodeImage { get; set; }
         public Nullable<int> FilterTotalCount { get; set; }
     }
