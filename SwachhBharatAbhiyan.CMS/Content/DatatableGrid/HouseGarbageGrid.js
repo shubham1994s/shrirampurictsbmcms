@@ -52,9 +52,10 @@
 
              "render": function (data, type, full, meta) {
                  if (full["gpBeforImage"] != null) {
-                     return "<div style='cursor:pointer;display:inline-flex;'  onclick=PopImages(this)><img alt='Photo Not Found'  src='" + data +
-                 "' style='height:35px;width:35px;cursor:pointer;margin-left:0px;'></img><span><ul class='dt_pop'  style='margin:2px -5px -5px -5px; padding:0px;list-style:none;display:none;'><li  class='li_date datediv' >" + full["attandDate"] + "</li><li class='addr-length' style='margin:0px 0px 0px 10px;'>"
-                 + full["Address"] + "</li><li style='display:none' class='li_title' >Before Image </li></ul></span></div>";
+                     return "<div style='cursor:pointer;display:inline-flex;'  onclick=PopImages(this)><img id='beforeimage' alt='Photo Not Found'  src='" + full["gpBeforImage"] +
+                         "' style='height:35px;width:35px;cursor:pointer;margin-left:0px;'></img><img id='afterimage' alt='Photo Not Found'  src='" + full["gpAfterImage"] +
+                         "' style='display:none;height:35px;width:35px;cursor:pointer;margin-left:0px;'></img><span><ul class='dt_pop'  style='margin:2px -5px -5px -5px; padding:0px;list-style:none;display:none;'><li  class='li_date datediv' >" + full["attandDate"] + "</li><li  class='li_date1 datediv' >" + full["gpBeforImageTime"] + "</li><li class='addr-length' style='margin:0px 0px 0px 10px;'>"
+                         + full["Address"] + "</li><li style='display:none' class='li_title' >Before Image </li></ul></span></div>";
                  }
                  else {
 
@@ -68,9 +69,10 @@
 
                  "render": function (data, type, full, meta) {
                      if (full["gpAfterImage"] != null) {
-                         return "<div style='cursor:pointer;display:inline-flex;'  onclick=PopImages(this)><img alt='Photo Not Found'  src='" + data +
-                     "' style='height:35px;width:35px;cursor:pointer;margin-left:0px;'></img><span><ul class='dt_pop'  style='margin:2px -5px -5px -5px; padding:0px;list-style:none;display:none;'><li  class='li_date datediv' >" + full["attandDate"] + "</li><li class='addr-length' style='margin:0px 0px 0px 10px;'>"
-                     + full["Address"] + "</li><li style='display:none' class='li_title' >After Image </li></ul></span></div>";
+                         return "<div style='cursor:pointer;display:inline-flex;'  onclick=PopImages(this)><img id='beforeimage' alt='Photo Not Found'  src='" + full["gpBeforImage"] +
+                             "' style='display:none;height:35px;width:35px;cursor:pointer;margin-left:0px;'></img><img id='afterimage' alt='Photo Not Found'  src='" + full["gpAfterImage"] +
+                             "' style='height:35px;width:35px;cursor:pointer;margin-left:0px;'></img><span><ul class='dt_pop'  style='margin:2px -5px -5px -5px; padding:0px;list-style:none;display:none;'><li  class='li_date datediv' >" + full["attandDate"] + "</li><li  class='li_date1 datediv' >" + full["gpBeforImageTime"] + "</li><li class='addr-length' style='margin:0px 0px 0px 10px;'>"
+                             + full["Address"] + "</li><li style='display:none' class='li_title' >After Image </li></ul></span></div>";
                      }
                      else {
 
@@ -162,10 +164,17 @@ function PopImages(cel) {
     var addr = $(cel).find('.addr-length').text();
     var date = $(cel).find('.li_date').text();
     var imgsrc = $(cel).find('img').attr('src');
+
+    var date1 = $(cel).find('.li_date1').text();
+    var imgsrc1 = $(cel).find('#afterimage').attr('src');
+
     var head = $(cel).find('.li_title').text();
     jQuery("#latlongData").text(addr);
     jQuery("#dateData").text(date);
     jQuery("#imggg").attr('src', imgsrc);
+
+    jQuery("#dateData1").text(date1);
+    jQuery("#imggg1").attr('src', imgsrc1);
     //jQuery("#latlongData").text(cellValue);
     jQuery("#header_data").html(head);
 }
