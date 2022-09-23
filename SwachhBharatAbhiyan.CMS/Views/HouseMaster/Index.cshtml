@@ -78,7 +78,33 @@
         </div>
     </div>
 
+    <div id="myModal_Image" class="modal fade" role="dialog">
+        <div class="modal-dialog modal-lg">
 
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 id="header_data" class="modal-title"></h4>
+                </div>
+
+                <div class="modal-body">
+                    <center>
+                        <img class="img-responsive" id="imggg" alt="Photo Not Found">
+                        <br />
+                        <p> <b id="hide_date">Date: </b><span id="dateData"></span></p>
+                        <p> <b id="hide_add">House Id: </b><span id="latlongData"></span></p>
+                    </center>
+
+                    <div class="modal-footer">
+                        <button type="button" class="btn" data-dismiss="modal">Close</button>
+                        @*<a href="~/Images/Nagpur/Job/download.pdf" class="btn btn-default" download>Download</a>*@
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
 
     <div class="modal" id="sendlink_pop">
         <div class="modal-dialog modal-sm">
@@ -104,7 +130,7 @@
     </div>
     <script>
         $(document).ready(function () {
-            
+
             var AppName = $('#myAppName').val();
             if (AppName == "Appynitty") {
                 //$("#complaint_menu").css("display", "block");

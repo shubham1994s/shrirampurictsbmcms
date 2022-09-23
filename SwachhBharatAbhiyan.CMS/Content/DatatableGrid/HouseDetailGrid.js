@@ -130,3 +130,18 @@ function Search() {
     oTable.search("");
     document.getElementById('USER_ID_FK').value = -1;
 }
+
+function PopImagesHouse(cel) {
+
+    $('#myModal_Image').modal('toggle');
+
+    var addr = $(cel).find('.addr-length').text();
+    var date = $(cel).find('.date_time').text();
+    var imgsrc = $(cel).find('img').attr('src');
+    var head = $(cel).find('.li_title').text();
+    jQuery("#latlongData").text(addr);
+    jQuery("#dateData").text(date);
+    jQuery("#imggg").attr('src', imgsrc);
+    //jQuery("#latlongData").text(cellValue);
+    jQuery("#header_data").html(head);
+}
