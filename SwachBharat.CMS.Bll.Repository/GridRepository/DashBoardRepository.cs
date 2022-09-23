@@ -625,6 +625,7 @@ namespace SwachBharat.CMS.Bll.Repository.GridRepository
                     Property_Type = x.Property_Type,
                     QRCodeImage = string.Format(x.BinaryQrCodeImage),
                     totalRowCount = x.FilterTotalCount.HasValue ? Convert.ToInt32(x.FilterTotalCount) : 0,
+                    modifieddate = Convert.ToString(x.modifieddate),
                     //  QRCodeImage = string.Format(db.HouseMasters.Where(c=>c.houseId==x.houseId).FirstOrDefault().BinaryQrCodeImage),
                     //    QRCodeImage=string.Format(x.BinaryQrCodeImage.ToString())
                 }).ToList();
