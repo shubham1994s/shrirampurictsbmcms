@@ -1033,11 +1033,32 @@ namespace SwachhBharatAbhiyan.CMS.Controllers
             if (SessionHandler.Current.AppId != 0)
             {
                 childRepository.SaveHouseBunch(housebunch);
-                return Redirect("ZoneIndex");
+                return Redirect("HouseQRBunchIndex");
             }
             else
                 return Redirect("/Account/Login");
 
+        }
+
+        [HttpPost]
+        public string CheckHouseBunchName(string Name)
+        {
+            int Appid = SessionHandler.Current.AppId;
+            using (DevChildSwachhBharatNagpurEntities db = new DevChildSwachhBharatNagpurEntities(Appid))
+            {
+                //check if any of the UserName matches the UserName specified in the Parameter using the ANY extension method.  
+
+                var isrecord = db.HouseBunches.Where(x => x.bunchname == Name).FirstOrDefault();
+                if (isrecord != null)
+                {
+                    return "1";
+                }
+                else
+                {
+                    return "0";
+                }
+
+            }
         }
         #endregion HouseQRBunch
     }

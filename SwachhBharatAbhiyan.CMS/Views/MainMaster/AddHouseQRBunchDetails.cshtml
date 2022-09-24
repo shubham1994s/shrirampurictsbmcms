@@ -78,7 +78,7 @@
 
             var Name = $("#bunchname").val();
             $.ajax({
-                url: "/MainMaster/CheckZoneName?Name=" + Name,
+                url: "/MainMaster/CheckHouseBunchName?Name=" + Name,
                 type: "POST",
                 data: { Name: Name }
             })
@@ -95,7 +95,7 @@
     $("#btnSubmit").click(function () {
         //alert("aa");
 
-        if ($.trim($("#name").val()) == '') {
+        if ($.trim($("#bunchName").val()) == '') {
             //$("#err_ward").html("वार्ड क्रमांक आवश्यक आहे / Ward number is Required").delay(1500).show().fadeOut('slow');
             $("#err_name").html("Bunch name is Required").delay(1500).show().fadeOut('slow');
             $('#bunchname').focus();
