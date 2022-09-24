@@ -1784,6 +1784,7 @@
     <Content Include="Content\DatatableGrid\EmpShiftDetailsGrid.js" />
     <Content Include="Content\DatatableGrid\GarbageCountGrid.js" />
     <Content Include="Content\DatatableGrid\GarbagePointGrid.js" />
+    <Content Include="Content\DatatableGrid\HouseBunchGrid.js" />
     <Content Include="Content\DatatableGrid\HouseScanify.js" />
     <Content Include="Content\DatatableGrid\HouseScanifyUR.js" />
     <Content Include="Content\DatatableGrid\HSAttendenceGrid.js" />
@@ -3250,6 +3251,8 @@
     <Content Include="Views\AttendenceBeatMap\CTPTMenuIndex.cshtml" />
     <Content Include="Views\AttendenceBeatMap\CTPTRoute.cshtml" />
     <Content Include="Views\AttendenceBeatMap\CTPTUserRoute.cshtml" />
+    <Content Include="Views\MainMaster\MenuHouseQRBunchIndex.cshtml" />
+    <Content Include="Views\MainMaster\HouseQRBunchIndex.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

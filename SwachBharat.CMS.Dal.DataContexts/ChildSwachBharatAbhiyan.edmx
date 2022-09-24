@@ -175,6 +175,13 @@
           <Property Name="ref_id" Type="nvarchar" MaxLength="200" />
           <Property Name="Type" Type="int" />
         </EntityType>
+        <EntityType Name="HouseBunch">
+          <Key>
+            <PropertyRef Name="bunchId" />
+          </Key>
+          <Property Name="bunchId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="bunchname" Type="nvarchar" MaxLength="500" />
+        </EntityType>
         <!--Errors Found During Generation:
 warning 6002: The table/view 'LIVEAdvanceShrirampurGhantaGadi.dbo.HouseList' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="HouseList">
@@ -939,6 +946,7 @@ warning 6002: The table/view 'LIVEAdvanceShrirampurGhantaGadi.dbo.Vw_MsgNotifica
           <EntitySet Name="GarbageCollectionDetails" EntityType="Self.GarbageCollectionDetails" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="GarbagePointDetails" EntityType="Self.GarbagePointDetails" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="GramCleaningComplient" EntityType="Self.GramCleaningComplient" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="HouseBunch" EntityType="Self.HouseBunch" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="HouseMaster" EntityType="Self.HouseMaster" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Location" EntityType="Self.Location" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="MasterQR" EntityType="Self.MasterQR" Schema="dbo" store:Type="Tables" />
@@ -1426,6 +1434,7 @@ warning 6002: The table/view 'LIVEAdvanceShrirampurGhantaGadi.dbo.Vw_MsgNotifica
             <Parameter Name="SearchText" Mode="In" Type="String" />
           </FunctionImport>
           <EntitySet Name="Daily_Attendance" EntityType="DevSwachhBharatNagpurModel.Daily_Attendance" />
+          <EntitySet Name="HouseBunches" EntityType="DevSwachhBharatNagpurModel.HouseBunch" />
          
         </EntityContainer>
         <ComplexType Name="CurrentAllUserLocation_Result">
@@ -2947,6 +2956,13 @@ warning 6002: The table/view 'LIVEAdvanceShrirampurGhantaGadi.dbo.Vw_MsgNotifica
           <Property Name="dyid" Type="Int32" />
           <Property Name="BinaryQrCodeImage" Type="Binary" MaxLength="Max" FixedLength="false" />
           <Property Name="VQRID" Type="Int32" />
+        </EntityType>
+        <EntityType Name="HouseBunch">
+          <Key>
+            <PropertyRef Name="bunchId" />
+          </Key>
+          <Property Name="bunchId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="bunchname" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -4570,6 +4586,14 @@ warning 6002: The table/view 'LIVEAdvanceShrirampurGhantaGadi.dbo.Vw_MsgNotifica
                 <ScalarProperty Name="startLat" ColumnName="startLat" />
                 <ScalarProperty Name="userId" ColumnName="userId" />
                 <ScalarProperty Name="daID" ColumnName="daID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="HouseBunches">
+            <EntityTypeMapping TypeName="DevSwachhBharatNagpurModel.HouseBunch">
+              <MappingFragment StoreEntitySet="HouseBunch">
+                <ScalarProperty Name="bunchname" ColumnName="bunchname" />
+                <ScalarProperty Name="bunchId" ColumnName="bunchId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

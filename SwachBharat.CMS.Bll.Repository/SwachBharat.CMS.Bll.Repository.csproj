@@ -111,6 +111,7 @@
     <Compile Include="GridRepository\Grid\GarbageCountGridRepository.cs" />
     <Compile Include="GridRepository\Grid\HGarbageCotectionGridRepository.cs" />
     <Compile Include="GridRepository\Grid\GarbagePointGridRepository.cs" />
+    <Compile Include="GridRepository\Grid\HouseBunchGridRepository.cs" />
     <Compile Include="GridRepository\Grid\HouseDetailsGridRepository.cs" />
     <Compile Include="GridRepository\Grid\HouseScanifyGridRepository.cs" />
     <Compile Include="GridRepository\Grid\HSAttendanceGridRepository.cs" />

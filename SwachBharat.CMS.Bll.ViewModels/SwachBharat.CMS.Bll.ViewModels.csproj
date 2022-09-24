@@ -133,6 +133,7 @@
     <Compile Include="Grid\SBAEmpShiftGridRow.cs" />
     <Compile Include="Grid\SBAGarbageCountDetails.cs" />
     <Compile Include="Grid\SBAGarbagePointDetailsGridRow.cs" />
+    <Compile Include="Grid\SBAHouseBunchGridRow.cs" />
     <Compile Include="Grid\SBAHouseScanifyDetailsGridRow.cs" />
     <Compile Include="Grid\SBAHSAttendanceGrid.cs" />
     <Compile Include="Grid\SBAHSDumpyardDetailsGrid.cs" />

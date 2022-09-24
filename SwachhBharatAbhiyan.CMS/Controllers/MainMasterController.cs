@@ -994,5 +994,28 @@ namespace SwachhBharatAbhiyan.CMS.Controllers
                 return Redirect("/Account/Login");
         }
 
+
+        #region HouseQRBunch
+        [HttpGet]
+        public ActionResult HouseQRBunchIndex()
+        {
+            if (SessionHandler.Current.AppId != 0)
+            {
+                return View();
+            }
+            else
+                return Redirect("/Account/Login");
+        }
+        public ActionResult MenuHouseQRBunchIndex()
+        {
+            if (SessionHandler.Current.AppId != 0)
+            {
+                return View();
+            }
+            else
+                return Redirect("/Account/Login");
+        }
+
+        #endregion HouseQRBunch
     }
 }

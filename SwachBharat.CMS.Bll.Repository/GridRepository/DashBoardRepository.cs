@@ -354,6 +354,33 @@ namespace SwachBharat.CMS.Bll.Repository.GridRepository
             }
         }
 
+        public IEnumerable<SBAHouseBunchGridRow> GetHouseBunchData(long wildcard, string SearchString, int appId)
+        {
+            using (var db = new DevChildSwachhBharatNagpurEntities(appId))
+            {
+                var data = db.HouseBunches.Select(x => new SBAHouseBunchGridRow
+                {
+                    bunchId = x.bunchId,
+                    bunchName = x.bunchname,
+                }).ToList();
+                //  var result = data.SkipWhile(element => element.cId != element.reNewId); 
+                foreach (var item in data)
+                {
+
+                    if (item.bunchName == null && item.bunchName == "")
+                        item.bunchName = "";
+                }
+                if (!string.IsNullOrEmpty(SearchString))
+                {
+                    var model = data.Where(c => c.bunchName.ToUpper().ToString().Contains(SearchString) || c.bunchName.ToString().ToLower().ToString().Contains(SearchString) ||
+                     c.bunchName.ToString().Contains(SearchString)).ToList();
+
+                    data = model.ToList();
+                }
+                return data.OrderByDescending(c => c.bunchId);
+            }
+        }
+
         public IEnumerable<SBAZoneGridRow> GetLiquidZoneData(long wildcard, string SearchString, int appId)
         {
             using (var db = new DevChildSwachhBharatNagpurEntities(appId))
