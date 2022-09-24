@@ -3254,6 +3254,7 @@
     <Content Include="Views\MainMaster\MenuHouseQRBunchIndex.cshtml" />
     <Content Include="Views\MainMaster\HouseQRBunchIndex.cshtml" />
     <Content Include="Views\MainMaster\AddHouseQRBunchDetails.cshtml" />
+    <Content Include="Views\MasterQR\MenuQRBunchIndex.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

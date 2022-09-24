@@ -282,6 +282,15 @@ warning 6002: The table/view 'LIVEAdvanceShrirampurGhantaGadi.dbo.LiquidWasteDet
           <Property Name="QRList" Type="nvarchar(max)" />
           <Property Name="ISActive" Type="bit" />
         </EntityType>
+        <EntityType Name="MasterQRBunch">
+          <Key>
+            <PropertyRef Name="MasterId" />
+          </Key>
+          <Property Name="MasterId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="HouseBunchId" Type="nvarchar" MaxLength="350" />
+          <Property Name="QRList" Type="nvarchar(max)" />
+          <Property Name="ISActive" Type="bit" />
+        </EntityType>
         <!--Errors Found During Generation:
 warning 6002: The table/view 'LIVEAdvanceShrirampurGhantaGadi.dbo.MonthlyAttedance' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="MonthlyAttedance">
@@ -956,6 +965,7 @@ warning 6002: The table/view 'LIVEAdvanceShrirampurGhantaGadi.dbo.Vw_MsgNotifica
           <EntitySet Name="HouseMaster" EntityType="Self.HouseMaster" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Location" EntityType="Self.Location" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="MasterQR" EntityType="Self.MasterQR" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="MasterQRBunch" EntityType="Self.MasterQRBunch" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Qr_Employee_Daily_Attendance" EntityType="Self.Qr_Employee_Daily_Attendance" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Qr_Location" EntityType="Self.Qr_Location" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="QrEmployeeMaster" EntityType="Self.QrEmployeeMaster" Schema="dbo" store:Type="Tables" />
@@ -1447,6 +1457,7 @@ warning 6002: The table/view 'LIVEAdvanceShrirampurGhantaGadi.dbo.Vw_MsgNotifica
             <Parameter Name="userid" Mode="In" Type="Int32" />
             <Parameter Name="Emptype" Mode="In" Type="String" />
           </FunctionImport>
+          <EntitySet Name="MasterQRBunches" EntityType="DevSwachhBharatNagpurModel.MasterQRBunch" />
          
         </EntityContainer>
         <ComplexType Name="CurrentAllUserLocation_Result">
@@ -2991,6 +3002,15 @@ warning 6002: The table/view 'LIVEAdvanceShrirampurGhantaGadi.dbo.Vw_MsgNotifica
           <Property Type="Int32" Name="Totaldumpyard" Nullable="true" />
           <Property Type="Int64" Name="rownum" Nullable="true" />
         </ComplexType>
+        <EntityType Name="MasterQRBunch">
+          <Key>
+            <PropertyRef Name="MasterId" />
+          </Key>
+          <Property Name="MasterId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="HouseBunchId" Type="String" MaxLength="350" FixedLength="false" Unicode="true" />
+          <Property Name="QRList" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ISActive" Type="Boolean" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -4643,6 +4663,16 @@ warning 6002: The table/view 'LIVEAdvanceShrirampurGhantaGadi.dbo.Vw_MsgNotifica
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
+          <EntitySetMapping Name="MasterQRBunches">
+            <EntityTypeMapping TypeName="DevSwachhBharatNagpurModel.MasterQRBunch">
+              <MappingFragment StoreEntitySet="MasterQRBunch">
+                <ScalarProperty Name="ISActive" ColumnName="ISActive" />
+                <ScalarProperty Name="QRList" ColumnName="QRList" />
+                <ScalarProperty Name="HouseBunchId" ColumnName="HouseBunchId" />
+                <ScalarProperty Name="MasterId" ColumnName="MasterId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
          
         </EntityContainerMapping>
       </Mapping>
