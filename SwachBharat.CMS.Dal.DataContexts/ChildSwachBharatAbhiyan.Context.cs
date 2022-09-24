@@ -18,7 +18,7 @@ namespace SwachBharat.CMS.Dal.DataContexts
     public partial class DevChildSwachhBharatNagpurEntities : DbContext
     {
         public DevChildSwachhBharatNagpurEntities(int AppId)
-      : base(SwachBharatAppConnection.GetConnectionString(AppId))
+       : base(SwachBharatAppConnection.GetConnectionString(AppId))
         {
         }
 
@@ -920,6 +920,11 @@ namespace SwachBharat.CMS.Dal.DataContexts
                 new ObjectParameter("Emptype", typeof(string));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<SP_CTPTEmployeeSummary_Result>("SP_CTPTEmployeeSummary", fromParameter, toParameter, useridParameter, emptypeParameter);
+        }
+    
+        public virtual ObjectResult<MasterQRBunchDetails_Result> MasterQRBunchDetails()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<MasterQRBunchDetails_Result>("MasterQRBunchDetails");
         }
     }
 }

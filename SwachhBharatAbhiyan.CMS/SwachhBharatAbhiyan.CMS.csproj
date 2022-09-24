@@ -1798,6 +1798,7 @@
     <Content Include="Content\DatatableGrid\InfotainmentResult.js" />
     <Content Include="Content\DatatableGrid\League.js" />
     <Content Include="Content\DatatableGrid\Log.js" />
+    <Content Include="Content\DatatableGrid\MasterQRBunchDetailsGrid.js" />
     <Content Include="Content\DatatableGrid\MasterQRDetailsGrid.js" />
     <Content Include="Content\DatatableGrid\MonthlyAttendenceGrid.js" />
     <Content Include="Content\DatatableGrid\OnepointeightEditGrid.js" />
@@ -3255,6 +3256,7 @@
     <Content Include="Views\MainMaster\HouseQRBunchIndex.cshtml" />
     <Content Include="Views\MainMaster\AddHouseQRBunchDetails.cshtml" />
     <Content Include="Views\MasterQR\MenuQRBunchIndex.cshtml" />
+    <Content Include="Views\MasterQR\QRBunchIndex.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

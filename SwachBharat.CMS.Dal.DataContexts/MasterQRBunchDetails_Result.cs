@@ -10,13 +10,13 @@
 namespace SwachBharat.CMS.Dal.DataContexts
 {
     using System;
-    using System.Collections.Generic;
     
-    public partial class MasterQRBunch
+    public partial class MasterQRBunchDetails_Result
     {
         public int MasterId { get; set; }
-        public Nullable<int> HouseBunchId { get; set; }
+        public string BunchName { get; set; }
         public string QRList { get; set; }
+        public Nullable<long> TotalCount { get; set; }
         public Nullable<bool> ISActive { get; set; }
     }
 }
