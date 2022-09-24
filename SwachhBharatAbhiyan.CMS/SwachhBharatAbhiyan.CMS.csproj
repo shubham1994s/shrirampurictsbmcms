@@ -3253,6 +3253,7 @@
     <Content Include="Views\AttendenceBeatMap\CTPTUserRoute.cshtml" />
     <Content Include="Views\MainMaster\MenuHouseQRBunchIndex.cshtml" />
     <Content Include="Views\MainMaster\HouseQRBunchIndex.cshtml" />
+    <Content Include="Views\MainMaster\AddHouseQRBunchDetails.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

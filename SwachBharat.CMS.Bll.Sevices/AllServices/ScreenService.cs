@@ -247,6 +247,40 @@ namespace SwachBharat.CMS.Bll.Services
             }
         }
 
+        public void SaveHouseBunchDetails(HouseQRBunchVM data)
+        {
+            try
+            {
+                using (var db = new DevChildSwachhBharatNagpurEntities(AppID))
+                {
+                    if (data.bunchId > 0)
+                    {
+                        var model = db.HouseBunches.Where(x => x.bunchId == data.bunchId).FirstOrDefault();
+                        if (model != null)
+                        {
+                            model.bunchId = data.bunchId;
+                            model.bunchname = data.bunchName;
+                            db.SaveChanges();
+                        }
+                    }
+                    else
+                    {
+                        var housebunch = FillHouseBunchDataModel(data);
+                        if (housebunch.bunchname != null )
+                        {
+                            db.HouseBunches.Add(housebunch);
+                            db.SaveChanges();
+                        }
+
+                    }
+                }
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
         public void LiquidSaveAreaDetails(AreaVM data)
         {
             try
@@ -5569,6 +5603,24 @@ namespace SwachBharat.CMS.Bll.Services
             return model;
         }
 
+        private HouseBunch FillHouseBunchDataModel(HouseQRBunchVM data)
+        {
+
+            HouseBunch model = new HouseBunch();
+
+            var modelt = db.HouseBunches.Where(x => x.bunchname == data.bunchName).FirstOrDefault();
+
+            if (modelt == null)
+            {
+                model.bunchId = data.bunchId;
+                model.bunchname = data.bunchName;
+
+                return model;
+            }
+
+            return model;
+        }
+
         private TeritoryMaster LiquidFillAreaDataModel(AreaVM data)
         {
             TeritoryMaster model = new TeritoryMaster();
@@ -6170,6 +6222,13 @@ namespace SwachBharat.CMS.Bll.Services
             return model;
         }
 
+        private HouseQRBunchVM FillHouseBunchViewModel(HouseBunch data)
+        {
+            HouseQRBunchVM model = new HouseQRBunchVM();
+            model.bunchId = data.bunchId;
+            model.bunchName = data.bunchname;
+            return model;
+        }
         private HouseScanifyEmployeeDetailsVM FillUserViewModel(QrEmployeeMaster data, UserMaster data1)
         {
             try
@@ -6636,6 +6695,32 @@ namespace SwachBharat.CMS.Bll.Services
                     else
                     {
                         return new ZoneVM();
+                    }
+                }
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+        public HouseQRBunchVM GetHouseBunch(int teamId)
+        {
+            try
+            {
+                using (var db = new DevChildSwachhBharatNagpurEntities(AppID))
+                {
+                    var Details = db.HouseBunches.Where(x => x.bunchId == teamId).FirstOrDefault();
+                    if (Details != null)
+                    {
+                        HouseQRBunchVM housebunch = FillHouseBunchViewModel(Details);
+
+                        return housebunch;
+                    }
+                    else
+                    {
+                        HouseQRBunchVM housebunch = new HouseQRBunchVM();
+                        return housebunch;
                     }
                 }
             }

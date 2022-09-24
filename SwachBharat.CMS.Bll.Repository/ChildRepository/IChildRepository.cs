@@ -27,6 +27,7 @@ namespace SwachBharat.CMS.Bll.Repository.ChildRepository
         AreaVM GetArea(int teamId,string name);
         void DeletArea(int teamId);
         void SaveArea(AreaVM area);
+        void SaveHouseBunch(HouseQRBunchVM housebunch);
 
         void LiquidSaveArea(AreaVM area);
 
@@ -107,6 +108,7 @@ namespace SwachBharat.CMS.Bll.Repository.ChildRepository
         void SaveComplaintStatus(ComplaintVM comp);
 
         ZoneVM GetZone(int teamId);
+        HouseQRBunchVM GetHouseBunch(int teamId);
 
         ZoneVM StreetGetZone(int teamId);
 

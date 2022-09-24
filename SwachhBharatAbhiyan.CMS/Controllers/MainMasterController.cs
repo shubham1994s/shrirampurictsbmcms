@@ -1016,6 +1016,29 @@ namespace SwachhBharatAbhiyan.CMS.Controllers
                 return Redirect("/Account/Login");
         }
 
+        public ActionResult AddHouseQRBunchDetails(int teamId = -1)
+        {
+            if (SessionHandler.Current.AppId != 0)
+            {
+                HouseQRBunchVM HouseBunch = childRepository.GetHouseBunch(teamId);
+                return View(HouseBunch);
+            }
+            else
+                return Redirect("/Account/Login");
+        }
+
+        [HttpPost]
+        public ActionResult AddHouseQRBunchDetails(HouseQRBunchVM housebunch)
+        {
+            if (SessionHandler.Current.AppId != 0)
+            {
+                childRepository.SaveHouseBunch(housebunch);
+                return Redirect("ZoneIndex");
+            }
+            else
+                return Redirect("/Account/Login");
+
+        }
         #endregion HouseQRBunch
     }
 }

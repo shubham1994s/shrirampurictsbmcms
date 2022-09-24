@@ -23,6 +23,7 @@ namespace SwachBharat.CMS.Bll.Services
         AreaVM GetAreaDetails(int teamId,string Name);
         void DeletAreaDetails(int teamId);
         void SaveAreaDetails(AreaVM area);
+        void SaveHouseBunchDetails(HouseQRBunchVM housebunch);
         void LiquidSaveAreaDetails(AreaVM area);
 
         void StreetSaveAreaDetails(AreaVM area);
@@ -98,6 +99,7 @@ namespace SwachBharat.CMS.Bll.Services
         void SaveComplaintStatus(ComplaintVM employee);
 
         ZoneVM GetZone(int teamId);
+        HouseQRBunchVM GetHouseBunch(int teamId);
 
         ZoneVM StreetGetZone(int teamId);
         void SaveZone(ZoneVM employee);

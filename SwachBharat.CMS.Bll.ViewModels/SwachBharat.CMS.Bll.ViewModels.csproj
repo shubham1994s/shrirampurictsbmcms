@@ -86,6 +86,7 @@
     <Compile Include="ChildModel\Model\GarbageCollectionVM.cs" />
     <Compile Include="ChildModel\Model\GarbagePointDetailsVM.cs" />
     <Compile Include="ChildModel\Model\GetEmpWiseHouseScan.cs" />
+    <Compile Include="ChildModel\Model\HouseQRBunchVM.cs" />
     <Compile Include="ChildModel\Model\HouseScanifyEmployeeDetailsVM.cs" />
     <Compile Include="ChildModel\Model\HSUR_Daily_AttendanceVM.cs" />
     <Compile Include="ChildModel\Model\InfotainmentDetailsVW.cs" />
