@@ -753,10 +753,10 @@ namespace SwachBharat.CMS.Bll.Repository.GridRepository
             string ThumbnaiUrlCMS = appDetails.baseImageUrlCMS + appDetails.basePath + appDetails.HouseQRCode + "/";
             using (var db = new DevChildSwachhBharatNagpurEntities(appId))
             {
-                var data = db.MasterQRDetails().Select(x => new SBAHouseDetailsGridRow
+                var data = db.MasterQRBunchDetails().Select(x => new SBAHouseDetailsGridRow
                 {
                     masterId = x.MasterId,
-                    ReferanceId = x.ReferanceId,
+                    BunchName = x.BunchName,
                     QRList = x.QRList,
                     TotalCount = x.TotalCount.ToString(),
                     isActive = x.ISActive
@@ -765,7 +765,7 @@ namespace SwachBharat.CMS.Bll.Repository.GridRepository
 
                 if (!string.IsNullOrEmpty(SearchString))
                 {
-                  var model = data.Where(c => ((string.IsNullOrEmpty(c.ReferanceId) ? " " : c.ReferanceId) + " " +
+                  var model = data.Where(c => ((string.IsNullOrEmpty(c.BunchName) ? " " : c.BunchName) + " " +
                                         (string.IsNullOrEmpty(c.TotalCount) ? " " : c.TotalCount)).ToUpper().Contains(SearchString.ToUpper())).ToList();
 
 

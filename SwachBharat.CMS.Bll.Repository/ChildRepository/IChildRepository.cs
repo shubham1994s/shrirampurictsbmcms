@@ -47,6 +47,7 @@ namespace SwachBharat.CMS.Bll.Repository.ChildRepository
         void SaveWardNumber(WardNumberVM type);
 
         void SaveMasterQrDetails(MasterQRDetailsVM employee);
+        void SaveMasterQrBunchDetails(MasterQRDetailsVM employee);
 
         void LiquidSaveWardNumber(WardNumberVM type);
 
@@ -55,6 +56,7 @@ namespace SwachBharat.CMS.Bll.Repository.ChildRepository
 
         HouseDetailsVM GetHouseById(int teamId);
         MasterQRDetailsVM GetMasterQRById(int teamId , string houseId);
+        MasterQRDetailsVM GetMasterQRBunchById(int teamId);
         VehicalRegDetailsVM GetVehicalRegById(int teamId);
 
         SBALUserLocationMapView GetHouseByIdforMap(int teamId,int daId);

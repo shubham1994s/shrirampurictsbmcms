@@ -116,5 +116,35 @@ namespace SwachhBharatAbhiyan.CMS.Controllers
             else
                 return Redirect("/Account/Login");
         }
+
+        public ActionResult AddMasterQRBunchDetails(int teamId = -2)
+        {
+            if (SessionHandler.Current.AppId != 0)
+            {
+                MasterQRDetailsVM house = childRepository.GetMasterQRBunchById(teamId);
+
+
+                return View(house);
+
+
+            }
+            else
+                return Redirect("/Account/Login");
+        }
+
+        [HttpPost]
+        public ActionResult AddMasterQRBunchDetails(MasterQRDetailsVM emp)
+        {
+            if (SessionHandler.Current.AppId != 0)
+            {
+                childRepository.SaveMasterQrBunchDetails(emp);
+                return Redirect("QRBunchIndex");
+
+
+            }
+            else
+                return Redirect("/Account/Login");
+        }
+
     }
 }

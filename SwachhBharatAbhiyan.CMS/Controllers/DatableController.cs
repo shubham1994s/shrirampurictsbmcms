@@ -333,7 +333,7 @@ namespace SwachhBharatAbhiyan.CMS.Controllers
                     break;
 
                 case "MasterQRBunchDetail":
-                    gridRepository = new MasterQRDetailsGridRepository(0, searchString, appId);
+                    gridRepository = new MasterQRBunchDetailsGridRepository(0, searchString, appId);
                     return gridRepository;
                     break;
                 case "VehicalRegDetail":

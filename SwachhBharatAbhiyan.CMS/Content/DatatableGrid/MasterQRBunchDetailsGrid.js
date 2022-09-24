@@ -29,7 +29,7 @@
         "columns": [
 
             { "data": "masterId", "name": "masterId", "autoWidth": false },
-            { "data": "ReferanceId", "name": "ReferanceId", "autoWidth": false },
+            { "data": "BunchName", "name": "BunchName", "autoWidth": false },
             { "data": "TotalCount", "name": "TotalCount", "autoWidth": false },
 
             //   { "render": function (data, type, full, meta) { return '<input class="btn btn-primary btn-sm" type="button" onclick="Edit(' + full["houseId"] + ')" value="Edit" /> <input style="margin-left:2px" class="btn btn-danger btn-sm" type="button" onclick="Delete(' + full["houseId"] + ',' + full["Name"] + ')" value="Delete" />'; } }
@@ -46,7 +46,7 @@ function DownloadQRCode(Id) {
 function Edit(Id) {
     //alert("Aa");
     if (Id != null) {
-        var url = "/MasterQR/AddMasterQRDetails?teamId=" + Id;
+        var url = "/MasterQR/AddMasterQRBunchDetails?teamId=" + Id;
 
         window.location.href = url;
 
