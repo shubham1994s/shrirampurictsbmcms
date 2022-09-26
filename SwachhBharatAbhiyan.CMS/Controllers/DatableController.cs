@@ -429,10 +429,6 @@ namespace SwachhBharatAbhiyan.CMS.Controllers
                     return gridRepository;
                     break;
 
-                case "HouseBunchDetail":
-                    gridRepository = new HouseBunchGridRepository(0, searchString, appId);
-                    return gridRepository;
-                    break;
                 case "LiquidZoneDetail":
                     gridRepository = new LiquidZoneGridRepository(0, searchString, appId);
                     return gridRepository;
@@ -504,6 +500,10 @@ namespace SwachhBharatAbhiyan.CMS.Controllers
                     return gridRepository;
                     break;
 
+                case "EmployeeSummaryCTPT":
+                    gridRepository = new EmpolyeeSummaryGridRepository(0, searchString, fdate, tdate, userId, appId, "CT");
+                    return gridRepository;
+                    break;
 
                 case "LiquidEmployeeSummary":
                     gridRepository = new EmpolyeeSummaryGridRepository(0, searchString, fdate, tdate, userId, appId, "L");
