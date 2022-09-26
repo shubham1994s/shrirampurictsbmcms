@@ -440,10 +440,13 @@ namespace SwachhBharatAbhiyan.CMS.Controllers
                     break;
 
                 case "UserIdel":
-                    gridRepository = new IdelGridRepository(0, searchString, fdate, tdate, userId, appId);
+                    gridRepository = new IdelGridRepository(0, searchString, fdate, tdate, userId, appId,"W");
                     return gridRepository;
                     break;
-
+                case "UserIdelCTPT":
+                    gridRepository = new IdelGridRepository(0, searchString, fdate, tdate, userId, appId,"CT");
+                    return gridRepository;
+                    break;
                 case "UserIdelLiquid":
                     gridRepository = new LiquidIdelGridRepository(0, searchString, fdate, tdate, userId, appId);
                     return gridRepository;

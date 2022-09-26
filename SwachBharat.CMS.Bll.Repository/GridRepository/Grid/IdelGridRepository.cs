@@ -14,9 +14,9 @@ namespace SwachBharat.CMS.Bll.Repository.GridRepository.Grid
 
         DashBoardRepository objRep = new DashBoardRepository();
 
-        public IdelGridRepository(long wildcard, string SearchString, DateTime? fdate, DateTime? tdate, int userId, int appId)
+        public IdelGridRepository(long wildcard, string SearchString, DateTime? fdate, DateTime? tdate, int userId, int appId, string UserType)
         {
-            dataSet = objRep.GetIdelData(wildcard, SearchString, fdate, tdate, userId, appId);
+            dataSet = objRep.GetIdelData(wildcard, SearchString, fdate, tdate, userId, appId, UserType);
         }
 
         public string GetDataTabelJson(string sortColumn, string sortColumnDir, string draw, string length, string searchValue, string start)

@@ -21,6 +21,19 @@
 <body>
     <br />
     <div class="container">
+        <div class="row" style="text-align: center; display: inline-block; width: 100%;margin-top:2%">
+            <label class="check-container">
+                <input type="radio" checked="checked" value="0" name="rdType">
+                Waste
+                <span class="checkmark"></span>
+            </label>
+            &nbsp; &nbsp;
+            <label class="check-container">
+                <input type="radio" value="1" name="rdType">
+                CT/PT/U
+                <span class="checkmark"></span>
+            </label>
+        </div>
         <div class="row">
             <div class="col-sm-3">
                 <div class="controls">
@@ -53,9 +66,44 @@
     </div>
     <br />
     <div class="container-fluid">
-        <div class="">
-            <label style="display:inline-flex" class="float-right">Search:&nbsp;<input type="text" id="s" class="form-control form-control-sm" onkeyup="Search()"></label>
-            <table id="demoGrid" class="table table-striped table-bordered dt-responsive nowrap" width="100%" >
+        <div id="divW" class="" style="overflow-y:auto;display:none">
+            <label style="display:inline-flex" class="float-right">Search:&nbsp;<input type="text" id="s" class="form-control form-control-sm" onkeyup="SearchW()"></label>
+            <table id="demoGrid" class="table table-striped table-bordered dt-responsive nowrap" width="100%">
+                <thead>
+                    @*<tr>
+                        <th>नाव / Name</th>
+                        <th>तारीख /  Date</th>
+                        <th>वेळ पासून / From Time</th>
+                        <th>वेळ पर्यंत / To Time</th>
+                        <th> निष्क्रिय वेळ  / Idle Time</th>
+                        <th>Start Location</th>
+                        <th>Last Location</th>
+
+                    </tr>*@
+
+                    <tr>
+                        <th>userId</th>
+                        <th> Name</th>
+                        <th> Date</th>
+                        <th> From Time</th>
+                        <th> To Time </th>
+                        <th> Idle Time (hh:mm)</th>
+                        <th> Start Lat</th>
+                        <th> Start Lang</th>
+                        <th> End Start</th>
+                        <th> End Lang</th>
+                        <th data-sortable="false"> Route</th>
+                        <th> Start Location</th>
+                        <th> Last Location</th>
+                        <th> daDateTIme</th>
+
+                    </tr>
+                </thead>
+            </table>
+        </div>
+        <div id="divCTPT" class="" style="overflow-y:auto;display:none">
+            <label style="display:inline-flex" class="float-right">Search:&nbsp;<input type="text" id="sCTPT" class="form-control form-control-sm" onkeyup="SearchCTPT()"></label>
+            <table id="demoGridCTPT" class="table table-striped table-bordered dt-responsive nowrap" width="100%">
                 <thead>
                     @*<tr>
                         <th>नाव / Name</th>
