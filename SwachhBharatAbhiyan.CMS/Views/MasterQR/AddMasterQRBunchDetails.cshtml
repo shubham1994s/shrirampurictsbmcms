@@ -58,7 +58,7 @@
 
 
                     <div class="col-md-4">
-                      
+
 
                         <div class="form-group">
                             @*@Html.Label("झोन  / Zone")*@
@@ -104,11 +104,53 @@
                     </div>
                 </div>
                 <center id="hur" style="padding-right: 14%;">
-
-
-
-
                 </center>
+                @if (Model.SelectedHouseList.Count > 0)
+                {
+                    <div class="row" id="checkUR">
+                        <div class="container py-4">
+                            <table class="table table-hover">
+                                @*@Html.Label("रक्त गट / Blood Group ")*@
+                                @for (int i = 0; i < Model.SelectedHouseList.Count; i++)
+                                {
+
+                                    if (i % 4 == 0)
+                                    {
+
+                                        <tr></tr>
+
+                                    }
+                                    else
+                                    {
+                                        <td class="ulbs">
+
+                                            @Html.CheckBoxFor(x => x.SelectedHouseList[i].IsCheked, new { @class = "custom-checkbox individual" })
+                                            <label>@Model.SelectedHouseList[i].ReferanceId</label>
+                                            @Html.HiddenFor(x => x.SelectedHouseList[i].ReferanceId)
+                                            @Html.HiddenFor(x => x.SelectedHouseList[i].ReferanceId)
+                                        </td>
+                                    }
+                                    if (i % 4 == 0)
+                                    {
+                                        <td class="ulbs">
+                                            @Html.CheckBoxFor(x => x.SelectedHouseList[i].IsCheked, new { @class = "custom-checkbox individual" })
+                                            <label>@Model.SelectedHouseList[i].ReferanceId</label>
+                                            @Html.HiddenFor(x => x.SelectedHouseList[i].ReferanceId)
+                                            @Html.HiddenFor(x => x.SelectedHouseList[i].ReferanceId)
+                                        </td>
+                                    }
+
+                                }
+
+                            </table>
+                            <span class="text-danger" id="err_pw"></span>
+                            <span class="help-block with-errors"></span>
+
+                        </div>
+
+                    </div>
+                }
+
                 <div class="row" id="checkUR">
 
 

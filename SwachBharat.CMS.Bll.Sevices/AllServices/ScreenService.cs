@@ -1035,6 +1035,12 @@ namespace SwachBharat.CMS.Bll.Services
                         string s = master.QRList;
                         string[] values = s.Split(',');
 
+                        var including = values;
+
+                        master.SelectedHouseList = db.HouseLists.Where(x => including.Contains(x.ReferanceId)).ToList<HouseList>();
+
+                            
+
                         for (int i = 0; i < values.Length; i++)
                         {
                             char[] MyChar = { 'H', 'P', 'S', 'B', 'A' };
@@ -1056,6 +1062,8 @@ namespace SwachBharat.CMS.Bll.Services
 
                                     v.IsCheked = true;
 
+                               
+
                                 }
                             }
                         }
@@ -1071,7 +1079,9 @@ namespace SwachBharat.CMS.Bll.Services
                     if (areaid == null)
                     {
                         var AreaId = 0;
+                        var including = "";
                         master.CheckHlist = db.HouseLists.Where(x => x.IsActive == true & x.AreaId > 0).OrderBy(x => x.HouseId).ToList<HouseList>();
+                        master.SelectedHouseList = db.HouseLists.Where(x => including.Contains(x.ReferanceId)).ToList<HouseList>();
                         // master.CheckAppDs = (List<HouseMaster>)db.HouseMasters.Where(x => x.ReferanceId != null).Select(x => new { x.ReferanceId, x.houseId });
                         master.BunchList = ListBunch(teamId);
                         return master;
@@ -1079,7 +1089,9 @@ namespace SwachBharat.CMS.Bll.Services
                     else
                     {
                         var AreaId = areaid.AreaId;
+                        var including = "";
                         master.CheckHlist = db.HouseLists.Where(x => x.IsActive == true & x.AreaId == AreaId).OrderBy(x => x.HouseId).ToList<HouseList>();
+                        master.SelectedHouseList = db.HouseLists.Where(x => including.Contains(x.ReferanceId)).ToList<HouseList>();
                         // master.CheckAppDs = (List<HouseMaster>)db.HouseMasters.Where(x => x.ReferanceId != null).Select(x => new { x.ReferanceId, x.houseId });
                         master.BunchList = ListBunch(teamId);
                         return master;

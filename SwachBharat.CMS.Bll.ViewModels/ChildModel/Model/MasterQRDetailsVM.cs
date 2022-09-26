@@ -18,6 +18,7 @@ namespace SwachBharat.CMS.Bll.ViewModels.ChildModel.Model
         public Nullable<bool> isActive { get; set; }
 
         public List<HouseList> CheckHlist { get; set; }
+        public List<HouseList> SelectedHouseList { get; set; }
 
         public Nullable<int> HouseBunchId { get; set; }
 
