@@ -1005,6 +1005,8 @@ namespace SwachBharat.CMS.Bll.Services
             try
             {
                 DevSwachhBharatMainEntities dbMain = new DevSwachhBharatMainEntities();
+
+                var db = new DevChildSwachhBharatNagpurEntities(AppID);
                 var appDetails = dbMain.AppDetails.Where(x => x.AppId == AppID).FirstOrDefault();
 
 
@@ -1023,8 +1025,15 @@ namespace SwachBharat.CMS.Bll.Services
                 {
                     master = FillMasterQRBunchDetailsViewModel(Details);
 
-                 
-                   master.CheckHlist = db.HouseLists.Where(x => x.IsActive == true).OrderBy(x => x.ReferanceId).ToList<HouseList>();
+                    var ReQRList = db.Remaining_QRList(teamId).FirstOrDefault();
+
+                    string r = ReQRList.ToString();
+                    string[] values_new = Array.ConvertAll(r.Split(','), p => p.Trim());
+
+                    var excluding = values_new;
+
+                   // master.CheckHlist = db.HouseLists.Where(x => x.IsActive == true).OrderBy(x => x.ReferanceId).ToList<HouseList>();
+                   master.CheckHlist = db.HouseLists.Where(x => x.IsActive == true && !excluding.Contains(x.ReferanceId)).OrderBy(x => x.ReferanceId).ToList<HouseList>();
                     
 
 
@@ -1080,7 +1089,16 @@ namespace SwachBharat.CMS.Bll.Services
                     {
                         var AreaId = 0;
                         var including = "";
-                        master.CheckHlist = db.HouseLists.Where(x => x.IsActive == true & x.AreaId > 0).OrderBy(x => x.HouseId).ToList<HouseList>();
+
+                        var ReQRList = db.Remaining_QRList(0).FirstOrDefault();
+
+                        string r = ReQRList.ToString();
+                        string[] values_new = Array.ConvertAll(r.Split(','), p => p.Trim());
+
+                        var excluding = values_new;
+
+                        //master.CheckHlist = db.HouseLists.Where(x => x.IsActive == true & x.AreaId > 0).OrderBy(x => x.HouseId).ToList<HouseList>();
+                        master.CheckHlist = db.HouseLists.Where(x => x.IsActive == true && !excluding.Contains(x.ReferanceId)).OrderBy(x => x.ReferanceId).ToList<HouseList>();
                         master.SelectedHouseList = db.HouseLists.Where(x => including.Contains(x.ReferanceId)).ToList<HouseList>();
                         // master.CheckAppDs = (List<HouseMaster>)db.HouseMasters.Where(x => x.ReferanceId != null).Select(x => new { x.ReferanceId, x.houseId });
                         master.BunchList = ListBunch(teamId);
@@ -1090,7 +1108,17 @@ namespace SwachBharat.CMS.Bll.Services
                     {
                         var AreaId = areaid.AreaId;
                         var including = "";
-                        master.CheckHlist = db.HouseLists.Where(x => x.IsActive == true & x.AreaId == AreaId).OrderBy(x => x.HouseId).ToList<HouseList>();
+
+                        var ReQRList = db.Remaining_QRList(0).FirstOrDefault();
+
+                        string r = ReQRList.ToString();
+                        //string[] values_new = r.Split(',');
+
+                        string[] values_new = Array.ConvertAll(r.Split(','), p => p.Trim());
+
+                        var excluding = values_new;
+                        // master.CheckHlist = db.HouseLists.Where(x => x.IsActive == true & x.AreaId == AreaId).OrderBy(x => x.HouseId).ToList<HouseList>();
+                        master.CheckHlist = db.HouseLists.Where(x => x.IsActive == true && !excluding.Contains(x.ReferanceId)).OrderBy(x => x.ReferanceId).ToList<HouseList>();
                         master.SelectedHouseList = db.HouseLists.Where(x => including.Contains(x.ReferanceId)).ToList<HouseList>();
                         // master.CheckAppDs = (List<HouseMaster>)db.HouseMasters.Where(x => x.ReferanceId != null).Select(x => new { x.ReferanceId, x.houseId });
                         master.BunchList = ListBunch(teamId);

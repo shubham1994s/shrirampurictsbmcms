@@ -744,6 +744,9 @@ warning 6002: The table/view 'LIVEAdvanceShrirampurGhantaGadi.dbo.Vw_MsgNotifica
         <Function Name="LiquidCurrentAllUserLocationTest1" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="MasterQRBunchDetails" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="PointDetails" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="Remaining_QRList" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="masterId" Type="int" Mode="In" />
+        </Function>
         <Function Name="RPT_1POINT7_DETAILS" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="INSERT_ID" Type="int" Mode="In" />
         </Function>
@@ -1469,6 +1472,9 @@ warning 6002: The table/view 'LIVEAdvanceShrirampurGhantaGadi.dbo.Vw_MsgNotifica
             <Parameter Name="userId" Mode="In" Type="Int32" />
             <Parameter Name="fdate" Mode="In" Type="DateTime" />
             <Parameter Name="tdate" Mode="In" Type="DateTime" />
+          </FunctionImport>
+          <FunctionImport Name="Remaining_QRList" ReturnType="Collection(String)">
+            <Parameter Name="masterId" Mode="In" Type="Int32" />
           </FunctionImport>
          
         </EntityContainer>
@@ -4735,6 +4741,7 @@ warning 6002: The table/view 'LIVEAdvanceShrirampurGhantaGadi.dbo.Vw_MsgNotifica
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="Remaining_QRList" FunctionName="DevSwachhBharatNagpurModel.Store.Remaining_QRList" />
          
         </EntityContainerMapping>
       </Mapping>
