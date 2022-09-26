@@ -18,9 +18,10 @@ namespace SwachBharat.CMS.Dal.DataContexts
     public partial class DevChildSwachhBharatNagpurEntities : DbContext
     {
         public DevChildSwachhBharatNagpurEntities(int AppId)
-               : base(SwachBharatAppConnection.GetConnectionString(AppId))
+       : base(SwachBharatAppConnection.GetConnectionString(AppId))
         {
         }
+
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
@@ -68,6 +69,7 @@ namespace SwachBharat.CMS.Dal.DataContexts
         public virtual DbSet<HouseList> HouseLists { get; set; }
         public virtual DbSet<Daily_Attendance> Daily_Attendance { get; set; }
         public virtual DbSet<HouseBunch> HouseBunches { get; set; }
+        public virtual DbSet<MasterQRBunch> MasterQRBunches { get; set; }
     
         public virtual ObjectResult<GetAttendenceDetailsTotal_Result> GetAttendenceDetailsTotal(Nullable<int> userId, Nullable<int> year, Nullable<int> month)
         {
@@ -918,6 +920,11 @@ namespace SwachBharat.CMS.Dal.DataContexts
                 new ObjectParameter("Emptype", typeof(string));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<SP_CTPTEmployeeSummary_Result>("SP_CTPTEmployeeSummary", fromParameter, toParameter, useridParameter, emptypeParameter);
+        }
+    
+        public virtual ObjectResult<MasterQRBunchDetails_Result> MasterQRBunchDetails()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<MasterQRBunchDetails_Result>("MasterQRBunchDetails");
         }
     }
 }

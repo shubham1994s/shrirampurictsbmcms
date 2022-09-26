@@ -27,6 +27,7 @@ namespace SwachBharat.CMS.Bll.Repository.ChildRepository
         AreaVM GetArea(int teamId,string name);
         void DeletArea(int teamId);
         void SaveArea(AreaVM area);
+        void SaveHouseBunch(HouseQRBunchVM housebunch);
 
         void LiquidSaveArea(AreaVM area);
 
@@ -46,6 +47,7 @@ namespace SwachBharat.CMS.Bll.Repository.ChildRepository
         void SaveWardNumber(WardNumberVM type);
 
         void SaveMasterQrDetails(MasterQRDetailsVM employee);
+        void SaveMasterQrBunchDetails(MasterQRDetailsVM employee);
 
         void LiquidSaveWardNumber(WardNumberVM type);
 
@@ -54,6 +56,7 @@ namespace SwachBharat.CMS.Bll.Repository.ChildRepository
 
         HouseDetailsVM GetHouseById(int teamId);
         MasterQRDetailsVM GetMasterQRById(int teamId , string houseId);
+        MasterQRDetailsVM GetMasterQRBunchById(int teamId);
         VehicalRegDetailsVM GetVehicalRegById(int teamId);
 
         SBALUserLocationMapView GetHouseByIdforMap(int teamId,int daId);
@@ -107,6 +110,7 @@ namespace SwachBharat.CMS.Bll.Repository.ChildRepository
         void SaveComplaintStatus(ComplaintVM comp);
 
         ZoneVM GetZone(int teamId);
+        HouseQRBunchVM GetHouseBunch(int teamId);
 
         ZoneVM StreetGetZone(int teamId);
 

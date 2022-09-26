@@ -1798,6 +1798,7 @@
     <Content Include="Content\DatatableGrid\InfotainmentResult.js" />
     <Content Include="Content\DatatableGrid\League.js" />
     <Content Include="Content\DatatableGrid\Log.js" />
+    <Content Include="Content\DatatableGrid\MasterQRBunchDetailsGrid.js" />
     <Content Include="Content\DatatableGrid\MasterQRDetailsGrid.js" />
     <Content Include="Content\DatatableGrid\MonthlyAttendenceGrid.js" />
     <Content Include="Content\DatatableGrid\OnepointeightEditGrid.js" />
@@ -3253,6 +3254,10 @@
     <Content Include="Views\AttendenceBeatMap\CTPTUserRoute.cshtml" />
     <Content Include="Views\MainMaster\MenuHouseQRBunchIndex.cshtml" />
     <Content Include="Views\MainMaster\HouseQRBunchIndex.cshtml" />
+    <Content Include="Views\MainMaster\AddHouseQRBunchDetails.cshtml" />
+    <Content Include="Views\MasterQR\MenuQRBunchIndex.cshtml" />
+    <Content Include="Views\MasterQR\QRBunchIndex.cshtml" />
+    <Content Include="Views\MasterQR\AddMasterQRBunchDetails.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

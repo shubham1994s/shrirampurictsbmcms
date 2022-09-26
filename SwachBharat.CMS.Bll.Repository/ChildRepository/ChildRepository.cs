@@ -65,7 +65,14 @@ namespace SwachBharat.CMS.Bll.Repository.ChildRepository
             screenService.SaveAreaDetails(area);
         }
 
-
+        public void SaveHouseBunch(HouseQRBunchVM housebunch)
+        {
+            if (housebunch.bunchId <= 0)
+            {
+                housebunch.bunchId = 0;
+            }
+            screenService.SaveHouseBunchDetails(housebunch);
+        }
         public void LiquidSaveArea(AreaVM area)
         {
             if (area.Id <= 0)
@@ -135,6 +142,12 @@ namespace SwachBharat.CMS.Bll.Repository.ChildRepository
             screenService.SaveMasterQRDetails(type);
         }
 
+        public void SaveMasterQrBunchDetails(MasterQRDetailsVM type)
+        {
+
+            screenService.SaveMasterQRBunchDetails(type);
+        }
+
         public void LiquidSaveWardNumber(WardNumberVM type)
         {
             if (type.LWId <= 0)
@@ -164,6 +177,10 @@ namespace SwachBharat.CMS.Bll.Repository.ChildRepository
             return screenService.GetMasterQRDetails(teamId , houseId);
         }
 
+        public MasterQRDetailsVM GetMasterQRBunchById(int teamId)
+        {
+            return screenService.GetMasterQRBunchDetails(teamId);
+        }
         public VehicalRegDetailsVM GetVehicalRegById(int teamId)
         {
             return screenService.GetVehicalRegDetails(teamId);
@@ -359,6 +376,11 @@ namespace SwachBharat.CMS.Bll.Repository.ChildRepository
         public ZoneVM GetZone(int teamId)
         {
             return screenService.GetZone(teamId);
+        }
+
+        public HouseQRBunchVM GetHouseBunch(int teamId)
+        {
+            return screenService.GetHouseBunch(teamId);
         }
 
         public ZoneVM StreetGetZone(int teamId)

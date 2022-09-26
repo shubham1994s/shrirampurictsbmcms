@@ -34,7 +34,7 @@
 function Edit(Id) {
 
     if (Id != null) {
-        var url = "/MainMaster/AddZoneDetails?teamId=" + Id;
+        var url = "/MainMaster/AddHouseQRBunchDetails?teamId=" + Id;
         window.location.href = url;
     }
 };
