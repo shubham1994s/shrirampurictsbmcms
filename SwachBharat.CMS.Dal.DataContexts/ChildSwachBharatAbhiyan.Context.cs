@@ -18,7 +18,7 @@ namespace SwachBharat.CMS.Dal.DataContexts
     public partial class DevChildSwachhBharatNagpurEntities : DbContext
     {
         public DevChildSwachhBharatNagpurEntities(int AppId)
-       : base(SwachBharatAppConnection.GetConnectionString(AppId))
+              : base(SwachBharatAppConnection.GetConnectionString(AppId))
         {
         }
 
@@ -925,6 +925,23 @@ namespace SwachBharat.CMS.Dal.DataContexts
         public virtual ObjectResult<MasterQRBunchDetails_Result> MasterQRBunchDetails()
         {
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<MasterQRBunchDetails_Result>("MasterQRBunchDetails");
+        }
+    
+        public virtual ObjectResult<SP_IdelTimeCTPT_Result> SP_IdelTimeCTPT(Nullable<int> userId, Nullable<System.DateTime> fdate, Nullable<System.DateTime> tdate)
+        {
+            var userIdParameter = userId.HasValue ?
+                new ObjectParameter("userId", userId) :
+                new ObjectParameter("userId", typeof(int));
+    
+            var fdateParameter = fdate.HasValue ?
+                new ObjectParameter("fdate", fdate) :
+                new ObjectParameter("fdate", typeof(System.DateTime));
+    
+            var tdateParameter = tdate.HasValue ?
+                new ObjectParameter("tdate", tdate) :
+                new ObjectParameter("tdate", typeof(System.DateTime));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<SP_IdelTimeCTPT_Result>("SP_IdelTimeCTPT", userIdParameter, fdateParameter, tdateParameter);
         }
     }
 }
