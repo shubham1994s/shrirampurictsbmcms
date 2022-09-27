@@ -2731,7 +2731,8 @@ namespace SwachBharat.CMS.Bll.Services
                             loc.address = checkNull(Details.address).Replace("Unnamed Road, ", "");
                             loc.lat = Details.lat;
                             loc.log = Details.@long;
-                            loc.UserList = ListUser(Emptype);
+                            //loc.UserList = ListUser(Emptype);
+                            loc.UserList = ListUserWCT(Emptype);
                             loc.userMobile = user.userMobileNumber;
                             loc.type = Convert.ToInt32(user.Type);
                             try { loc.vehcileNumber = atten.vehicleNumber; } catch { loc.vehcileNumber = ""; }
@@ -6354,6 +6355,25 @@ namespace SwachBharat.CMS.Bll.Services
             return user;
         }
 
+        public List<SelectListItem> ListUserWCT(string Emptype)
+        {
+            var user = new List<SelectListItem>();
+            SelectListItem itemAdd = new SelectListItem() { Text = "--Select Employee--", Value = "0" };
+
+            try
+            {
+                user = db.UserMasters.Where(c => c.isActive == true && (c.EmployeeType == null || c.EmployeeType == "CT")).ToList()
+                    .Select(x => new SelectListItem
+                    {
+                        Text = x.userName,
+                        Value = x.userId.ToString()
+                    }).OrderBy(t => t.Text).ToList();
+
+            }
+            catch (Exception ex) { throw ex; }
+
+            return user;
+        }
         public List<SelectListItem> ListUserBeatMap(string Emptype)
         {
             var user = new List<SelectListItem>();
