@@ -437,6 +437,11 @@ namespace SwachhBharatAbhiyan.CMS.Controllers
                     return gridRepository;
                     break;
 
+                case "HouseBunchDetail":
+                    gridRepository = new HouseBunchGridRepository(0, searchString, appId);
+                    return gridRepository;
+                    break;
+
                 case "LiquidZoneDetail":
                     gridRepository = new LiquidZoneGridRepository(0, searchString, appId);
                     return gridRepository;
