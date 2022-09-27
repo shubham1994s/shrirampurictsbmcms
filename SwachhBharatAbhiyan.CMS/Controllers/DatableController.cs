@@ -231,7 +231,10 @@ namespace SwachhBharatAbhiyan.CMS.Controllers
                     gridRepository = new LocationGridRepository(0, searchString, fdate, tdate, userId, appId, null);
                     return gridRepository;
                     break;
-
+                case "LocationCTPT":
+                    gridRepository = new LocationGridRepository(0, searchString, fdate, tdate, userId, appId, "CT");
+                    return gridRepository;
+                    break;
                 case "LiquidLocation":
                     gridRepository = new LocationGridRepository(0, searchString, fdate, tdate, userId, appId, "L");
                     return gridRepository;
