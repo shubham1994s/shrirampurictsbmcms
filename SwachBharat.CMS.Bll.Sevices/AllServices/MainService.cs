@@ -487,7 +487,7 @@ namespace SwachBharat.CMS.Bll.Services
                         {
                             id = tes.id,
                             name = tes.name,
-                         //   IsCheked = tes.IsCheked
+                            //   IsCheked = tes.IsCheked
                         });
                     }
 
@@ -511,7 +511,7 @@ namespace SwachBharat.CMS.Bll.Services
                                 {
                                     id = tes.id,
                                     name = tes.name,
-                                 //   IsCheked = tes.IsCheked
+                                    //   IsCheked = tes.IsCheked
                                 });
                             }
 
@@ -796,10 +796,10 @@ namespace SwachBharat.CMS.Bll.Services
             var DB_Source = dbMain.AppConnections.Where(x => x.AppId == AppId).FirstOrDefault().DataSource;
             return DB_Source.ToString();
         }
-public int GetUserAppId(string UserId)
+        public int GetUserAppId(string UserId)
         {
             int AppId = 0;
-            AppId = dbMain.UserInApps.Where(x => x.UserId == UserId && x.AppId==3111 ).Select(x => x.AppId).FirstOrDefault();
+            AppId = dbMain.UserInApps.Where(x => x.UserId == UserId && x.AppId == 3111).Select(x => x.AppId).FirstOrDefault();
 
             return AppId;
         }
@@ -922,7 +922,7 @@ public int GetUserAppId(string UserId)
             }
         }
 
-      
+
         public List<AppDetail> GetAppName()
         {
             List<AppDetail> appNames = new List<AppDetail>();
@@ -1412,8 +1412,8 @@ public int GetUserAppId(string UserId)
 
         public List<EmployeeMaster> GetEmployeeDetails(int teamId, string Emptype)
         {
-            
-           // List<EmployeeMaster> EmpList = new List<EmployeeMaster>();
+
+            // List<EmployeeMaster> EmpList = new List<EmployeeMaster>();
 
             var EmpList = new List<EmployeeMaster>();
             try
@@ -1433,7 +1433,7 @@ public int GetUserAppId(string UserId)
             return EmpList;
         }
 
-       
+
         public InfotainmentDetailsVW GetInfotainmentDetailsById(int ID)
         {
             try
