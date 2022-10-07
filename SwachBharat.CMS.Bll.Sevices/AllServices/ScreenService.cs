@@ -3428,7 +3428,7 @@ namespace SwachBharat.CMS.Bll.Services
             List<coordinates> subList = new List<coordinates>();
 
             string baseURL = "https://maps.googleapis.com/maps/api/directions/xml";
-            string apiKey = "AIzaSyBnR8YLcfpwSLWXGO6JR3wFPY133r086DI";
+            string apiKey = "AIzaSyB7w-l0RWEUVqhXyshtsgdkqJDNxaKQ5lY";
             //var tasks = new List<List<coordinates>>();
 
 

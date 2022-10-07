@@ -46,11 +46,12 @@ namespace SwachBharat.CMS.Dal.DataContexts
         public virtual DbSet<EmployeeMaster> EmployeeMasters { get; set; }
         public virtual DbSet<CheckAppD> CheckAppDs { get; set; }
         public virtual DbSet<AEmployeeMaster> AEmployeeMasters { get; set; }
-        public virtual DbSet<tehsil> tehsils { get; set; }
         public virtual DbSet<AspNetUser> AspNetUsers { get; set; }
         public virtual DbSet<AppDetail> AppDetails { get; set; }
         public virtual DbSet<UR_Location> UR_Location { get; set; }
         public virtual DbSet<HSUR_Daily_Attendance> HSUR_Daily_Attendance { get; set; }
+        public virtual DbSet<GoogleAPIDetail> GoogleAPIDetails { get; set; }
+        public virtual DbSet<tehsil> tehsils { get; set; }
     
         public virtual int SP_Admin_table()
         {
