@@ -18,6 +18,7 @@ namespace SwachhBharatAbhiyan.CMS.Controllers
     {
         IChildRepository childRepository;
         IMainRepository mainRepository;
+
         public HomeController()
         {
             if (SessionHandler.Current.AppId != 0)
