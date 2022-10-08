@@ -18,6 +18,7 @@ using SwachBharat.CMS.Bll.ViewModels.MainModel;
 using SwachBharat.CMS.Bll.ViewModels.ChildModel.Model;
 using System.Configuration;
 using System.Data.SqlClient;
+using SwachBharat.CMS.Dal.DataContexts;
 
 namespace SwachhBharatAbhiyan.CMS.Controllers
 {
@@ -27,12 +28,15 @@ namespace SwachhBharatAbhiyan.CMS.Controllers
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
         private IMainRepository mainrepository;
+        private DevSwachhBharatMainEntities dbmain;
 
-       
+
         public AccountController()
         {
            // AuthenticationManager.SignOut(DefaultAuthenticationTypes.ApplicationCookie);
             mainrepository = new MainRepository();
+            dbmain = new DevSwachhBharatMainEntities();
+
         }
 
         public AccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager )
@@ -870,6 +874,7 @@ namespace SwachhBharatAbhiyan.CMS.Controllers
                 SessionHandler.Current.GramPanchyatAppID = ApplicationDetails.GramPanchyatAppID;
                 SessionHandler.Current.YoccFeddbackLink = ApplicationDetails.YoccFeddbackLink;
                 SessionHandler.Current.YoccDndLink = ApplicationDetails.YoccDndLink;
+                Session["apikey"] = dbmain.GoogleAPIDetails.Select(a => a.GoogleAPI).FirstOrDefault(); ;
                 }
                 else
                 {
@@ -881,6 +886,8 @@ namespace SwachhBharatAbhiyan.CMS.Controllers
                     SessionHandler.Current.AppName = null;
                     SessionHandler.Current.IsLoggedIn = false;
                     SessionHandler.Current.Type = null;
+                    Session["apikey"] = dbmain.GoogleAPIDetails.Select(a => a.GoogleAPI).FirstOrDefault(); ;
+
                 }
                 // if (SessionHandler.Current.Type.Trim() == "np")
                 // {
@@ -934,6 +941,8 @@ namespace SwachhBharatAbhiyan.CMS.Controllers
                     SessionHandler.Current.GramPanchyatAppID = ApplicationDetails.GramPanchyatAppID;
                     SessionHandler.Current.YoccFeddbackLink = ApplicationDetails.YoccFeddbackLink;
                     SessionHandler.Current.YoccDndLink = ApplicationDetails.YoccDndLink;
+                    Session["apikey"] = dbmain.GoogleAPIDetails.Select(a => a.GoogleAPI).FirstOrDefault(); ;
+
                 }
                 else
                 {
@@ -945,6 +954,8 @@ namespace SwachhBharatAbhiyan.CMS.Controllers
                     SessionHandler.Current.AppName = null;
                     SessionHandler.Current.IsLoggedIn = false;
                     SessionHandler.Current.Type = null;
+                    Session["apikey"] = dbmain.GoogleAPIDetails.Select(a => a.GoogleAPI).FirstOrDefault(); ;
+
                 }
                 // if (SessionHandler.Current.Type.Trim() == "np")
                 // {
