@@ -24,6 +24,7 @@ using System.Threading.Tasks;
 using System.Data;
 using System.Net.Http;
 using System.Xml.Linq;
+//using System.Data.Entity.Spatial;
 
 namespace SwachBharat.CMS.Bll.Services
 {
@@ -795,7 +796,7 @@ namespace SwachBharat.CMS.Bll.Services
             {
                 DevSwachhBharatMainEntities dbMain = new DevSwachhBharatMainEntities();
                 var appDetails = dbMain.AppDetails.Where(x => x.AppId == AppID).FirstOrDefault();
-
+                //DbGeography a = DbGeography.FromText("POINT(-122.336106 47.605049)");
                 string ThumbnaiUrlCMS = appDetails.baseImageUrlCMS + appDetails.basePath + appDetails.HouseQRCode + "/";
                 HouseDetailsVM house = new HouseDetailsVM();
 
