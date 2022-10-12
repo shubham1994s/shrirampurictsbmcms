@@ -3,6 +3,7 @@ using SwachBharat.CMS.Bll.Repository.ChildRepository;
 using SwachBharat.CMS.Bll.Repository.GridRepository;
 using SwachBharat.CMS.Bll.Repository.MainRepository;
 using SwachBharat.CMS.Bll.ViewModels.ChildModel.Model;
+using SwachBharat.CMS.Dal.DataContexts;
 using SwachhBharatAbhiyan.CMS.Models.SessionHelper;
 using System;
 using System.Collections.Generic;
@@ -39,6 +40,9 @@ namespace SwachhBharatAbhiyan.CMS.Areas.Liquid.Controllers
                 ViewBag.lat = SessionHandler.Current.Latitude;
                 ViewBag.lang = SessionHandler.Current.Logitude;
                 ViewBag.YoccFeddbackLink = SessionHandler.Current.YoccFeddbackLink;
+                DevSwachhBharatMainEntities dbmain = new DevSwachhBharatMainEntities();
+                var apikey = dbmain.GoogleAPIDetails.Select(a => a.GoogleAPI).FirstOrDefault();
+                Session["apikey"] = apikey;
                 TempData.Keep();
                 var details = childRepository.GetLiquidDashBoardDetails();
                 return View(details);
