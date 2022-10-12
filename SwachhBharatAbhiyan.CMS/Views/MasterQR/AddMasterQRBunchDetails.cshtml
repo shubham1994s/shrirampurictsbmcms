@@ -65,7 +65,7 @@
                             @Html.Label("House Bunch Id")
                             @if (@Model.HouseBunchId > 0)
                             {
-                                @Html.DropDownListFor(model => model.HouseBunchId, Model.BunchList, new { style = "font-family:Arial, FontAwesome", required = "required", @readonly = "readonly", @class = "form-control RequiredInput validate[required] RequiredInput", @onchange = "getValue(this);" })
+                                @Html.DropDownListFor(model => model.HouseBunchId, Model.BunchList, new { style = "font-family:Arial, FontAwesome", required = "required", @readonly = "readonly", @disabled = "disabled", @class = "form-control RequiredInput validate[required] RequiredInput", @onchange = "getValue(this);" })
                             }
                             else
                             {
@@ -154,7 +154,7 @@
                 <div class="row" id="checkUR">
 
 
-                    <div class="container py-4">
+                    <div class="container py-4" style="overflow: scroll; height: 320px;">
 
                         <table class="table table-hover">
 
@@ -216,7 +216,7 @@
 
                     @Html.HiddenFor(c => c.HouseBunchId)
 
-                    <div class="col-md-4" style="padding-top:10%">
+                    <div class="col-md-12" style="padding-top:2%;text-align:center">
                         <center><span class="text-danger" id="err_generate"></span></center>
                         <div class="form-group1">
                             <button type="submit" name="submit" class="btn" id="btnSubmit" onclick="return Validate()">
@@ -230,7 +230,7 @@
                 </div>
 
 
-                <br /><br /><br />
+                <br />
 
             </div>
         </div>
@@ -346,7 +346,6 @@
 
 
 <script type="text/javascript">
-
 
     $(document).ready(function () {
         debugger;
