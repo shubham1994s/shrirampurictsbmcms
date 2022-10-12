@@ -13,8 +13,12 @@ namespace SwachBharat.CMS.Dal.DataContexts
     
     public partial class SP_Dashboard_Details_Result
     {
+        public Nullable<int> TodayAttandence { get; set; }
         public Nullable<int> TotalAttandence { get; set; }
         public Nullable<int> TotalHouse { get; set; }
         public Nullable<int> TotalPoint { get; set; }
+        public Nullable<int> TotalDump { get; set; }
+        public Nullable<int> TodayCTPTAttandence { get; set; }
+        public Nullable<int> TotalCTPTAttandence { get; set; }
     }
 }

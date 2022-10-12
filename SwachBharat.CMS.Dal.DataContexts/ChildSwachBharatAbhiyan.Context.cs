@@ -18,10 +18,9 @@ namespace SwachBharat.CMS.Dal.DataContexts
     public partial class DevChildSwachhBharatNagpurEntities : DbContext
     {
         public DevChildSwachhBharatNagpurEntities(int AppId)
-     : base(SwachBharatAppConnection.GetConnectionString(AppId))
+                   : base(SwachBharatAppConnection.GetConnectionString(AppId))
         {
         }
-
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
@@ -100,11 +99,6 @@ namespace SwachBharat.CMS.Dal.DataContexts
         public virtual ObjectResult<CurrentAllUserLocation_Result3> CurrentAllUserLocation()
         {
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<CurrentAllUserLocation_Result3>("CurrentAllUserLocation");
-        }
-    
-        public virtual ObjectResult<SP_Dashboard_Details_Result2> SP_Dashboard_Details()
-        {
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<SP_Dashboard_Details_Result2>("SP_Dashboard_Details");
         }
     
         public virtual ObjectResult<PointDetails_Result> PointDetails()
@@ -951,6 +945,11 @@ namespace SwachBharat.CMS.Dal.DataContexts
                 new ObjectParameter("masterId", typeof(int));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<string>("Remaining_QRList", masterIdParameter);
+        }
+    
+        public virtual ObjectResult<SP_Dashboard_Details_Result> SP_Dashboard_Details()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<SP_Dashboard_Details_Result>("SP_Dashboard_Details");
         }
     }
 }
