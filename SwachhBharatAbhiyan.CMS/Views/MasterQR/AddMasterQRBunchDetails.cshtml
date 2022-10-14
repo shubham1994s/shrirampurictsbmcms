@@ -111,34 +111,64 @@
                         <div class="container py-4">
                             <table class="table table-hover">
                                 @*@Html.Label("रक्त गट / Blood Group ")*@
-                                @for (int i = 0; i < Model.SelectedHouseList.Count; i++)
+                                @*@for (int i = 0; i < Model.SelectedHouseList.Count; i++)
+                                    {
+
+                                        if (i % 4 == 0)
+                                        {
+
+                                            <tr></tr>
+
+                                        }
+                                        else
+                                        {
+                                            <td class="ulbs">
+
+                                                @Html.CheckBoxFor(x => x.SelectedHouseList[i].IsCheked, new { @class = "custom-checkbox individual" })
+                                                <label>@Model.SelectedHouseList[i].ReferanceId</label>
+                                                @Html.HiddenFor(x => x.SelectedHouseList[i].ReferanceId)
+                                                @Html.HiddenFor(x => x.SelectedHouseList[i].ReferanceId)
+                                            </td>
+                                        }
+                                        if (i % 4 == 0)
+                                        {
+                                            <td class="ulbs">
+                                                @Html.CheckBoxFor(x => x.SelectedHouseList[i].IsCheked, new { @class = "custom-checkbox individual" })
+                                                <label>@Model.SelectedHouseList[i].ReferanceId</label>
+                                                @Html.HiddenFor(x => x.SelectedHouseList[i].ReferanceId)
+                                                @Html.HiddenFor(x => x.SelectedHouseList[i].ReferanceId)
+                                            </td>
+                                        }
+
+                                    }*@
+
+
+                                @{
+                                    var rows1 = (Model.SelectedHouseList.Count / 4);
+                                    var k1 = Model.SelectedHouseList.Count % 4;
+                                    if (k1 > 0)
+                                    {
+                                        rows1 = rows1 + 1;
+                                    }
+                                }
+                                @for (int i = 0; i < rows1; i++)
                                 {
+                                    <tr class="ulbsRows">
 
-                                    if (i % 4 == 0)
-                                    {
+                                        @for (var l = i * 4; (l < (i * 4) + 4) && (l < Model.SelectedHouseList.Count); l++)
+                                        {
 
-                                        <tr></tr>
+                                            <td class="ulbs">
+                                                @Html.CheckBoxFor(x => x.SelectedHouseList[l].IsCheked, new { @class = "custom-checkbox individual" })
+                                                <label>@Model.SelectedHouseList[l].ReferanceId</label>
+                                                @Html.HiddenFor(x => x.SelectedHouseList[l].ReferanceId)
+                                                @Html.HiddenFor(x => x.SelectedHouseList[l].ReferanceId)
+                                            </td>
+                                        }
 
-                                    }
-                                    else
-                                    {
-                                        <td class="ulbs">
 
-                                            @Html.CheckBoxFor(x => x.SelectedHouseList[i].IsCheked, new { @class = "custom-checkbox individual" })
-                                            <label>@Model.SelectedHouseList[i].ReferanceId</label>
-                                            @Html.HiddenFor(x => x.SelectedHouseList[i].ReferanceId)
-                                            @Html.HiddenFor(x => x.SelectedHouseList[i].ReferanceId)
-                                        </td>
-                                    }
-                                    if (i % 4 == 0)
-                                    {
-                                        <td class="ulbs">
-                                            @Html.CheckBoxFor(x => x.SelectedHouseList[i].IsCheked, new { @class = "custom-checkbox individual" })
-                                            <label>@Model.SelectedHouseList[i].ReferanceId</label>
-                                            @Html.HiddenFor(x => x.SelectedHouseList[i].ReferanceId)
-                                            @Html.HiddenFor(x => x.SelectedHouseList[i].ReferanceId)
-                                        </td>
-                                    }
+                                    </tr>
+
 
                                 }
 
@@ -158,11 +188,8 @@
 
                         <table class="table table-hover">
 
-
-
-
                             @*@Html.Label("रक्त गट / Blood Group ")*@
-                            @for (int i = 0; i < Model.CheckHlist.Count; i++)
+                            @*@for (int i = 0; i < Model.CheckHlist.Count; i++)
                             {
 
 
@@ -196,7 +223,45 @@
                                     </td>
                                 }
 
+                            }*@
+
+
+
+
+
+
+                            @{
+                                var rows = (Model.CheckHlist.Count / 4);
+                                var k = Model.CheckHlist.Count % 4;
+                                if (k > 0)
+                                {
+                                    rows = rows + 1;
+                                }
                             }
+                            @for (int i = 0; i < rows; i++)
+                            {
+                                <tr class="ulbsRows">
+
+                                    @for (var l = i * 4; (l < (i * 4) + 4) && (l < Model.CheckHlist.Count); l++)
+                                    {
+
+                                        <td class="ulbs">
+                                            @Html.CheckBoxFor(x => x.CheckHlist[l].IsCheked, new { @class = "custom-checkbox individual" })
+                                            <label>@Model.CheckHlist[l].ReferanceId</label>
+                                            @Html.HiddenFor(x => x.CheckHlist[l].ReferanceId)
+                                            @Html.HiddenFor(x => x.CheckHlist[l].ReferanceId)
+                                        </td>
+                                    }
+
+
+                                </tr>
+
+
+                            }
+
+
+
+
 
 
 
@@ -269,18 +334,51 @@
     });
 
     // JavaScript code
+    //function search_ulb() {
+
+    //    let input = document.getElementById('searchbar_ulb').value
+    //    input = input.toLowerCase();
+    //    let x = document.getElementsByClassName('ulbs');
+
+    //    for (i = 0; i < x.length; i++) {
+    //        if (!x[i].getElementsByTagName('label')[0].innerHTML.toLowerCase().includes(input)) {
+    //            x[i].style.display = "none";
+    //            x[i].parentElement.style.display = "none";
+    //        }
+    //        else {
+    //            x[i].style.display = "";
+    //            x[i].parentElement.style.display = "";
+    //        }
+    //    }
+    //}
+
     function search_ulb() {
 
         let input = document.getElementById('searchbar_ulb').value
         input = input.toLowerCase();
-        let x = document.getElementsByClassName('ulbs');
+        let x = document.getElementsByClassName('ulbsRows');
 
         for (i = 0; i < x.length; i++) {
-            if (!x[i].innerHTML.toLowerCase().includes(input)) {
-                x[i].style.display = "none";
+            let y = x[i].getElementsByClassName('ulbs');
+            let k = 0;
+            for (j = 0; j < y.length; j++) {
+                if (!y[j].getElementsByTagName('label')[0].innerHTML.toLowerCase().includes(input)) {
+                    y[j].style.display = "none";
+                    
+                }
+                else {
+                    y[j].style.display = "";
+                    k++;
+                }
+
+            }
+
+            if (k > 0) {
+
+                x[i].style.display = "";
             }
             else {
-                x[i].style.display = "block";
+                x[i].style.display = "none";
             }
         }
     }
