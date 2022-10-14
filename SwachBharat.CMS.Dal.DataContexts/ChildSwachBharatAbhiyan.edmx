@@ -1199,7 +1199,6 @@ warning 6002: The table/view 'LIVEAdvanceShrirampurGhantaGadi.dbo.Vw_MsgNotifica
           <Parameter Name="type" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="CurrentAllUserLocation" ReturnType="Collection(DevSwachhBharatNagpurModel.CurrentAllUserLocation_Result3)" />
-          <FunctionImport Name="SP_Dashboard_Details" ReturnType="Collection(DevSwachhBharatNagpurModel.SP_Dashboard_Details_Result2)" />
           <FunctionImport Name="PointDetails" ReturnType="Collection(DevSwachhBharatNagpurModel.PointDetails_Result)" />
           <FunctionImport Name="CurrentAllUserLocationTest1" ReturnType="Collection(DevSwachhBharatNagpurModel.CurrentAllUserLocationTest1_Result)" />
           <FunctionImport Name="SP_Collection_Count" ReturnType="Collection(DevSwachhBharatNagpurModel.SP_Collection_Count_Result)">
@@ -1474,8 +1473,9 @@ warning 6002: The table/view 'LIVEAdvanceShrirampurGhantaGadi.dbo.Vw_MsgNotifica
             <Parameter Name="tdate" Mode="In" Type="DateTime" />
           </FunctionImport>
           <FunctionImport Name="Remaining_QRList" ReturnType="Collection(String)">
-            <Parameter Name="masterId" Mode="In" Type="Int32" />
+          <Parameter Name="masterId" Mode="In" Type="Int32" />
           </FunctionImport>
+          <FunctionImport Name="SP_Dashboard_Details" ReturnType="Collection(DevSwachhBharatNagpurModel.SP_Dashboard_Details_Result)" />
          
         </EntityContainer>
         <ComplexType Name="CurrentAllUserLocation_Result">
@@ -1498,11 +1498,6 @@ warning 6002: The table/view 'LIVEAdvanceShrirampurGhantaGadi.dbo.Vw_MsgNotifica
           <Property Type="String" Name="lat" Nullable="true" MaxLength="500" />
           <Property Type="String" Name="long" Nullable="true" MaxLength="500" />
         </ComplexType>
-        <ComplexType Name="SP_Dashboard_Details_Result">
-          <Property Type="Int32" Name="TotalAttandence" Nullable="true" />
-          <Property Type="Int32" Name="TotalHouse" Nullable="true" />
-          <Property Type="Int32" Name="TotalPoint" Nullable="true" />
-        </ComplexType>
         <ComplexType Name="CurrentAllUserLocation_Result2">
           <Property Type="Int32" Name="userid" Nullable="true" />
           <Property Type="String" Name="userName" Nullable="true" MaxLength="500" />
@@ -1517,11 +1512,6 @@ warning 6002: The table/view 'LIVEAdvanceShrirampurGhantaGadi.dbo.Vw_MsgNotifica
           <Property Type="String" Name="AreaMar" Nullable="true" MaxLength="50" />
           <Property Type="Int32" Name="wardId" Nullable="true" />
         </ComplexType>
-        <ComplexType Name="SP_Dashboard_Details_Result1">
-          <Property Type="Int32" Name="TotalAttandence" Nullable="true" />
-          <Property Type="Int32" Name="TotalHouse" Nullable="true" />
-          <Property Type="Int32" Name="TotalPoint" Nullable="true" />
-        </ComplexType>
         <ComplexType Name="CurrentAllUserLocation_Result3">
           <Property Type="Int32" Name="userid" Nullable="true" />
           <Property Type="String" Name="userName" Nullable="true" MaxLength="500" />
@@ -1531,13 +1521,6 @@ warning 6002: The table/view 'LIVEAdvanceShrirampurGhantaGadi.dbo.Vw_MsgNotifica
           <Property Type="String" Name="address" Nullable="true" />
           <Property Type="String" Name="area" Nullable="true" MaxLength="500" />
           <Property Type="String" Name="userMobileNumber" Nullable="true" MaxLength="20" />
-        </ComplexType>
-        <ComplexType Name="SP_Dashboard_Details_Result2">
-          <Property Type="Int32" Name="TotalAttandence" Nullable="true" />
-          <Property Type="Int32" Name="TotalHouse" Nullable="true" />
-          <Property Type="Int32" Name="TotalPoint" Nullable="true" />
-          <Property Type="Int32" Name="TotalDump" Nullable="true" />
-          <Property Type="Int32" Name="TodayAttandence" Nullable="true" />
         </ComplexType>
         <ComplexType Name="PointDetails_Result">
           <Property Type="Int32" Name="gpId" Nullable="false" />
@@ -3050,6 +3033,15 @@ warning 6002: The table/view 'LIVEAdvanceShrirampurGhantaGadi.dbo.Vw_MsgNotifica
           <Property Type="String" Name="lat" Nullable="true" MaxLength="500" />
           <Property Type="String" Name="long" Nullable="true" MaxLength="500" />
         </ComplexType>
+        <ComplexType Name="SP_Dashboard_Details_Result">
+          <Property Type="Int32" Name="TodayAttandence" Nullable="true" />
+          <Property Type="Int32" Name="TotalAttandence" Nullable="true" />
+          <Property Type="Int32" Name="TotalHouse" Nullable="true" />
+          <Property Type="Int32" Name="TotalPoint" Nullable="true" />
+          <Property Type="Int32" Name="TotalDump" Nullable="true" />
+          <Property Type="Int32" Name="TodayCTPTAttandence" Nullable="true" />
+          <Property Type="Int32" Name="TotalCTPTAttandence" Nullable="true" />
+        </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -3087,17 +3079,6 @@ warning 6002: The table/view 'LIVEAdvanceShrirampurGhantaGadi.dbo.Vw_MsgNotifica
                 <ScalarProperty Name="address" ColumnName="address" />
                 <ScalarProperty Name="area" ColumnName="area" />
                 <ScalarProperty Name="userMobileNumber" ColumnName="userMobileNumber" />
-              </ComplexTypeMapping>
-            </ResultMapping>
-          </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="SP_Dashboard_Details" FunctionName="DevSwachhBharatNagpurModel.Store.SP_Dashboard_Details">
-            <ResultMapping>
-              <ComplexTypeMapping TypeName="DevSwachhBharatNagpurModel.SP_Dashboard_Details_Result2">
-                <ScalarProperty Name="TotalAttandence" ColumnName="TotalAttandence" />
-                <ScalarProperty Name="TotalHouse" ColumnName="TotalHouse" />
-                <ScalarProperty Name="TotalPoint" ColumnName="TotalPoint" />
-                <ScalarProperty Name="TotalDump" ColumnName="TotalDump" />
-                <ScalarProperty Name="TodayAttandence" ColumnName="TodayAttandence" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
@@ -4742,6 +4723,19 @@ warning 6002: The table/view 'LIVEAdvanceShrirampurGhantaGadi.dbo.Vw_MsgNotifica
             </ResultMapping>
           </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="Remaining_QRList" FunctionName="DevSwachhBharatNagpurModel.Store.Remaining_QRList" />
+          <FunctionImportMapping FunctionImportName="SP_Dashboard_Details" FunctionName="DevSwachhBharatNagpurModel.Store.SP_Dashboard_Details">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="DevSwachhBharatNagpurModel.SP_Dashboard_Details_Result">
+                <ScalarProperty Name="TodayAttandence" ColumnName="TodayAttandence" />
+                <ScalarProperty Name="TotalAttandence" ColumnName="TotalAttandence" />
+                <ScalarProperty Name="TotalHouse" ColumnName="TotalHouse" />
+                <ScalarProperty Name="TotalPoint" ColumnName="TotalPoint" />
+                <ScalarProperty Name="TotalDump" ColumnName="TotalDump" />
+                <ScalarProperty Name="TodayCTPTAttandence" ColumnName="TodayCTPTAttandence" />
+                <ScalarProperty Name="TotalCTPTAttandence" ColumnName="TotalCTPTAttandence" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
          
         </EntityContainerMapping>
       </Mapping>

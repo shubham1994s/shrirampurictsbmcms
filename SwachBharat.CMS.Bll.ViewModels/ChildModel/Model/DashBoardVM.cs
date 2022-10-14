@@ -50,7 +50,8 @@ namespace SwachBharat.CMS.Bll.ViewModels.ChildModel.Model
 
         public Nullable<int> TotalWetWaste { get; set; }
 
-
+        public Nullable<int> TodayCTPTAttandence { get; set; }
+        public Nullable<int> TotalCTPTAttandence { get; set; }
         public int userId { get; set; }
         public string userName { get; set; }
         public string gcTarget { get; set; }

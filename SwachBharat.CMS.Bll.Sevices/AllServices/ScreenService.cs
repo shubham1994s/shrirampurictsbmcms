@@ -108,6 +108,10 @@ namespace SwachBharat.CMS.Bll.Services
                         model.NotCollected = houseCount.NotCollected;
                         model.DumpYardCount = data.TotalDump;
                         model.NotSpecified = houseCount.NotSpecified;
+
+                        model.TodayCTPTAttandence = data.TodayCTPTAttandence;
+                        model.TotalCTPTAttandence = data.TotalCTPTAttandence;
+
                         //model.TotalGcWeightCount = houseCount.TotalGcWeightCount;
                         //model.GcWeightCount = Convert.ToDouble(string.Format("{0:0.00}", houseCount.GcWeightCount));
                         //model.DryWeightCount =Convert.ToDouble(string.Format("{0:0.00}", houseCount.DryWeightCount));
