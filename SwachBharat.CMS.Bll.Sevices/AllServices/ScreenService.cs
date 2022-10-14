@@ -7417,7 +7417,7 @@ namespace SwachBharat.CMS.Bll.Services
                 StreetSweepVM vv = GetStreetSweepDetails(SSId);
                 return vv;
             }
-            catch (Exception)
+            catch (Exception ex)
             {
                 return null;
             }
