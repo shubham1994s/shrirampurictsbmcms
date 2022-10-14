@@ -111,6 +111,7 @@ namespace SwachBharat.CMS.Bll.ViewModels.ChildModel.Model
         public Nullable<double> DumpYardFSTPCount { get; set; }
         public Nullable<double> DumpYardSanitaryCount { get; set; }
         public Nullable<double> DumpYardTotalCount { get; set; }
-
+        public Nullable<int> TotalCTPTPropertyCount { get; set; }
+        public Nullable<int> TotalCTPTCount { get; set; }
     }
 }

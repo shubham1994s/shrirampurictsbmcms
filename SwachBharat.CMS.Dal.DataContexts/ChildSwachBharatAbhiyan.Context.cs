@@ -771,19 +771,6 @@ namespace SwachBharat.CMS.Dal.DataContexts
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<SP_EmployeeHouseCollectionCount_Result>("SP_EmployeeHouseCollectionCount");
         }
     
-        public virtual ObjectResult<SP_TotalHouseCollection_Count_Result> SP_TotalHouseCollection_Count(Nullable<System.DateTime> gcdate, Nullable<int> appId)
-        {
-            var gcdateParameter = gcdate.HasValue ?
-                new ObjectParameter("gcdate", gcdate) :
-                new ObjectParameter("gcdate", typeof(System.DateTime));
-    
-            var appIdParameter = appId.HasValue ?
-                new ObjectParameter("AppId", appId) :
-                new ObjectParameter("AppId", typeof(int));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<SP_TotalHouseCollection_Count_Result>("SP_TotalHouseCollection_Count", gcdateParameter, appIdParameter);
-        }
-    
         public virtual ObjectResult<MasterQRDetails_Result> MasterQRDetails()
         {
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<MasterQRDetails_Result>("MasterQRDetails");
@@ -950,6 +937,19 @@ namespace SwachBharat.CMS.Dal.DataContexts
         public virtual ObjectResult<SP_Dashboard_Details_Result> SP_Dashboard_Details()
         {
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<SP_Dashboard_Details_Result>("SP_Dashboard_Details");
+        }
+    
+        public virtual ObjectResult<SP_TotalHouseCollection_Count_Result> SP_TotalHouseCollection_Count(Nullable<System.DateTime> gcdate, Nullable<int> appId)
+        {
+            var gcdateParameter = gcdate.HasValue ?
+                new ObjectParameter("gcdate", gcdate) :
+                new ObjectParameter("gcdate", typeof(System.DateTime));
+    
+            var appIdParameter = appId.HasValue ?
+                new ObjectParameter("AppId", appId) :
+                new ObjectParameter("AppId", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<SP_TotalHouseCollection_Count_Result>("SP_TotalHouseCollection_Count", gcdateParameter, appIdParameter);
         }
     }
 }

@@ -50,5 +50,7 @@ namespace SwachBharat.CMS.Dal.DataContexts
         public Nullable<int> TotalStreetPropertyCount { get; set; }
         public Nullable<int> TotalHousePropertyCount { get; set; }
         public Nullable<int> TotalDumpPropertyCount { get; set; }
+        public Nullable<int> TotalCTPTPropertyCount { get; set; }
+        public Nullable<int> TotalCTPTCount { get; set; }
     }
 }

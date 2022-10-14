@@ -167,6 +167,8 @@ namespace SwachBharat.CMS.Bll.Services
                         model.DumpYardDomesticCount = Convert.ToDouble(D5);
                         model.DumpYardSanitaryCount = Convert.ToDouble(D6);
                         model.DumpYardTotalCount = Convert.ToDouble(TotalD);
+                        model.TotalCTPTPropertyCount = houseCount.TotalCTPTPropertyCount;
+                        model.TotalCTPTCount = houseCount.TotalCTPTCount;
                         //End
 
                         return model;
