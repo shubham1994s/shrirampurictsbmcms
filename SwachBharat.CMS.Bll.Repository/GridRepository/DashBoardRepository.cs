@@ -8303,6 +8303,30 @@ namespace SwachBharat.CMS.Bll.Repository.GridRepository
         }
 
         #endregion
+
+
+        public IEnumerable<CurrentCTPTCollectionCount> GetCurrentCTPTCollectionCount(int appId)
+        {
+            List<CurrentCTPTCollectionCount> obj = new List<CurrentCTPTCollectionCount>();
+            using (var db = new DevChildSwachhBharatNagpurEntities(appId))
+            {
+                var data = db.SP_CurrentCTPTCount().ToList();
+                // var data = "1";
+
+                foreach (var x in data)
+                {
+                    obj.Add(new CurrentCTPTCollectionCount()
+                    {
+                        userId = x.userId,
+                        userName = x.userName,
+                        ToDate = x.TodayDate.ToString(),
+                        TotalCTPTCount = x.TotalCTPTCount ?? 0
+                    });
+                }
+                return obj.OrderBy(c => c.userName);
+            }
+        }
+
     }
 }
 #region old Code

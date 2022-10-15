@@ -782,6 +782,7 @@ warning 6002: The table/view 'LIVEAdvanceShrirampurGhantaGadi.dbo.Vw_MsgNotifica
           <Parameter Name="WardNo" Type="int" Mode="In" />
           <Parameter Name="Segid" Type="int" Mode="In" />
         </Function>
+        <Function Name="SP_CurrentCTPTCount" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="SP_Dashboard_Details" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="SP_DumpYardDetails" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="SP_EmployeeHouseCollectionCount" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
@@ -1430,6 +1431,7 @@ warning 6002: The table/view 'LIVEAdvanceShrirampurGhantaGadi.dbo.Vw_MsgNotifica
             <Parameter Name="gcdate" Mode="In" Type="DateTime" />
             <Parameter Name="AppId" Mode="In" Type="Int32" />
           </FunctionImport>
+          <FunctionImport Name="SP_CurrentCTPTCount" ReturnType="Collection(DevSwachhBharatNagpurModel.SP_CurrentCTPTCount_Result)" />
          
         </EntityContainer>
         <ComplexType Name="CurrentAllUserLocation_Result">
@@ -2996,6 +2998,12 @@ warning 6002: The table/view 'LIVEAdvanceShrirampurGhantaGadi.dbo.Vw_MsgNotifica
           <Property Type="Int32" Name="TotalHousePropertyCount" Nullable="true" />
           <Property Type="Int32" Name="TotalDumpPropertyCount" Nullable="true" />
           <Property Type="Int32" Name="TotalCTPTPropertyCount" Nullable="true" />
+          <Property Type="Int32" Name="TotalCTPTCount" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="SP_CurrentCTPTCount_Result">
+          <Property Type="Int32" Name="userId" Nullable="true" />
+          <Property Type="DateTime" Name="TodayDate" Nullable="true" />
+          <Property Type="String" Name="userName" Nullable="true" MaxLength="500" />
           <Property Type="Int32" Name="TotalCTPTCount" Nullable="true" />
         </ComplexType>
       </Schema>
@@ -4690,6 +4698,16 @@ warning 6002: The table/view 'LIVEAdvanceShrirampurGhantaGadi.dbo.Vw_MsgNotifica
                 <ScalarProperty Name="TotalHousePropertyCount" ColumnName="TotalHousePropertyCount" />
                 <ScalarProperty Name="TotalDumpPropertyCount" ColumnName="TotalDumpPropertyCount" />
                 <ScalarProperty Name="TotalCTPTPropertyCount" ColumnName="TotalCTPTPropertyCount" />
+                <ScalarProperty Name="TotalCTPTCount" ColumnName="TotalCTPTCount" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="SP_CurrentCTPTCount" FunctionName="DevSwachhBharatNagpurModel.Store.SP_CurrentCTPTCount">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="DevSwachhBharatNagpurModel.SP_CurrentCTPTCount_Result">
+                <ScalarProperty Name="userId" ColumnName="userId" />
+                <ScalarProperty Name="TodayDate" ColumnName="TodayDate" />
+                <ScalarProperty Name="userName" ColumnName="userName" />
                 <ScalarProperty Name="TotalCTPTCount" ColumnName="TotalCTPTCount" />
               </ComplexTypeMapping>
             </ResultMapping>

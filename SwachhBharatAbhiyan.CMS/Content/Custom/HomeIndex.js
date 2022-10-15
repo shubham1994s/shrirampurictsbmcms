@@ -1480,3 +1480,189 @@ $(document).ready(function () {
     });
     chart.render();
 });
+
+
+$(document).ready(function () {
+    $.ajax({
+        type: "post",
+        url: "/Home/GetCurrentCTPTCollectionCount",
+        //data: { userId: UserId, },
+        datatype: "json",
+        traditional: true,
+        success: function (data) {
+            console.log(data);
+            var ctpt = [];
+            
+            debugger;
+            for (var i = 0; i < data.length; i++) {
+                // alert(data[i].inTime);
+                var name = data[i].userName;
+                name = name.trim();
+                var lastname_array = name.split(' ');
+                var lastname_firstchar;
+                if (lastname_array.length == 1) {
+                    //if condition lastname_array[1] == undefined
+                    lastname_firstchar = ""
+                } else {
+                    lastname_firstchar = lastname_array[1][0];
+                }
+
+
+                //var fname = name.substring(0, name.indexOf(" "));
+                var fname = name.replace(/ .*/, ' ');
+                // alert(data[i]._Count)
+
+                //comu.push({ y: data[i].TotalCTCount, x: fname + lastname_firstchar, label: 'CT Count', color: '#0086c3', intime: data[i].inTime });
+                //pub.push({ y: data[i].TotalPTCount, x: fname + lastname_firstchar, label: 'PT Count', color: '#fe9436', intime: data[i].inTime });
+                //urin.push({ y: data[i].TotalUCount, x: fname + lastname_firstchar, label: 'Urinal Count', color: '#f44336', intime: data[i].inTime });
+
+                ctpt.push({ y: data[i].TotalCTPTCount, label: fname + lastname_firstchar, color: '#917b0f', intime: data[i].ToDate });
+                
+
+            }
+
+            var chart = new CanvasJS.Chart("chartContainerTarget4",
+                {
+
+                    //title: {
+                    //    text: "Grouped Stacked Chart"
+                    //},
+                    theme: "theme3",
+                    // interval :1,
+                    axisY: {
+                        labelFontSize: 10,
+                        labelFontColor: "dimGrey",
+                        /* interval: 1,*/
+                        title: "CTPT Cleaning",
+                        includeZero: true
+                    },
+
+
+                    axisX: {
+                        labelAngle: 0,
+                        labelFontSize: 10,
+                        interval: 1
+                    },
+
+
+                    data: [
+
+                        {
+
+                            type: "column",
+                            showInLegend: true,
+                            legendText: "CT/PT/U",
+                            toolTipContent: "CT/PT/U:{y} ",
+                            color: "#917b0f",
+                            dataPoints: ctpt
+                        }
+                    ]
+                });
+            showDefaultText(chart, "No Data available");
+            chart.render();
+            function showDefaultText(chart, text) {
+                debugger;
+                var isEmpty = !(chart.options.data[0].dataPoints && chart.options.data[0].dataPoints.length > 0);
+
+
+                if (!chart.options.subtitles)
+                    (chart.options.subtitles = []);
+
+
+                if (isEmpty)
+                    chart.options.subtitles.push({
+                        text: text,
+                        verticalAlign: 'center',
+                    });
+
+                else
+                    (chart.options.subtitles = []);
+
+            }
+
+
+        }
+    });
+    chart.render();
+
+
+});
+
+$(document).ready(function () {
+    debugger;
+
+    var TotalCTPTPropertyCount = parseInt( $('#TotalCTPTPropertyCount').val());
+    var TotalCTPTScanCount = parseInt($('#TotalCTPTCount').val());
+    var TotalCTPTNotScanCount = TotalCTPTPropertyCount - TotalCTPTScanCount;
+    
+    var res_ctpt_scan_count = (TotalCTPTScanCount * 100) / TotalCTPTPropertyCount;
+    var res_ctpt_notscan_count = (TotalCTPTNotScanCount * 100) / TotalCTPTPropertyCount;
+
+   
+
+
+
+    //console.log(ary3);
+    var chart = new CanvasJS.Chart("chartContainerPieCTPT", {
+        theme: "light2",
+        animationEnabled: true,
+        title: {
+            //text: "विलगिकरण प्रकार ",
+            fontSize: 24,
+            padding: 10
+        },
+        subtitles: [{
+            //text: "United Kingdom, 2016",
+            //fontSize: 16
+        }],
+        toolTip: {
+            content: "In Numbers {hover_number} ",
+        },
+        legend: {
+            //maxWidth: 180,
+            //itemWidth: 75,
+            fontSize: 12,
+            // horizontalAlign: "right", // left, center ,right 
+            //verticalAlign: "center",
+        },
+        data: [{
+            type: "pie",
+            indexLabelFontSize: 12,
+            showInLegend: true,
+            legendText: "{name}:{hover_number}",
+            radius: 60,
+            indexLabel: "{label} - {y}",
+            yValueFormatString: "###0.0\"%\"",
+            click: explodePie,
+            dataPoints: [
+                { y: res_ctpt_scan_count, label: "Total (CTPT) Scanned", hover_number: TotalCTPTScanCount, name: 'Total (CTPT) Scanned', color: '#917b0f' },
+                { y: res_ctpt_notscan_count, label: "Total (CTPT) Not Scanned", hover_number: TotalCTPTNotScanCount, name: 'Total (CTPT) Not Scanned', color: '#835787' },
+            ],
+        }]
+    });
+    showDefaultText(chart, "No Data available");
+    chart.render();
+    function showDefaultText(chart, text) {
+        var isEmpty = !( chart.options.data[0].dataPoints && chart.options.data[0].dataPoints.length > 0);
+
+
+
+        if (isEmpty) {
+            chart.options.subtitles.push({
+                text: text,
+                verticalAlign: 'center',
+            });
+            (chart.options.data[0].dataPoints = []);
+        }
+
+
+
+    }
+    function explodePie(e) {
+        for (var i = 0; i < e.dataSeries.dataPoints.length; i++) {
+            if (i !== e.dataPointIndex)
+                e.dataSeries.dataPoints[i].exploded = false;
+        }
+    }
+
+});
