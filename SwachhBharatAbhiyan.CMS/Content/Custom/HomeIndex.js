@@ -1558,7 +1558,7 @@ $(document).ready(function () {
                         }
                     ]
                 });
-            showDefaultText(chart, "No Data available");
+            showDefaultText(chart, "No Data Available");
             chart.render();
             function showDefaultText(chart, text) {
                 debugger;
@@ -1599,7 +1599,9 @@ $(document).ready(function () {
     var res_ctpt_notscan_count = (TotalCTPTNotScanCount * 100) / TotalCTPTPropertyCount;
 
    
-
+    if (TotalCTPTScanCount == 0) {
+        TotalCTPTScanCount = null;
+    }
 
 
     //console.log(ary3);
@@ -1640,10 +1642,10 @@ $(document).ready(function () {
             ],
         }]
     });
-    showDefaultText(chart, "No Data available");
+    showDefaultText(chart, "No Data Available");
     chart.render();
     function showDefaultText(chart, text) {
-        var isEmpty = !( chart.options.data[0].dataPoints && chart.options.data[0].dataPoints.length > 0);
+        var isEmpty = !( TotalCTPTScanCount && chart.options.data[0].dataPoints && chart.options.data[0].dataPoints.length > 0);
 
 
 
