@@ -12,9 +12,9 @@ namespace SwachBharat.CMS.Bll.Repository.GridRepository.Grid
         IEnumerable<SBAHouseDetailsGridRow> dataSet;
         DashBoardRepository objRep = new DashBoardRepository();
 
-        public MasterQRBunchDetailsGridRepository(long wildcard, string SearchString, int appId)
+        public MasterQRBunchDetailsGridRepository(long wildcard, string SearchString,string IsActive, int appId)
         {
-            dataSet = objRep.GetMasterQRBunchDetailsData(wildcard, SearchString, appId);
+            dataSet = objRep.GetMasterQRBunchDetailsData(wildcard, SearchString, IsActive, appId);
         }
 
         public string GetDataTabelJson(string sortColumn, string sortColumnDir, string draw, string length, string searchValue, string start)
