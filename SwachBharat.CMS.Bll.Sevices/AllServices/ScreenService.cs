@@ -683,25 +683,28 @@ namespace SwachBharat.CMS.Bll.Services
                     }
                     else
                     {
-                        var type = FillMasterQRBunchDataModel(data);
-
-                        //arr[CheckAppD] myArray = data.CheckAppDs.ToArray();
-
-                        string state1 = "";
-                        foreach (var s in data.CheckHlist)
+                        if (!db.MasterQRBunches.Any(x => x.HouseBunchId == data.HouseBunchId)) 
                         {
-                            if (s.IsCheked == true)
+                            var type = FillMasterQRBunchDataModel(data);
+
+                            //arr[CheckAppD] myArray = data.CheckAppDs.ToArray();
+
+                            string state1 = "";
+                            foreach (var s in data.CheckHlist)
                             {
+                                if (s.IsCheked == true)
+                                {
 
-                                state1 += s.ReferanceId + ",";
+                                    state1 += s.ReferanceId + ",";
 
+                                }
                             }
+
+                            type.QRList = state1;
+
+                            db.MasterQRBunches.Add(type);
+                            db.SaveChanges();
                         }
-
-                        type.QRList = state1;
-
-                        db.MasterQRBunches.Add(type);
-                        db.SaveChanges();
                     }
                 }
             }

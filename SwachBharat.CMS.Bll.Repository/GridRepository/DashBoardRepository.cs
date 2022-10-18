@@ -745,43 +745,85 @@ namespace SwachBharat.CMS.Bll.Repository.GridRepository
             }
         }
 
-        public IEnumerable<SBAHouseDetailsGridRow> GetMasterQRBunchDetailsData(long wildcard, string SearchString, int appId)
+        public IEnumerable<SBAHouseDetailsGridRow> GetMasterQRBunchDetailsData(long wildcard, string SearchString, string IsActive, int appId)
         {
             DevSwachhBharatMainEntities dbMain = new DevSwachhBharatMainEntities();
             var appDetails = dbMain.AppDetails.Where(x => x.AppId == appId).FirstOrDefault();
 
             string ThumbnaiUrlCMS = appDetails.baseImageUrlCMS + appDetails.basePath + appDetails.HouseQRCode + "/";
-            using (var db = new DevChildSwachhBharatNagpurEntities(appId))
+            if (IsActive == "1")
             {
-                var data = db.MasterQRBunchDetails().Select(x => new SBAHouseDetailsGridRow
+                using (var db = new DevChildSwachhBharatNagpurEntities(appId))
                 {
-                    masterId = x.MasterId,
-                    BunchName = x.BunchName,
-                    QRList = x.QRList,
-                    TotalCount = x.TotalCount.ToString(),
-                    isActive = x.ISActive
-                }).Where(x => x.isActive == true).ToList();
+                    var data = db.MasterQRBunchDetails().Select(x => new SBAHouseDetailsGridRow
+                    {
+                        masterId = x.MasterId,
+                        BunchName = x.BunchName,
+                        QRList = x.QRList,
+                        TotalCount = x.TotalCount.ToString(),
+                        strIsActive = (x.ISActive ?? false) ? "Active" : "Not Active",
+                        isActive = x.ISActive
+                    }).Where(x => x.isActive == true).ToList();
 
 
-                if (!string.IsNullOrEmpty(SearchString))
-                {
-                  var model = data.Where(c => ((string.IsNullOrEmpty(c.BunchName) ? " " : c.BunchName) + " " +
-                                        (string.IsNullOrEmpty(c.TotalCount) ? " " : c.TotalCount)).ToUpper().Contains(SearchString.ToUpper())).ToList();
+                    if (!string.IsNullOrEmpty(SearchString))
+                    {
+                        var model = data.Where(c => ((string.IsNullOrEmpty(c.BunchName) ? " " : c.BunchName) + " " +
+                                              (string.IsNullOrEmpty(c.TotalCount) ? " " : c.TotalCount)).ToUpper().Contains(SearchString.ToUpper())).ToList();
 
 
-                    data = model.ToList();
+                        data = model.ToList();
+                    }
+                    else if (appDetails.APIHit == null)
+                    {
+                        data = data.ToList();
+                    }
+                    else
+                    {
+                        //data = data.Where(c => c.masterId <= appDetails.APIHit).ToList();
+                        data = data.ToList();
+                    }
+
+                    return data.OrderByDescending(c => c.masterId);
                 }
-                else if (appDetails.APIHit == null)
+
+            }
+            else
+            {
+                using (var db = new DevChildSwachhBharatNagpurEntities(appId))
                 {
-                    data = data.ToList();
-                }
-                else
-                {
-                    //data = data.Where(c => c.masterId <= appDetails.APIHit).ToList();
-                    data = data.ToList();
+                    var data = db.MasterQRBunchDetails().Select(x => new SBAHouseDetailsGridRow
+                    {
+                        masterId = x.MasterId,
+                        BunchName = x.BunchName,
+                        QRList = x.QRList,
+                        TotalCount = x.TotalCount.ToString(),
+                        strIsActive = (x.ISActive ?? false) ? "Active" : "Not Active",
+                        isActive = x.ISActive
+                    }).Where(x => x.isActive == false).ToList();
+
+
+                    if (!string.IsNullOrEmpty(SearchString))
+                    {
+                        var model = data.Where(c => ((string.IsNullOrEmpty(c.BunchName) ? " " : c.BunchName) + " " +
+                                              (string.IsNullOrEmpty(c.TotalCount) ? " " : c.TotalCount)).ToUpper().Contains(SearchString.ToUpper())).ToList();
+
+
+                        data = model.ToList();
+                    }
+                    else if (appDetails.APIHit == null)
+                    {
+                        data = data.ToList();
+                    }
+                    else
+                    {
+                        //data = data.Where(c => c.masterId <= appDetails.APIHit).ToList();
+                        data = data.ToList();
+                    }
+
+                    return data.OrderByDescending(c => c.masterId);
                 }
 
-                return data.OrderByDescending(c => c.masterId);
             }
         }
 

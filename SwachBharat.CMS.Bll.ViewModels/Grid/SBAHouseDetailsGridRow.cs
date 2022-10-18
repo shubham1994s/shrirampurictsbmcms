@@ -39,5 +39,7 @@ namespace SwachBharat.CMS.Bll.ViewModels.ChildModel.Grid
         public int HouseBunchId { get; set; }
 
         public string BunchName { get; set; }
+
+        public string strIsActive { get; set; }
     }
 }
