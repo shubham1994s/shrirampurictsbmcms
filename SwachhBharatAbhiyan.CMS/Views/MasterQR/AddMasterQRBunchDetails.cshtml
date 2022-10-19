@@ -86,29 +86,16 @@
 
                     </div>
                 </div>
-                <div class="row">
-                    <div class="col-md-6">
-                        <span class="text-danger" id="err_House"></span>
-                    </div>
-                    <div class="col-md-3">
-                        <input id="searchbar_ulb" onkeyup="search_ulb()" type="text" name="search" placeholder="Search ">
-                    </div>
-                    <div class="col-md-3">
-                        <span style="float: right; margin-left: -10%; }">
-                            <input type="checkbox" class="selectall" />
-                            <span style="font-size: 15px;font-weight:bold">Select All</span>
-                        </span>
-                    </div>
-                </div>
+
                 <center id="hur" style="padding-right: 14%;">
                 </center>
                 @if (Model.SelectedHouseList.Count > 0)
                 {
-            <div class="row">
-                <div class="col-md-12" style="text-align:center">
-                    <h4>Selected House QR List</h4>
-                </div>
-            </div>
+                    <div class="row">
+                        <div class="col-md-12" style="text-align:center">
+                            <h4>Selected House QR List</h4>
+                        </div>
+                    </div>
                     <div class="row" id="checkUR">
                         <div class="container py-4">
                             <table class="table table-hover">
@@ -183,11 +170,25 @@
                     </div>
                 }
                 <div class="row">
-                    
+                    <div class="col-md-6">
+                        <span class="text-danger" id="err_House"></span>
+                    </div>
+                    <div class="col-md-3">
+                        <input id="searchbar_ulb" onkeyup="search_ulb()" type="text" name="search" placeholder="Search ">
+                    </div>
+                    <div class="col-md-3">
+                        <span style="float: right; margin-left: -10%; }">
+                            <input type="checkbox" class="selectall" />
+                            <span style="font-size: 15px;font-weight:bold">Select All</span>
+                        </span>
+                    </div>
+                </div>
+                <div class="row">
+
                     <div class="col-md-12" style="text-align:center">
                         <h4>Add / Edit House QR List</h4>
                     </div>
-                   
+
                 </div>
                 <div class="row" id="checkUR2">
 
@@ -338,7 +339,7 @@
 </div>
 <script>
     $(".selectall").click(function () {
-        $(".individual").prop("checked", $(this).prop("checked"));
+        $("#checkUR2 .individual").prop("checked", $(this).prop("checked"));
     });
 
     // JavaScript code
@@ -364,8 +365,9 @@
 
         let input = document.getElementById('searchbar_ulb').value
         input = input.toLowerCase();
-        let x = document.getElementsByClassName('ulbsRows');
-
+        let parent = document.querySelector('#checkUR2');
+        //let x = document.getElementsByClassName('ulbsRows');
+        let x = parent.querySelectorAll('.ulbsRows');
         for (i = 0; i < x.length; i++) {
             let y = x[i].getElementsByClassName('ulbs');
             let k = 0;
@@ -643,7 +645,8 @@
             $('#HouseBunchId').focus();
             return false;
         }
-        if ($('#checkUR2.individual:checked').length == 0) {
+       
+        if ($('#checkUR2 .individual:checked').length == 0) {
             $("#err_generate").html("Please Select atleast one House").delay(1500).show().fadeOut('slow');
             return false;
         }
