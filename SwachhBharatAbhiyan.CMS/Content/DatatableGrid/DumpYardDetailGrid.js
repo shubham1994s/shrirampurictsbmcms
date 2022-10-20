@@ -171,7 +171,7 @@ function PopImages(cel) {
    
     jQuery("#dateData1").text(date);
     jQuery("#imggg1").attr('src', imgsrc1);
-    //jQuery("#latlongData").text(cellValue);
+    jQuery("#latlongData1").text(addr);
     jQuery("#header_data").html(head);
 }
 function showInventoriesGrid() {
