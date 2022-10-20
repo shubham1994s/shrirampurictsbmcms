@@ -1056,36 +1056,41 @@ namespace SwachBharat.CMS.Bll.Services
 
                         var including = values;
 
-                        master.SelectedHouseList = db.HouseLists.Where(x => including.Contains(x.ReferanceId)).OrderBy(x => x.HouseId).ToList<HouseList>();
 
-                            
+                        master.SelectedHouseList = db.HouseLists.Where(x => including.Contains(x.ReferanceId)).OrderBy(x => x.HouseId).ToList<HouseList>().Select(c => { c.IsCheked = true; return c; }).ToList();
 
-                        for (int i = 0; i < values.Length; i++)
-                        {
-                            char[] MyChar = { 'H', 'P', 'S', 'B', 'A' };
-                            values[i] = values[i].Trim(MyChar);
+                        master.CheckHlist = master.CheckHlist.Select(h => { h.IsCheked = values.Contains(h.ReferanceId); return h; }).ToList();
+
+                        //master.SelectedHouseList = db.HouseLists.Where(x => including.Contains(x.ReferanceId)).OrderBy(x => x.HouseId).ToList<HouseList>();
 
 
-                            int u = 0;
-                            if (values[i] != "")
-                            {
-                                u = Convert.ToInt32(values[i]);
-                                int number = 1000;
-                                u = u - number;
-                            }
-                            string state1 = "";
-                            foreach (var v in master.CheckHlist)
-                            {
-                                if (v.HouseId == u)
-                                {
 
-                                    v.IsCheked = true;
+                        //for (int i = 0; i < values.Length; i++)
+                        //{
+                        //    char[] MyChar = { 'H', 'P', 'S', 'B', 'A' };
+                        //    values[i] = values[i].Trim(MyChar);
 
-                               
 
-                                }
-                            }
-                        }
+                        //    int u = 0;
+                        //    if (values[i] != "")
+                        //    {
+                        //        u = Convert.ToInt32(values[i]);
+                        //        int number = 1000;
+                        //        u = u - number;
+                        //    }
+                        //    string state1 = "";
+                        //    foreach (var v in master.CheckHlist)
+                        //    {
+                        //        if (v.HouseId == u)
+                        //        {
+
+                        //            v.IsCheked = true;
+
+
+
+                        //        }
+                        //    }
+                        //}
 
                     }
                     master.BunchList = ListBunch(teamId);
