@@ -85,7 +85,7 @@ namespace SwachhBharatAbhiyan.CMS.Areas.Liquid.Controllers
                     filesUpload.SaveAs(imagePath);
                     emp.userProfileImage = image_Guid;
                 }
-
+                emp.EmployeeType = "L";
                 childRepository.SaveEmployee(emp,"L");
                 return Redirect("Index");
             }
