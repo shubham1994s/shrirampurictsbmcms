@@ -271,7 +271,7 @@ function NotActiveEmployeeW() {
 
 function NotActiveEmployeeCT() {
     debugger;
-    $("#demoGridNonActiveW").DataTable({
+    $("#demoGridNonActiveCT").DataTable({
         "sDom": "ltipr",
         "order": [[0, "desc"]],
         "processing": true, // for show progress bar
