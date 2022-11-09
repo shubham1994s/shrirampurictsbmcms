@@ -1010,6 +1010,22 @@ namespace SwachBharat.CMS.Bll.Services
             }
         }
 
+        public List<HouseList> GetHouseList()
+        {
+            var houseListData = HttpContext.Current.Cache.Get("HList") as List<HouseList>;
+            if (houseListData == null)
+            {
+                using (var db = new DevChildSwachhBharatNagpurEntities(AppID))
+                {
+                    houseListData = db.HouseLists.Where(x => x.IsActive == true).ToList();
+                    HttpContext.Current.Cache.Insert("HList", houseListData, null, System.Web.Caching.Cache.NoAbsoluteExpiration, TimeSpan.FromMinutes(15));
+                }
+                
+            }
+            return houseListData;
+        }
+
+
         public MasterQRDetailsVM GetMasterQRBunchDetails(int teamId)
         {
             try
@@ -1043,8 +1059,12 @@ namespace SwachBharat.CMS.Bll.Services
                     var excluding = values_new;
 
                    // master.CheckHlist = db.HouseLists.Where(x => x.IsActive == true).OrderBy(x => x.ReferanceId).ToList<HouseList>();
-                   master.CheckHlist = db.HouseLists.Where(x => x.IsActive == true && !excluding.Contains(x.ReferanceId)).OrderBy(x => x.HouseId).ToList<HouseList>();
+                   
                     
+                    master.CheckHlist = db.HouseLists.Where(x => x.IsActive == true && !excluding.Contains(x.ReferanceId)).OrderBy(x => x.HouseId).ToList<HouseList>();
+
+                    //master.CheckHlist = GetHouseList().Where(x => !excluding.Contains(x.ReferanceId)).OrderBy(x => x.HouseId).ToList<HouseList>();
+
 
 
                     // master.CheckAppDs = (List<HouseMaster>)db.HouseMasters.Where(x => x.ReferanceId != null).Select(x => new { x.ReferanceId, x.houseId });
@@ -1056,9 +1076,15 @@ namespace SwachBharat.CMS.Bll.Services
 
                         var including = values;
 
+
+                        //master.SelectedHouseList = db.HouseLists.Where(x => including.Contains(x.ReferanceId)).OrderBy(x => x.HouseId).ToList<HouseList>().Select(c => { c.IsCheked = true; return c; }).ToList();
+                        //master.SelectedHouseList = GetHouseList().Where(x => including.Contains(x.ReferanceId)).OrderBy(x => x.HouseId).ToList<HouseList>().Select(c => { c.IsCheked = true; return c; }).ToList();
+
+                        //master.CheckHlist = master.CheckHlist.Select(h => { h.IsCheked = values.Contains(h.ReferanceId); return h; }).ToList();
+
                         master.SelectedHouseList = db.HouseLists.Where(x => including.Contains(x.ReferanceId)).OrderBy(x => x.HouseId).ToList<HouseList>();
 
-                            
+
 
                         for (int i = 0; i < values.Length; i++)
                         {
@@ -1081,7 +1107,7 @@ namespace SwachBharat.CMS.Bll.Services
 
                                     v.IsCheked = true;
 
-                               
+
 
                                 }
                             }

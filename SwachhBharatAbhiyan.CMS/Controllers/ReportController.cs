@@ -278,6 +278,36 @@ namespace SwachhBharatAbhiyan.CMS.Controllers
             else
                 return Redirect("/Account/Login");
         }
+
+
+        public ActionResult MenuCTPTReportIndex()
+        {
+            if (SessionHandler.Current.AppId != 0)
+            {
+                return View();
+            }
+            else
+                return Redirect("/Account/Login");
+        }
+
+        public ActionResult CTPTReportIndex()
+        {
+
+            if (SessionHandler.Current.AppId != 0)
+            {
+                Session["NewAppID"] = SessionHandler.Current.AppId;
+                Session["DB_Name"] = SessionHandler.Current.DB_Name;
+                Session["DB_Source"] = SessionHandler.Current.DB_Source;
+                string Reportname = "ss";
+
+                ViewBag.IframeUrl = "/DisplayReports.aspx?FromDate=" + DateTime.Now.ToString("MM/dd/yyyy");
+
+                return View();
+            }
+            else
+                return Redirect("/Account/Login");
+        }
+
         // Pointwise Reports
 
         #region 1.1
