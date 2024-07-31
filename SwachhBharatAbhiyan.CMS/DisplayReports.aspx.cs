@@ -46,8 +46,14 @@ namespace SwachhBharatAbhiyan.CMS
                     {
                         garbageType = null;
                     }
-
-
+                    if(DB_Source == "172.16.0.60")
+                    {
+                        DB_Source = "103.241.147.6";
+                    }
+                    if (DB_Source == "172.16.0.70")
+                    {
+                        DB_Source = "103.241.147.7";
+                    }
                     //string urlReportServer = "http://TESTYOCC-1:80/reportServer";
                     //  string urlReportServer = "http://YOCC-2:82/reportServer";
                     //string urlReportServer = "http://192.168.100.123/ReportServer";

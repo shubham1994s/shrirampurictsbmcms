@@ -389,7 +389,8 @@ namespace SwachhBharatAbhiyan.CMS.Controllers
 
                     //Converting  Url to image 
                     // var url = string.Format("http://api.qrserver.com/v1/create-qr-code/?data="+ house.ReferanceId);
-                    var url = string.Format("https://chart.googleapis.com/chart?cht=qr&chl=" + VehicalReg.ReferanceId + "&chs=160x160&chld=L|0");
+                    var url = string.Format("http://api.qrserver.com/v1/create-qr-code/?data=" + house.ReferanceId);
+                    //var url = string.Format("https://chart.googleapis.com/chart?cht=qr&chl=" + VehicalReg.ReferanceId + "&chs=160x160&chld=L|0");
                     WebResponse response = default(WebResponse);
                     Stream remoteStream = default(Stream);
                     StreamReader readStream = default(StreamReader);

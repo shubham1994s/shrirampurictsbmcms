@@ -839,7 +839,8 @@ namespace SwachBharat.CMS.Bll.Repository.GridRepository
                 {
                     vqrId = x.vqrId,
                     Vehical_Type = x.VType,
-                    QRCode = ThumbnaiUrlCMS + x.Images.Trim(),
+                    // QRCode = ThumbnaiUrlCMS + x.Images.Trim(),
+                    QRCode = string.Format("http://api.qrserver.com/v1/create-qr-code/?data=" + x.ReferanceId),
                     ReferanceId = x.ReferanceId,
                     Vehical_NO = x.VehicalNumber
                 }).ToList();
