@@ -7,7 +7,7 @@
 @Styles.Render("~/Content/IndexCSS")
 <link href='https://fonts.googleapis.com/css?family=Roboto:400,700,300|Material+Icons' rel='stylesheet' type='text/css'>
 <link href="~/Content/css/report_style.css" rel="stylesheet" />
-@Scripts.Render("~/Scripts/IndexScript")
+<script src="https://code.jquery.com/jquery-3.7.1.slim.js" integrity="sha256-UgvvN8vBkgO0luPSUl2s8TIlOSYRoGFAX4jlCIm9Adc=" crossorigin="anonymous"></script>
 
 
 @*<header class="page-header">
@@ -53,7 +53,7 @@
                 @if (ViewBag.IframeUrl != null)
                 {
                     @*<iframe name="iframemc" id="iframemc" frameborder="0" style="width:11.37465in;height:600px;background-color: white; float:none; margin-left:5px; overflow:hidden"></iframe>*@
-                    <iframe name="iframemc" id="iframemc" scrolling="yes" frameborder="0" style="background-color: white; float:none;  overflow:hidden" width="1150" height="820"></iframe>
+                    <iframe name="iframemc" id="iframemc" scrolling="yes" frameborder="0" style="background-color: white; float:none;  overflow:hidden" width="1430" height="820"></iframe>
                 }
             </div>
 
@@ -72,17 +72,17 @@
     if (month < 10) month = "0" + month;
     if (day < 10) day = "0" + day;
 
-    var url = window.location.hostname;
-    if (url == "localhost") {
+    //var url = window.location.hostname;
+    //if (url == "localhost") {
 
-        var today = month + "/" + day + "/" + year;
+    //    var today = month + "/" + day + "/" + year;
 
-    }
-    else {
-        var today = day + "/" + month + "/" + year;
-    }
+    //}
+    //else {
+    //    var today = day + "/" + month + "/" + year;
+    //}
 
-
+    var today = month + "/" + day + "/" + year;
     document.getElementById('txt_fdate').value = today;
     document.getElementById('txt_tdate').value = today;
 
@@ -154,8 +154,25 @@
 
     }
 
-    var url = window.location.hostname;
-    if (url == "localhost") {
+    //var url = window.location.hostname;
+    //if (url == "localhost") {
+
+    //    $('.datepicker').datepicker({
+    //        format: 'mm/dd/yyyy',
+    //        weekStart: 1,
+    //        color: 'red',
+    //        pickTime: false,
+    //        onRender: function (date) {
+    //            return date > new Date() ? 'disabled' : '';
+    //        }
+    //    }).on('changeDate', function (e) {
+
+    //        //$(this).datepicker('hide');
+    //        $('.dtpk_drpdwn').hide();
+
+    //    });
+    //}
+    //else {
 
         $('.datepicker').datepicker({
             format: 'mm/dd/yyyy',
@@ -171,24 +188,7 @@
             $('.dtpk_drpdwn').hide();
 
         });
-    }
-    else {
-
-        $('.datepicker').datepicker({
-            format: 'dd/mm/yyyy',
-            weekStart: 1,
-            color: 'red',
-            pickTime: false,
-            onRender: function (date) {
-                return date > new Date() ? 'disabled' : '';
-            }
-        }).on('changeDate', function (e) {
-
-            //$(this).datepicker('hide');
-            $('.dtpk_drpdwn').hide();
-
-        });
-    }
+    //}
 
 
 

@@ -1,6 +1,8 @@
 ﻿using Microsoft.Reporting.WebForms;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
@@ -10,12 +12,36 @@ namespace SwachhBharatAbhiyan.CMS
 {
     public partial class DisplayReports : System.Web.UI.Page
     {
+        string con = ConfigurationManager.ConnectionStrings["DefaultConnection"].ToString();
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!Page.IsPostBack)
             {
                 try
                 {
+
+                    string serverIp = "";
+                    string userName = "";
+                    string password = "";
+                    string urlReportServer = "";
+                    using (SqlConnection myConnection = new SqlConnection(con))
+                    {
+                        string oString = "SELECT TOP 1 serverIp,userName,password,urlReportServer FROM SSRS_Configuration WHERE isActive=1 ORDER BY srNo ASC ";
+                        SqlCommand oCmd = new SqlCommand(oString, myConnection);
+                        myConnection.Open();
+                        using (SqlDataReader oReader = oCmd.ExecuteReader())
+                        {
+                            while (oReader.Read())
+                            {
+                                serverIp = oReader["serverIp"].ToString();
+                                userName = oReader["userName"].ToString();
+                                password = oReader["password"].ToString();
+                                urlReportServer = oReader["urlReportServer"].ToString();
+                            }
+                            myConnection.Close();
+                        }
+                    }
+
                     var AppID = Request.QueryString["AppID"];
                     var ReportName = Request.QueryString["ReportName"];
                     var DB_Name = Request.QueryString["DB_Name"];
@@ -46,28 +72,30 @@ namespace SwachhBharatAbhiyan.CMS
                     {
                         garbageType = null;
                     }
-                    if(DB_Source == "172.16.0.60")
-                    {
-                        DB_Source = "103.241.147.6";
-                    }
-                    if (DB_Source == "172.16.0.70")
-                    {
-                        DB_Source = "103.241.147.7";
-                    }
+                    //if(DB_Source == "172.16.0.80")
+                    //{
+                    //    DB_Source = "103.241.147.8";
+                    //}
+                    //if (DB_Source == "172.16.0.90")
+                    //{
+                    //    DB_Source = "103.241.147.9";
+                    //}
                     //string urlReportServer = "http://TESTYOCC-1:80/reportServer";
                     //  string urlReportServer = "http://YOCC-2:82/reportServer";
                     //string urlReportServer = "http://192.168.100.123/ReportServer";
                     //string urlReportServer = "http://192.168.100.123/ReportServer";
-                    string urlReportServer = "";
-                   
-                    
-                    urlReportServer = "http://202.65.157.253:85/ReportServer";
-                        //string urlReportServer = "http://COMP-7/ReportServer";
-                        //rptViewer.ServerReport.ReportServerCredentials = new ReportServerCredentials("Administrator", "Pass@123", "192.168.100.7");
-                    rptViewer.ServerReport.ReportServerCredentials = new ReportServerCredentials("Administrator", "Telec0m#B!9V", "202.65.157.253");
-                  
-                    rptViewer.ProcessingMode = ProcessingMode.Remote;
+                    //string urlReportServer = "";
 
+
+                    ////Live Server
+                    //urlReportServer = "http://202.65.157.253:85/ReportServer";
+                    //rptViewer.ServerReport.ReportServerCredentials = new ReportServerCredentials("Administrator", "Telec0m#B!9V", "202.65.157.253");
+
+                    //Live Server 
+                    //urlReportServer = urlReportServer;
+                    rptViewer.ServerReport.ReportServerCredentials = new ReportServerCredentials(userName, password, serverIp);
+
+                    rptViewer.ProcessingMode = ProcessingMode.Remote;
                     rptViewer.ServerReport.ReportServerUrl = new Uri(urlReportServer);
                     rptViewer.ServerReport.ReportPath = "/ICTSBM_BI_REPORT_NEW/" + ReportName;
                     rptViewer.ShowToolBar = true;

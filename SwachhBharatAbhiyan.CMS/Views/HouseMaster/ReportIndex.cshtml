@@ -289,17 +289,9 @@
         if (day < 10) day = "0" + day;
 
     var url = window.location.hostname;
-    if (url == "localhost") {
-
-        var today = month + "/" + day + "/" + year;
-       
-    }
-    else
-    {
-        var today = day + "/" + month + "/" + year;
-    }
+   
         
-
+var today = month + "/" + day + "/" + year;
         document.getElementById('txt_fdate').value = today;
         document.getElementById('txt_tdate').value = today;
 
@@ -396,7 +388,7 @@
     else {
 
         $('.datepicker').datepicker({
-            format: 'dd/mm/yyyy',
+            format: 'mm/dd/yyyy',
             weekStart: 1,
             color: 'red',
             pickTime: false,
@@ -410,6 +402,7 @@
 
         });
     }
+   
   //hide  show on hover
   $('#txt_fdate').focus(function () {
       $('.dtpk_drpdwn').eq(1).hide();
